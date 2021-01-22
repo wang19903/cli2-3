@@ -1,0 +1,51 @@
+<template>
+  <div class="container pt-2">
+    <swiper class="swiper" :options="swiperOption">
+      <swiper-slide>
+        <router-link to="categorylist/-ML8mX5lDMN3dt-f47QL">
+          <img src="../../assets/img/box1.jpg" />
+        </router-link>
+      </swiper-slide>
+
+      <swiper-slide>
+        <router-link to="categorylist/-ML3iyflcI5sVGwv7UHF">
+          <img src="../../assets/img/box2.png" alt="abc" />
+        </router-link>
+      </swiper-slide>
+
+      <div slot="pagination" class="swiper-pagination" />
+    </swiper>
+  </div>
+</template>
+
+<script>
+import { Swiper, SwiperSlide } from "vue-awesome-swiper";
+import "swiper/css/swiper.css";
+export default {
+  name: "SwiperExampleSpaceBetween",
+  components: {
+    Swiper,
+    SwiperSlide,
+  },
+  data() {
+    return {
+      swiperOption: {
+        speed: 3500,
+        loop: true,
+        autoplay: {
+          delay: 4000,
+        },
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+      },
+    };
+  },
+};
+</script>
+
+<style scoped lang="scss">
+@import "../../assets/lightbox";
+</style>
+

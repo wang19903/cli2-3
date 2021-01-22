@@ -1,0 +1,92 @@
+@mixin navSet {
+  border: none;
+  background-color: #e7dbc1;
+  color: black;
+}
+
+.navbar-brand {
+  padding: 0px;
+}
+
+.cartIcon {
+  position: relative;
+}
+
+.badge {
+  position: absolute;
+  top: -8px;
+  right: -9px;
+  z-index: 9;
+  font-size: 12px;
+}
+
+img {
+  width: auto;
+}
+
+.btn-secondary,
+.navbar,
+img {
+  @include navSet;
+}
+
+.list-group-item{
+  @include navSet;
+  padding-right: 5px;
+}
+
+.btn-secondary :hover {
+  @include navSet;
+  color: #fff;
+}
+
+.cartPosition {
+  position: relative;
+}
+
+.dropdown-cart {
+  min-width: 350px;
+  position: absolute;
+  right: -56px;
+}
+
+.firstTip,
+.secondTip,
+.thirdTip {
+  font-size: 0px;
+  opacity: 0;
+}
+
+.firstBtn:hover .fas,
+.secondBtn:hover .fas,
+.thirdBtn:hover .fas {
+  animation: shake 0.7s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes shake {
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  100% {
+    transform: translate(1px, 1px) rotate(-1deg);
+  }
+}
+
+.firstBtn:hover .firstTip,
+.secondBtn:hover .secondTip,
+.thirdBtn:hover .thirdTip {
+  display: inline;
+  font-size: 18px;
+  font-weight: bold;
+  opacity: 1;
+  transition: all 0.35s;
+  border-bottom: solid black 1px;
+}
+
+@media (max-width: 768px) {
+  .list-group {
+    display: flex;
+    flex-direction: row;
+  }
+}
