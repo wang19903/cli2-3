@@ -2,7 +2,7 @@
   <div>
     <nav
       id="sidebarMenu"
-      class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse"
+      class="col d-md-block bg-light sidebar collapse"
     >
       <div class="sidebar-sticky pt-3">
         <h6
@@ -51,7 +51,7 @@
         </h6>
         <ul class="nav flex-column mb-2">
           <li class="nav-item">
-            <router-link class="nav-link" to="/customer_order">
+            <router-link class="nav-link" to="/admin/customer_order">
               <i class="fas fa-ticket-alt"></i>
               模擬訂單</router-link>            
           </li>

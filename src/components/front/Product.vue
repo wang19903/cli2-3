@@ -76,7 +76,7 @@ export default {
   methods: {
     getProducts(page = 1) {
       const vm = this;
-      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/products/all`;
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`;
       vm.isLoading = true;
       this.$http.get(api).then((response) => {
         vm.products = response.data.products;
@@ -85,7 +85,7 @@ export default {
     },
     getProduct(id) {
       const vm = this;
-      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/product/${id}`;
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${id}`;
       vm.status.loadingItem = id;
       this.$http.get(api).then((response) => {
         vm.product = response.data.product;
@@ -95,7 +95,7 @@ export default {
     },
     addtoCart(id, qty = 1) {
       const vm = this;
-      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
       const cart = {
         product_id: id,
         qty,
@@ -109,7 +109,7 @@ export default {
     },
     getCart() {
       const vm = this;
-      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
       vm.isLoading = true;
       this.$http.get(api).then((response) => {
         vm.cart = response.data.data;

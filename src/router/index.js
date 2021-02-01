@@ -57,15 +57,8 @@ const routes = [
         name: "Coupons",
         component: () => import("@/views/back/Coupons.vue"),
         meta: { requiresAuth: true }
-      }
-    ]
-  },
-
-  {
-    path: "/",
-    name: "Dashboard",
-    component: () => import("@/views/back/Dashboard.vue"),
-    children: [
+      },
+      
       {
         path: "customer_order",
         name: "CustomerOrder",
@@ -77,7 +70,6 @@ const routes = [
         name: "CustomerCheckout",
         component: () => import("@/components/CustomerCheckout.vue"),
       },
-
     ]
   },
 

@@ -64,7 +64,7 @@ export default {
   methods: {
     getProducts(page = 1) {
       const vm = this;
-      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/orders?page=${page}`;
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/orders?page=${page}`;
       vm.isLoading = true;
       this.$http.get(api).then((response) => {
         vm.isLoading = false;

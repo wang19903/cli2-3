@@ -5,14 +5,12 @@
 .row {
   padding-left: 0;
 }
-h2 {
+span {
   font-size: 28px;
   color: rgb(165, 23, 23);
   text-align: left;
 }
-h6 {
-  font-size: 16px;
-}
+
 li {
   list-style-type: none;
 }
@@ -27,20 +25,38 @@ i {
   font-size: 18px;
   padding-right: 3px;
 }
-br {
-  display: none;
+.fb,
+.ig {
+  font-size: 28px;
+  padding: 36px 3px 0px 3px;
 }
-@media (max-width: 550px) {
-  p {
+
+.ig:hover{
+  padding-top: 30px;
+}
+
+.txt{
+  min-width: 80px;
+  max-width: 80px;
+}
+
+.right{
+  margin-top: 1rem;
+} 
+
+@media(max-width:550px){
+  .right{
+    font-size: 8px;
+    margin-top: 1rem;
+    margin-left: 5px;
+    text-align: left;
+  }
+  .col-4 p{
+    padding-top: 8px;
     font-size: 14px;
   }
-  h2 {
-    font-size: 18px;
-  }
-  .right {
-    font-size: 12px;
-  }
-  br {
-    display: block;
+  .fa-phone,
+  .fa-map-marker-alt {
+    font-size: 13px;
   }
 }

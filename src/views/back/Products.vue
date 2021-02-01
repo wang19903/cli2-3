@@ -58,7 +58,7 @@
       :pagination="pagination"
       @emitPage="getProducts($event)"
     ></pagination>
- 
+
     <div
       class="modal fade"
       id="productModal"
@@ -291,12 +291,12 @@ export default {
     return {
       clearFile: true,
       products: [],
-      pagination: {}, 
+      pagination: {},
       tempProduct: {},
       isNew: false,
-      isLoading: false,
       status: {
         fileUploading: false,
+        loading: false,
       },
     };
   },
@@ -306,12 +306,12 @@ export default {
   methods: {
     getProducts(page = 1) {
       const vm = this;
-      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/products?page=${page}`;
-      vm.isLoading = true;
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/products?page=${page}`;
+      vm.$store.dispatch("updateLoading", true);
       this.$http.get(api).then((response) => {
-        vm.isLoading = false;
         vm.products = response.data.products;
         vm.pagination = response.data.pagination;
+        vm.$store.dispatch("updateLoading", false);
       });
     },
     openModal(isNew, item) {
@@ -326,13 +326,13 @@ export default {
     },
     updataProduct() {
       const vm = this;
-      let api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/product`;
+      let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product`;
       let httpMethod = "post";
       if (!vm.isNew) {
-        api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/product/${vm.tempProduct.id}`;
+        api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${vm.tempProduct.id}`;
         httpMethod = "put";
       }
-      console.log(process.env.APIPATH, process.env.CUSTOMPATH);
+      console.log(process.env.VUE_APP_APIPATH, process.env.VUE_APP_CUSTOMPATH);
       this.$http[httpMethod](api, { data: vm.tempProduct }).then((response) => {
         console.log(response.data);
         if (response.data.success) {
@@ -343,7 +343,7 @@ export default {
           vm.getProducts();
           console.log("新增失敗");
         }
-         this.clearFile = 'false';
+        this.clearFile = "false";
       });
     },
     openDeleteModal(item) {
@@ -353,7 +353,7 @@ export default {
     },
     deleteProduct() {
       const vm = this;
-      let api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/product/${vm.tempProduct.id}`;
+      let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${vm.tempProduct.id}`;
       this.$http.delete(api).then((response) => {
         console.log(response, vm.tempProduct);
         $("#delProductModal").modal("hide");
@@ -366,13 +366,13 @@ export default {
       const vm = this;
       const formData = new FormData();
       formData.append("file-to-upload", uploadedFile);
-      const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/upload`;
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/upload`;
       vm.status.fileUploading = true;
       this.$http
         .post(url, formData, {
           //headers: {
-            "Content-Type": "multipart/form-data",
-         // },
+          "Content-Type": "multipart/form-data",
+          // },
         })
         .then((response) => {
           //console.log(response.data);
@@ -382,9 +382,13 @@ export default {
           } else {
             this.$bus.$emit("messsage:push", response.data.message, "danger");
           }
-          
         });
-         this.clearFile = false;
+      this.clearFile = false;
+    },
+  },
+  computed: {
+    isLoading() {
+      return this.$store.state.isLoading;
     },
   },
   created() {

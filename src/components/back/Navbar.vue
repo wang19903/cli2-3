@@ -39,7 +39,7 @@ export default {
   name: "navbar",
   methods: {
     signout() {
-      const api = `${process.env.APIPATH}/logout`;
+      const api = `${process.env.VUE_APP_APIPATH}/logout`;
       const vm = this;
       this.$http.post(api).then((response) => {
         console.log(response.data);

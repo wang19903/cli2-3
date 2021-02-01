@@ -360,7 +360,6 @@
 
 <script>
 import $ from "jquery";
-import { ValidationProvider, ValidationObserver } from "vee-validate"; //嘗試方式將這兩個元件置入
 
 export default {
   data() {
@@ -371,7 +370,6 @@ export default {
       status: {
         loadingItem: "",
       },
-      isLoading: false,
       coupon_code: "",
       form: {
         user: {
@@ -387,16 +385,16 @@ export default {
   methods: {
     getProducts(page = 1) {
       const vm = this;
-      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/products?page=${page}`;
-      vm.isLoading = true;
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products?page=${page}`;
+      vm.$store.dispatch('isLoading', true);
       this.$http.get(api).then((response) => {
         vm.products = response.data.products;
-        vm.isLoading = false;
+        vm.$store.dispatch('isLoading', false);
       });
     },
     getProduct(id) {
       const vm = this;
-      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/product/${id}`;
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${id}`;
       vm.status.loadingItem = id;
       this.$http.get(api).then((response) => {
         vm.product = response.data.product;
@@ -406,7 +404,7 @@ export default {
     },
     addtoCart(id, qty = 1) {
       const vm = this;
-      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
       const cart = {
         product_id: id,
         qty,
@@ -420,40 +418,40 @@ export default {
     },
     getCart() {
       const vm = this;
-      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
-      vm.isLoading = true;
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
+      vm.$store.dispatch('isLoading', true);
       this.$http.get(api).then((response) => {
         vm.cart = response.data.data;
         console.log(response);
-        vm.isLoading = false;
+        vm.$store.dispatch('isLoading', false);
       });
     },
     deleteCart(id) {
       const vm = this;
-      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart/${id}`;
-      vm.isLoading = true;
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`;
+      vm.$store.dispatch('isLoading', true);
       this.$http.delete(api).then((response) => {
         vm.getCart();
-        vm.isLoading = false;
+        vm.$store.dispatch('isLoading', false);
       });
     },
     addCouponCode() {
       const vm = this;
-      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/coupon`;
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/coupon`;
       const coupon = {
         code: vm.coupon_code,
       };
-      vm.isLoading = true;
+      vm.$store.dispatch('isLoading', true);
       this.$http.post(api, { data: coupon }).then((response) => {
         vm.getCart();
-        vm.isLoading = false;
+        vm.$store.dispatch('isLoading', false);
       });
     },
     createOrder() {
       const vm = this;
-      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/order`;
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order`;
       const order = vm.form;
-      //vm.isLoading = true;
+      //vm.$store.dispatch('isLoading', true);
       //this.$validator.validate().then((valid) => {
        // if (valid) {
           this.$http.post(api, { data: order }).then((response) => {
@@ -462,7 +460,7 @@ export default {
               vm.$router.push(`/customer_checkout/${response.data.orderId}`);
             }
             //vm.getCart();
-            vm.isLoading = false;
+            vm.$store.dispatch('isLoading', false);
           });
         //} else {
         //  console.log("nonono");
