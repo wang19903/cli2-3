@@ -7,13 +7,13 @@ export default {
     categories: [],
   },
   actions: {
-    getProducts(context, page = 1) {
-      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products?page=${page}`;
+    getProducts(context) {
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`;
       context.commit('LOADING', true, { root: true });
       axios.get(url).then((response) => {
         context.commit('PRODUCTS', response.data.products);
         context.commit('CATEGORIES', response.data.products);
-        console.log('取得產品列表:', response);
+      //  console.log('取得產品列表:', response);
         context.commit('LOADING', false, { root: true });
       });
     },

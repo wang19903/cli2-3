@@ -16,7 +16,7 @@ export default{
           context.commit('CART', response.data.data);
         }
         context.commit('LOADING', false, { root: true });
-        console.log('取得購物車', response.data.data);
+        //console.log('取得購物車', response.data.data);
       });
     },
     removeCart(context, id) {
@@ -25,7 +25,7 @@ export default{
       axios.delete(url).then((response) => {
         context.commit('LOADING', false, { root: true });
         context.dispatch('getCart');
-        console.log('刪除購物車項目', response);
+        //console.log('刪除購物車項目', response);
       });
     },
     addtoCart(context, { id, qty }) {
@@ -38,7 +38,7 @@ export default{
       axios.post(url, { data: item }).then((response) => {
         context.commit('LOADING', false, { root: true });
         context.dispatch('getCart');
-        console.log('加入購物車:', response);
+       // console.log('加入購物車:', response);
       });
     },
   },

@@ -32,19 +32,19 @@ import {
   faPhone,
   faMapMarkerAlt,
   faTrashAlt,
-  faListAlt,
   faBoxOpen,
   faTicketAlt,
   faSearch,
-  faStreetView,
+  faFish,
   faHeart,
 } from "@fortawesome/free-solid-svg-icons";
+import { faListAlt } from '@fortawesome/free-regular-svg-icons'
 import { faFacebookSquare,
   faInstagram } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { dom } from '@fortawesome/fontawesome-svg-core'
   library.add(faConciergeBell, faShoppingCart, faUser, faPhone, faMapMarkerAlt,
-  faTrashAlt, faListAlt, faBoxOpen, faTicketAlt, faSearch, faStreetView,  faHeart, faFacebookSquare, faInstagram);
+  faTrashAlt, faListAlt, faBoxOpen, faTicketAlt, faSearch, faFish,  faHeart, faFacebookSquare, faInstagram);
 
 dom.watch()
 

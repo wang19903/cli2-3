@@ -20,6 +20,7 @@
         <ul class="nav flex-column mb-2">
           <li class="nav-item">
             <router-link class="nav-link" to="/admin/products">
+            <font-awesome-icon :icon="['far', 'box-open']" />
               <i class="fas fa-box-open"></i>
               產品列表</router-link
             >

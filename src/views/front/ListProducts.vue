@@ -21,7 +21,7 @@
     </div>
     <b-container class="bv-example-row">
       <b-row>
-        <b-col cols="3" md="">
+        <b-col cols="3">
           <div class="list-group sticky-top pt-4">
             <a
               class="list-group-item list-group-item-action"
@@ -31,7 +31,7 @@
               v-for="item in categories"
               :key="item"
             >
-              <i class="fa fa-street-view" aria-hidden="true"></i>
+              <i class="fas fa-fish" aria-hidden="true"></i>
               {{ item }}
             </a>
             <a
@@ -45,22 +45,24 @@
           </div>
         </b-col>
 
-        <b-col cols="9" class="bv-example-row-flex-cols container">
-          <div class="row no-gutters d-flex flex-wrap">
+        <b-col cols="9" class="bv-example-row-flex-cols container a">
+          <div class="row no-gutters d-flex flex-wrap b">
             <loading :active.sync="isLoading"></loading>
             <div
-              class="col-lg-4 mt-4"
-              v-for="item in filterData"
-              :key="item.id"
+              class="col-lg-4 col-md-4 mt-4"
+              v-for="(item, key) in filterData"  
+              :key="key"
             >
-              <div class="mb-4 pr-4">
-                <div class="card shadow-sm">
+            <!--  filterData[currentPage]  -->
+              <div class="mb-4 pr-4 sizing">
+                <div class="card mb-1">
                   <div
                     style="
                       height: 150px;
                       background-size: cover;
                       background-position: center;
                     "
+                    class="asd"
                     :style="{ backgroundImage: `url(${item.imageUrl})` }"
                   ></div>
                   <div class="card-body">
@@ -79,24 +81,18 @@
                       <div class="h5">{{ item.price }}</div>
                     </div>
                   </div>
-                  <div class="card-footer d-flex">
-                    <button
-                      type="button"
-                      class="btn btn-outline-secondary btn-sm"
-                    >
-                      <i class="fas fa-heart"></i>
-                      <i class="far fa-heart"></i>
-                    </button>
+                  <div class="card-footer p-1">
                     <button
                       type="button"
                       class="btn btn-outline-danger btn-sm ml-auto"
                       @click="addtoCart(item.id)"
                     >
+                      <i class="fas fa-shopping-cart fa-lg" />
                       <i
                         class="fas fa-spinner fa-spin"
                         v-if="status.loadingItem === item.id"
                       ></i>
-                      <i class="fas fa-shopping-cart cartIcon"></i>
+                      <span class="">放入購物車</span>
                     </button>
                   </div>
                 </div>
@@ -106,11 +102,40 @@
         </b-col>
       </b-row>
 
-      <pagination
-        class="fixed-bottom"
-        :paginationService="pagination"
-        v-on:pageService="pagin"
-      ></pagination>
+      <nav aria-label="..." class="mt-5">
+        <ul class="pagination">
+          <li class="page-item">
+            <!--         註解為顯示最前頁寫法 -->
+            <!--         <a class="page-link" href="#" tabindex="-1" aria-disabled="true" @click.prevent="currentPage = 0">Previous</a> -->
+           <a
+              class="page-link"
+              href="#"
+              tabindex="-1"
+              aria-disabled="true"
+              @click.prevent="prev"
+              >Previous</a
+            >
+          </li>
+          <li
+            class="page-item"
+            :class="{ active: currentPage === page - 1 }"
+            v-for="page in filterData.length"
+            :key="page"
+          >
+            <a
+              class="page-link"
+              href="#"
+              @click.prevent="currentPage = page - 1"
+              >{{ page }}</a
+            >
+          </li>
+          <li class="page-item">
+            <!--         註解為顯示最後頁寫法 -->
+            <!--         <a class="page-link" href="#" @click.prevent="currentPage = (filterData.length - 1)">Next</a> -->
+            <a class="page-link" href="#" @click.prevent="next">Next</a>
+          </li>
+        </ul>
+      </nav> 
     </b-container>
     <Footer></Footer>
   </div>
@@ -119,7 +144,6 @@
 <script>
 import Navbar from "@/components/front/Navbar.vue";
 import Footer from "../../components/front/Footer";
-import $ from "jquery";
 import pagination from "@/components/Pagination";
 import { mapGetters, mapActions } from "vuex";
 
@@ -133,10 +157,8 @@ export default {
   data() {
     return {
       product: {},
-
-      filterArray: [],
-      pagination: {},
-
+       currentPage: 0,
+      newData: [],
       searchText: "",
       status: {
         loadingItem: "",
@@ -144,74 +166,67 @@ export default {
     };
   },
   methods: {
-    getProduct(id) {
-      const vm = this;
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${id}`;
-      vm.status.loadingItem = id;
-      this.$http.get(api).then((response) => {
-        vm.product = response.data.product;
-        $("#productModal").modal("show");
-        vm.status.loadingItem = "";
-      });
-    },
     addtoCart(id, qty = 1) {
       this.$store.dispatch("cartsModules/addtoCart", { id, qty });
     },
     ...mapActions("productModules", ["getProducts"]),
 
-    pagin(currentPage = 1) {
-      vm.$store.dispatch("updateLoading", true);
-      const objectProducts = vm.filterArray;
-      vm.cacheProducts = [];
-      for (const item in objectProducts) {
-        vm.cacheProducts.push(objectProducts[item]);
+    prev() {
+      const vm = this;
+      if (vm.currentPage === 0) {
+        vm.currentPage = 0;
+      } else {
+        vm.currentPage--;
       }
-      vm.pagination.totalResult = vm.cacheProducts.length;
-      vm.pagination.per_page = 10;
-
-      vm.pagination.pageTotal = Math.ceil(
-        vm.pagination.totalResult / vm.pagination.per_page
-      );
-
-      vm.pagination.currentPage = currentPage;
-
-      if (vm.pagination.currentPage > vm.pagination.pageTotal) {
-        vm.pagination.currentPage = vm.pagination.pageTotal;
+    },
+    next() {
+      const vm = this;
+      if (vm.currentPage === vm.newData.length - 1) {
+        vm.currentPage = vm.newData.length - 1;
+      } else {
+        vm.currentPage++;
       }
-
-      const minPage =
-        vm.pagination.currentPage * vm.pagination.per_page -
-        vm.pagination.per_page +
-        1;
-      const maxPage = vm.pagination.currentPage * vm.pagination.per_page;
-
-      vm.filterArray = [];
-
-      vm.cacheProducts.forEach((item, index) => {
-        const num = index + 1;
-        if (num >= minPage && num <= maxPage) {
-          vm.products.push(item);
-        }
-      });
-
-      vm.$store.dispatch("updateLoading", false);
     },
   },
   computed: {
+    categoryData() {
+      const vm = this;
+      let category = "";
+      return vm.products.reduce((prev, curr) => {
+        if (curr.category !== category) {
+          prev.push(curr.category);
+        }
+        category = curr.category;
+        return prev;
+      }, []);
+    },
     filterData() {
       const vm = this;
-      if (vm.searchText) {
+      vm.currentPage = 0;
+      let tempData = [];
+      vm.newData = [];
+
+         if (vm.searchText) {
         return vm.products.filter((item) => {
-          const data = item.title
-            .toLowerCase()
-            .includes(vm.searchText.toLowerCase());
+          const data = item.title.toLowerCase().includes(vm.searchText.toLowerCase());
           return data;
         });
+      }else if(vm.searchText === ''){
+        return vm.products;
       }
-      vm.filterArray = vm.products;
-      return this.filterArray;
+     tempData = vm.products;
+      tempData.forEach((item, i) => {
+        if (i % 6 == 0) {
+          vm.newData.push([]);
+        }
+        const pagenum = parseInt(i / 6);
+        vm.newData[pagenum].push(item);
+      });
+      return vm.newData;
     },
+   
     ...mapGetters("productModules", ["categories", "products"]),
+    ...mapGetters(["isLoading"]),
   },
 
   created() {
