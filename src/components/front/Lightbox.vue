@@ -3,13 +3,13 @@
     <swiper class="swiper" :options="swiperOption">
       <swiper-slide>
         <router-link to="categorylist/-ML8mX5lDMN3dt-f47QL">
-          <img src="../../assets/img/box1.jpg" />
+          <img src="@/assets/img/box1.jpg" />
         </router-link>
       </swiper-slide>
 
       <swiper-slide>
         <router-link to="categorylist/-ML3iyflcI5sVGwv7UHF">
-          <img src="../../assets/img/box2.png" alt="abc" />
+          <img src="@/assets/img/box2.png" alt="abc" />
         </router-link>
       </swiper-slide>
 

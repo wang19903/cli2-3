@@ -47,13 +47,13 @@
 
         <b-col cols="9" class="bv-example-row-flex-cols container a">
           <div class="row no-gutters d-flex flex-wrap b">
-            <loading :active.sync="isLoading"></loading>
+            <!-- <loading :active.sync="isLoading"></loading> -->
             <div
               class="col-lg-4 col-md-4 mt-4"
-              v-for="(item, key) in filterData"  
+              v-for="(item, key) in filterData[currentPage]"
               :key="key"
             >
-            <!--  filterData[currentPage]  -->
+              <!--  filterData[currentPage]  -->
               <div class="mb-4 pr-4 sizing">
                 <div class="card mb-1">
                   <div
@@ -102,18 +102,16 @@
         </b-col>
       </b-row>
 
-      <nav aria-label="..." class="mt-5">
-        <ul class="pagination">
-          <li class="page-item">
-            <!--         註解為顯示最前頁寫法 -->
-            <!--         <a class="page-link" href="#" tabindex="-1" aria-disabled="true" @click.prevent="currentPage = 0">Previous</a> -->
-           <a
-              class="page-link"
+      <nav aria-label="..." class="d-flex justify-content-center mt-2">
+        <ul class="pagination ">
+          <li class="page-item ">
+            <a
+              class="page-link "
               href="#"
               tabindex="-1"
               aria-disabled="true"
               @click.prevent="prev"
-              >Previous</a
+              >«</a
             >
           </li>
           <li
@@ -130,12 +128,10 @@
             >
           </li>
           <li class="page-item">
-            <!--         註解為顯示最後頁寫法 -->
-            <!--         <a class="page-link" href="#" @click.prevent="currentPage = (filterData.length - 1)">Next</a> -->
-            <a class="page-link" href="#" @click.prevent="next">Next</a>
+            <a class="page-link" href="#" @click.prevent="next">»</a>
           </li>
         </ul>
-      </nav> 
+      </nav>
     </b-container>
     <Footer></Footer>
   </div>
@@ -157,7 +153,7 @@ export default {
   data() {
     return {
       product: {},
-       currentPage: 0,
+      currentPage: 0,
       newData: [],
       searchText: "",
       status: {
@@ -205,16 +201,18 @@ export default {
       vm.currentPage = 0;
       let tempData = [];
       vm.newData = [];
-
-         if (vm.searchText) {
-        return vm.products.filter((item) => {
-          const data = item.title.toLowerCase().includes(vm.searchText.toLowerCase());
+      vm.$store.dispatch("updataLoading",true)
+      tempData = vm.products.filter((item) => {
+        if (vm.searchText === '') {
+          return vm.products;
+        } else {
+         
+          const data = item.title
+            .toLowerCase()
+            .includes(vm.searchText.toLowerCase());
           return data;
-        });
-      }else if(vm.searchText === ''){
-        return vm.products;
-      }
-     tempData = vm.products;
+        }
+      });
       tempData.forEach((item, i) => {
         if (i % 6 == 0) {
           vm.newData.push([]);
@@ -222,9 +220,10 @@ export default {
         const pagenum = parseInt(i / 6);
         vm.newData[pagenum].push(item);
       });
+      vm.$store.dispatch("updataLoading",false)
       return vm.newData;
     },
-   
+
     ...mapGetters("productModules", ["categories", "products"]),
     ...mapGetters(["isLoading"]),
   },

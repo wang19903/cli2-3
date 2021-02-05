@@ -22,12 +22,6 @@ const routes = [
   },
 
   {
-    path: '/favor',
-    name: 'Favor',
-    component: () => import('@/views/front/Favor.vue'),
-  },
-
-  {
     path: "/login",
     name: "Login",
     component: () => import("@/views/back/Login.vue"),

@@ -8,9 +8,9 @@
       class="border-bottom border-dark"
     >
       <div class="container-fluid">
-        <router-link class="navbar-brand" to="/">
-          <b-navbar-brand href="">
-            <img src="../../assets/img/logo.png" style="height: 45px" alt="" />
+        <router-link class="navbar-brand p-0" to="/">
+          <b-navbar-brand href="" class="p-0">
+            <img src="@/assets/img/logo.png" style="height: 45px" alt="" />
           </b-navbar-brand>
         </router-link>
 
@@ -91,6 +91,11 @@
                     </tr>
                   </tfoot>
                 </table>
+                <div v-if="cart.length === 0">
+                  <div class="d-flex flex-column align-items-center">
+                     <p>購物車尚未有商品</p>
+                  </div>
+                </div>
                 <button class="btn border btn-block mt-3">前往結帳</button>
               </div>
             </div>

@@ -18,7 +18,7 @@
   background-position: bottom center;
   background-size: cover;
   position: relative;
-  z-index: 0;
+  z-index: 1;
 }
 
 .bgImg::before {
@@ -31,10 +31,6 @@
   background-color: #fff;
   z-index: -1;
   opacity: 0.175;
-}
-
-.navbar-brand {
-  padding: 0px;
 }
 
 .cartIcon {
@@ -174,7 +170,7 @@ img {
     width: 100%;
     border: solid 1px black;
     animation-name: border;
-    animation-duration: .8s;
+    animation-duration: 0.8s;
     animation-fill-mode: both;
   }
 
