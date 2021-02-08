@@ -1,6 +1,6 @@
 <template>
   <div class="wrap">
-    <Navbar></Navbar>
+    <Navbar/>
     <div class="search d-flex justify-content-center pt-2">
       <form class="form-inline my-3 my-lg-0 img">
         <div class="input-group">
@@ -55,30 +55,32 @@
             >
               <!--  filterData[currentPage]  -->
               <div class="mb-4 pr-4 sizing">
-                <div class="card mb-1">
-                  <div
-                    style="
-                      height: 150px;
-                      background-size: cover;
-                      background-position: center;
-                    "
-                    class="asd"
-                    :style="{ backgroundImage: `url(${item.imageUrl})` }"
-                  ></div>
-                  <div class="card-body">
-                    <span class="badge badge-secondary float-right ml-2">{{
-                      item.category
-                    }}</span>
-                    <h5 class="card-title text-left">
-                      <a href="/" class="text-dark">{{ item.title }}</a>
-                    </h5>
-                    <p class="card-text text-left">{{ item.content }}</p>
+                <div @click="getProduct(item.id)">
+                  <div class="card mb-1">
                     <div
-                      class="d-flex justify-content-between align-items-baseline"
-                    >
-                      <!-- <div class="h5">2,800 元</div> -->
-                      <del class="h6">{{ item.origin_price }}</del>
-                      <div class="h5">{{ item.price }}</div>
+                      style="
+                        height: 150px;
+                        background-size: cover;
+                        background-position: center;
+                      "
+                      class="asd"
+                      :style="{ backgroundImage: `url(${item.imageUrl})` }"
+                    ></div>
+                    <div class="card-body">
+                      <span class="badge badge-secondary float-right ml-2">{{
+                        item.category
+                      }}</span>
+                      <h5 class="card-title text-left">
+                        <a href="/" class="text-dark">{{ item.title }}</a>
+                      </h5>
+                      <p class="card-text text-left">{{ item.content }}</p>
+                      <div
+                        class="d-flex justify-content-between align-items-baseline"
+                      >
+                        <!-- <div class="h5">2,800 元</div> -->
+                        <del class="h6">{{ item.origin_price }}</del>
+                        <div class="h5">{{ item.price }}</div>
+                      </div>
                     </div>
                   </div>
                   <div class="card-footer p-1">
@@ -101,12 +103,12 @@
           </div>
         </b-col>
       </b-row>
-
+<Product/>
       <nav aria-label="..." class="d-flex justify-content-center mt-2">
-        <ul class="pagination ">
-          <li class="page-item ">
+        <ul class="pagination">
+          <li class="page-item">
             <a
-              class="page-link "
+              class="page-link"
               href="#"
               tabindex="-1"
               aria-disabled="true"
@@ -133,15 +135,17 @@
         </ul>
       </nav>
     </b-container>
-    <Footer></Footer>
+    <Footer/>
   </div>
 </template>
 
 <script>
 import Navbar from "@/components/front/Navbar.vue";
-import Footer from "../../components/front/Footer";
-import pagination from "@/components/Pagination";
+import Footer from "@/components/front/Footer.vue";
+import pagination from "@/components/Pagination.vue";
+import $ from "jquery";
 import { mapGetters, mapActions } from "vuex";
+import Product from "@/views/front/Product.vue"
 
 export default {
   name: "ListProducts",
@@ -149,6 +153,7 @@ export default {
     Navbar,
     Footer,
     pagination,
+    Product,
   },
   data() {
     return {
@@ -162,6 +167,16 @@ export default {
     };
   },
   methods: {
+      getProduct(id) {
+      const vm = this;
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${id}`;
+      vm.status.loadingItem = id;
+      this.$http.get(api).then((response) => {
+        vm.product = response.data.product;
+        $("#productModal").modal("show");
+        vm.status.loadingItem = "";
+      });
+    },
     addtoCart(id, qty = 1) {
       this.$store.dispatch("cartsModules/addtoCart", { id, qty });
     },
@@ -183,6 +198,9 @@ export default {
         vm.currentPage++;
       }
     },
+    checkDetail(id) {
+      this.$router.push(`/product/${id}`);
+    },
   },
   computed: {
     categoryData() {
@@ -201,12 +219,11 @@ export default {
       vm.currentPage = 0;
       let tempData = [];
       vm.newData = [];
-      vm.$store.dispatch("updataLoading",true)
+      vm.$store.dispatch("updataLoading", true);
       tempData = vm.products.filter((item) => {
-        if (vm.searchText === '') {
+        if (vm.searchText === "") {
           return vm.products;
         } else {
-         
           const data = item.title
             .toLowerCase()
             .includes(vm.searchText.toLowerCase());
@@ -220,7 +237,7 @@ export default {
         const pagenum = parseInt(i / 6);
         vm.newData[pagenum].push(item);
       });
-      vm.$store.dispatch("updataLoading",false)
+      vm.$store.dispatch("updataLoading", false);
       return vm.newData;
     },
 

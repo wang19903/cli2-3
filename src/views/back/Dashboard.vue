@@ -6,7 +6,7 @@
       <div class="row">
         <Sidebar></Sidebar>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-            <router-view></router-view>
+          <router-view></router-view>
         </main>
       </div>
     </div>
@@ -25,8 +25,11 @@ export default {
     Alert,
   },
   created() {
-    const mycookie = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
-  this.$http.defaults.headers.common.Authorization = mycookie;
+    const mycookie = document.cookie.replace(
+      /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
+      "$1"
+    );
+    this.$http.defaults.headers.common.Authorization = mycookie;
   },
 };
 </script>  

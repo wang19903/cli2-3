@@ -1,6 +1,6 @@
 <template>
   <div>
-    <loading :active.sync="isLoading"></loading>
+    <!-- <loading :active.sync="isLoading"></loading> -->
     <div class="row mt-4" v-for="item in products" :key="item.id">
       <div class="col-md-4 mb-4">
         <div class="card border-0 shadow-sm">
@@ -386,10 +386,10 @@ export default {
     getProducts(page = 1) {
       const vm = this;
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products?page=${page}`;
-      vm.$store.dispatch('isLoading', true);
+      //vm.$store.dispatch('isLoading', true);
       this.$http.get(api).then((response) => {
         vm.products = response.data.products;
-        vm.$store.dispatch('isLoading', false);
+       // vm.$store.dispatch('isLoading', false);
       });
     },
     getProduct(id) {
@@ -419,20 +419,20 @@ export default {
     getCart() {
       const vm = this;
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
-      vm.$store.dispatch('isLoading', true);
+      //vm.$store.dispatch('isLoading', true);
       this.$http.get(api).then((response) => {
         vm.cart = response.data.data;
-        console.log(response);
-        vm.$store.dispatch('isLoading', false);
+        //console.log(response);
+       // vm.$store.dispatch('isLoading', false);
       });
     },
     deleteCart(id) {
       const vm = this;
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`;
-      vm.$store.dispatch('isLoading', true);
+      //vm.$store.dispatch('isLoading', true);
       this.$http.delete(api).then((response) => {
         vm.getCart();
-        vm.$store.dispatch('isLoading', false);
+        //vm.$store.dispatch('isLoading', false);
       });
     },
     addCouponCode() {
@@ -441,10 +441,10 @@ export default {
       const coupon = {
         code: vm.coupon_code,
       };
-      vm.$store.dispatch('isLoading', true);
+      //vm.$store.dispatch('isLoading', true);
       this.$http.post(api, { data: coupon }).then((response) => {
         vm.getCart();
-        vm.$store.dispatch('isLoading', false);
+        //vm.$store.dispatch('isLoading', false);
       });
     },
     createOrder() {
@@ -460,7 +460,7 @@ export default {
               vm.$router.push(`/customer_checkout/${response.data.orderId}`);
             }
             //vm.getCart();
-            vm.$store.dispatch('isLoading', false);
+           // vm.$store.dispatch('isLoading', false);
           });
         //} else {
         //  console.log("nonono");

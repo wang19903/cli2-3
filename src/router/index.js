@@ -22,6 +22,24 @@ const routes = [
   },
 
   {
+    path: "/customerorder",
+    name: "CustomerOrder",
+    component: () => import("@/views/front/CustomerOrder.vue"),
+  },
+  
+  {
+    path: "/customercheck",
+    name: "CustomerCheck",
+    component: () => import("@/views/front/CustomerCheck.vue"),
+  },
+  
+  {
+    path: "/product/:productId",
+    name: "product",
+    component: () => import("@/views/front/Product.vue"),
+  },
+  
+  {
     path: "/login",
     name: "Login",
     component: () => import("@/views/back/Login.vue"),
