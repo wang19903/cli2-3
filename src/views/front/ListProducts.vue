@@ -1,6 +1,6 @@
 <template>
   <div class="wrap">
-    <Navbar/>
+    <Navbar />
     <div class="search d-flex justify-content-center pt-2">
       <form class="form-inline my-3 my-lg-0 img">
         <div class="input-group">
@@ -47,13 +47,11 @@
 
         <b-col cols="9" class="bv-example-row-flex-cols container a">
           <div class="row no-gutters d-flex flex-wrap b">
-            <!-- <loading :active.sync="isLoading"></loading> -->
             <div
               class="col-lg-4 col-md-4 mt-4"
               v-for="(item, key) in filterData[currentPage]"
               :key="key"
             >
-              <!--  filterData[currentPage]  -->
               <div class="mb-4 pr-4 sizing">
                 <div @click="getProduct(item.id)">
                   <div class="card mb-1">
@@ -77,33 +75,33 @@
                       <div
                         class="d-flex justify-content-between align-items-baseline"
                       >
-                        <!-- <div class="h5">2,800 元</div> -->
                         <del class="h6">{{ item.origin_price }}</del>
                         <div class="h5">{{ item.price }}</div>
                       </div>
                     </div>
                   </div>
-                  <div class="card-footer p-1">
-                    <button
-                      type="button"
-                      class="btn btn-outline-danger btn-sm ml-auto"
-                      @click="addtoCart(item.id)"
-                    >
-                      <i class="fas fa-shopping-cart fa-lg" />
-                      <i
-                        class="fas fa-spinner fa-spin"
-                        v-if="status.loadingItem === item.id"
-                      ></i>
-                      <span class="">放入購物車</span>
-                    </button>
-                  </div>
+                </div>
+                <div class="card-footer p-1">
+                  <button
+                    type="button"
+                    class="btn btn-outline-danger btn-sm ml-auto"
+                    @click="addtoCart(item.id)"
+                  >
+                    <i
+                      class="fas fa-spinner fa-pulse"
+                      v-if="status.loadingItem === item.id"
+                    ></i>
+                    <i class="fas fa-shopping-cart fa-lg" />
+
+                    <span class="">放入購物車</span>
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </b-col>
       </b-row>
-<Product/>
+
       <nav aria-label="..." class="d-flex justify-content-center mt-2">
         <ul class="pagination">
           <li class="page-item">
@@ -135,7 +133,7 @@
         </ul>
       </nav>
     </b-container>
-    <Footer/>
+    <Footer />
   </div>
 </template>
 
@@ -143,9 +141,7 @@
 import Navbar from "@/components/front/Navbar.vue";
 import Footer from "@/components/front/Footer.vue";
 import pagination from "@/components/Pagination.vue";
-import $ from "jquery";
 import { mapGetters, mapActions } from "vuex";
-import Product from "@/views/front/Product.vue"
 
 export default {
   name: "ListProducts",
@@ -153,7 +149,6 @@ export default {
     Navbar,
     Footer,
     pagination,
-    Product,
   },
   data() {
     return {
@@ -167,21 +162,13 @@ export default {
     };
   },
   methods: {
-      getProduct(id) {
+    getProduct(id) {
       const vm = this;
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${id}`;
-      vm.status.loadingItem = id;
-      this.$http.get(api).then((response) => {
-        vm.product = response.data.product;
-        $("#productModal").modal("show");
-        vm.status.loadingItem = "";
-      });
+      vm.$router.push(`/product/${id}`);
     },
     addtoCart(id, qty = 1) {
       this.$store.dispatch("cartsModules/addtoCart", { id, qty });
     },
-    ...mapActions("productModules", ["getProducts"]),
-
     prev() {
       const vm = this;
       if (vm.currentPage === 0) {
@@ -201,6 +188,7 @@ export default {
     checkDetail(id) {
       this.$router.push(`/product/${id}`);
     },
+    ...mapActions("productModules", ["getProducts"]),
   },
   computed: {
     categoryData() {
@@ -240,7 +228,6 @@ export default {
       vm.$store.dispatch("updataLoading", false);
       return vm.newData;
     },
-
     ...mapGetters("productModules", ["categories", "products"]),
     ...mapGetters(["isLoading"]),
   },

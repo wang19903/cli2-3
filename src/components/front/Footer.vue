@@ -24,10 +24,10 @@
         </li>
         <li class="col-4 text-left pr-1">
           <p class="h5">
-            <font-awesome-icon icon="phone" size="" class="fas" />09-29291531
+            <font-awesome-icon icon="phone" size="1x" class="fas" />09-29291531
           </p>
           <p class="h6">
-            <font-awesome-icon icon="map-marker-alt" size="" class="fas" />
+            <font-awesome-icon icon="map-marker-alt" size="1x" class="fas" />
             地址:新北市中和區中安街51號
           </p>
         </li>

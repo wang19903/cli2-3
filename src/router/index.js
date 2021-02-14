@@ -22,13 +22,13 @@ const routes = [
   },
 
   {
-    path: "/customerorder",
-    name: "CustomerOrder",
+    path: "/order",
+    name: "Order",
     component: () => import("@/views/front/CustomerOrder.vue"),
   },
   
   {
-    path: "/customercheck",
+    path: "/customercheck/:orderId",
     name: "CustomerCheck",
     component: () => import("@/views/front/CustomerCheck.vue"),
   },

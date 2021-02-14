@@ -72,14 +72,14 @@
                         {{ item.qty }}/{{ item.product.unit }}
                       </td>
                       <td class="align-middle text-right">
-                        {{ item.final_total }}
+                        {{ item.product.price | currency }}
                       </td>
                     </tr>
                   </tbody>
                   <tfoot>
                     <tr>
                       <td colspan="3" class="text-right">總計</td>
-                      <td class="text-right">{{ cart.total }}</td>
+                      <td class="text-right">{{ cart.total | currency }}</td>
                     </tr>
                     <tr v-if="cart.final_total !== cart.total">
                       <td colspan="3" class="text-right text-success">
@@ -93,10 +93,12 @@
                 </table>
                 <div v-if="cart.length === 0">
                   <div class="d-flex flex-column align-items-center">
-                     <p>購物車尚未有商品</p>
+                    <p>購物車尚未有商品</p>
                   </div>
                 </div>
-                <button class="btn border btn-block mt-3">前往結帳</button>
+                <button class="btn border btn-block mt-3" @click="checkout">
+                  前往結帳
+                </button>
               </div>
             </div>
 
@@ -126,6 +128,9 @@ export default {
   methods: {
     removeCart(id) {
       this.$store.dispatch("cartsModules/removeCart", id);
+    },
+    checkout() {
+      this.$router.push("/order");
     },
     ...mapActions("cartsModules", ["getCart"]),
   },

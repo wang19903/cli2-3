@@ -308,11 +308,11 @@ export default {
     getProducts(page = 1) {
       const vm = this;
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/products?page=${page}`;
-      vm.$store.dispatch("updateLoading", true);
+      vm.$store.dispatch("updataLoading", true);
       this.$http.get(api).then((response) => {
         vm.products = response.data.products;
         vm.pagination = response.data.pagination;
-        vm.$store.dispatch("updateLoading", false);
+        vm.$store.dispatch("updataLoading", false);
       });
     },
     openModal(isNew, item) {

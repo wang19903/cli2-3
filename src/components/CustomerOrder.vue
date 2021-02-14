@@ -360,6 +360,7 @@
 
 <script>
 import $ from "jquery";
+import {mapGetters  } from "vuex";
 
 export default {
   data() {
@@ -386,10 +387,10 @@ export default {
     getProducts(page = 1) {
       const vm = this;
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products?page=${page}`;
-      //vm.$store.dispatch('isLoading', true);
+      vm.$store.dispatch('isLoading', true);
       this.$http.get(api).then((response) => {
         vm.products = response.data.products;
-       // vm.$store.dispatch('isLoading', false);
+        vm.$store.dispatch('isLoading', false);
       });
     },
     getProduct(id) {
@@ -468,6 +469,10 @@ export default {
       //});
     },
   },
+  computed:{
+...mapGetters(['isLoading'])
+  },
+  
   created() {
     this.getProducts();
     this.getCart();
