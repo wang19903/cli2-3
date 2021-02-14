@@ -1,3 +1,4 @@
+  
 <template>
   <div class="message-alert">
     <div
@@ -21,24 +22,17 @@
 
 <script>
 export default {
-  name: "Navbar",
+  name: 'Navbar',
   data() {
     return {
-      messages: [],
     };
   },
   methods: {
     updateMessage(message, status) {
-      const timestamp = Math.floor(new Date() / 1000);
-      this.messages.push({
-        message,
-        status,
-        timestamp,
-      });
-      this.removeMessageWithTiming(timestamp);
+      this.$store.dispatch('cartModules/updateMessage', { message, status });
     },
     removeMessage(num) {
-      this.messages.splice(num, 1);
+      this.$store.dispatch('cartModules/removeMessage', num);
     },
     removeMessageWithTiming(timestamp) {
       const vm = this;
@@ -51,16 +45,10 @@ export default {
       }, 5000);
     },
   },
-  created() {
-    const vm = this;
-
-    // 自定義名稱 'messsage:push'
-    // message: 傳入參數
-    // status: 樣式，預設值為 warning
-    vm.$bus.$on('messsage:push', (message, status = "warning") => {
-      vm.updateMessage(message, status);
-    });
-    // vm.$bus.$emit('messsage:push');
+  computed: {
+    messages() {
+      return this.$store.state.cartModules.messages;
+    },
   },
 };
 </script>
@@ -68,7 +56,7 @@ export default {
 <style scope>
 .message-alert {
   position: fixed;
-  max-width: 50%;
+  max-width: 80%;
   top: 56px;
   right: 20px;
   z-index: 1100;
