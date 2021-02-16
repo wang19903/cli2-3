@@ -49,6 +49,7 @@ const routes = [
     path: "/admin",
     name: "Dashboard",
     component: () => import("@/views/back/Dashboard.vue"),
+    meta: { requiresAuth: true },
     children: [
       {
         path: "products",

@@ -11,12 +11,6 @@
   box-shadow: 1px 1px rgb(109, 75, 13);
 }
 
-.wrap {
-  max-width: 1024px;
-  margin: auto;
-  margin-bottom: -50px;
-}
-
 .img {
   width: 100%;
   height: 150px;
@@ -24,11 +18,18 @@
   background-repeat: no-repeat;
   background-position: bottom center;
   background-size: cover;
+  position: relative;
 }
 
 .input-group {
   margin: auto;
   width: 50%;
+}
+
+.seletPrice{
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 
 .pagination :hover,

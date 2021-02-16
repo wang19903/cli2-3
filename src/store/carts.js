@@ -30,7 +30,6 @@ export default {
       axios.delete(url).then(() => {
         context.dispatch("getCart");
         context.commit("LOADING", false, { root: true });
-        context.commit("CARTLOADING", "");
         context.dispatch("updateMessage", {
           message: "商品刪除成功",
           status: "danger",

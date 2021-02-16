@@ -1,10 +1,10 @@
 <template>
-  <div class="wrap">
+  <div >
     <Navbar />
     <div class="container">
       <div class="row justify-content-md-center">
         <div class="col col-md-8">
-          <table class="table mt-4">
+          <table class="table mt-4" v-if="cart.carts.length">
             <thead>
               <th></th>
               <th>品名</th>
@@ -17,7 +17,7 @@
                   <button
                     type="button"
                     class="btn btn-outline-danger btn-sm"
-                    @click="deleteCart(item.id)"
+                    @click="removeCart(item.id)"
                   >
                     <i class="fas fa-trash-alt"></i>
                   </button>
@@ -44,7 +44,7 @@
               </tr>
             </tfoot>
           </table>
-          <div class="input-group mb-3 input-group-sm">
+          <div class="input-group mb-3 input-group-sm" v-if="cart.carts.length">
             <input
               type="text"
               class="form-control"
@@ -61,7 +61,18 @@
               </button>
             </div>
           </div>
-          <ValidationObserver v-slot="{ invalid }" class="col-md-6">
+          <div
+            class="d-flex flex-column align-items-center noItem"
+            v-if="cart.carts.length === 0"
+          >
+            購物車尚未有商品唷!!
+            
+          </div>
+          <ValidationObserver
+            v-slot="{ invalid }"
+            class="col-md-6"
+            v-if="cart.carts.length"
+          >
             <form @submit.prevent="createOrder">
               <ValidationProvider
                 rules="required|email"
@@ -169,7 +180,7 @@
                 ></textarea>
               </div>
 
-              <button type="submit" class="btn btn-primary" :disabled="invalid" >
+              <button type="submit" class="btn btn-primary" :disabled="invalid">
                 送出表單
               </button>
             </form>
@@ -184,6 +195,7 @@
 <script>
 import Navbar from "@/components/front/Navbar";
 import Footer from "@/components/front/Footer";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "CustomerOrder",
@@ -193,10 +205,6 @@ export default {
   },
   data() {
     return {
-      cart: {},
-      status: {
-        loadingItem: "",
-      },
       coupon_code: "",
       form: {
         user: {
@@ -210,38 +218,8 @@ export default {
     };
   },
   methods: {
-    addtoCart(id, qty = 1) {
-      const vm = this;
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
-      const cart = {
-        product_id: id,
-        qty,
-      };
-      vm.status.loadingItem = id;
-      this.$http.post(api, { data: cart }).then((response) => {
-        vm.status.loadingItem = "";
-        vm.getCart();
-        $("#productModal").modal("hide");
-      });
-    },
-    getCart() {
-      const vm = this;
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
-      //   vm.$store.dispatch("isLoading", true);
-      this.$http.get(api).then((response) => {
-        vm.cart = response.data.data;
-        console.log(response);
-        // vm.$store.dispatch("isLoading", false);
-      });
-    },
-    deleteCart(id) {
-      const vm = this;
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`;
-      //   vm.$store.dispatch("isLoading", true);
-      this.$http.delete(api).then((response) => {
-        vm.getCart();
-        // vm.$store.dispatch("isLoading", false);
-      });
+    removeCart(id) {
+      this.$store.dispatch("cartsModules/removeCart", id);
     },
     addCouponCode() {
       const vm = this;
@@ -269,6 +247,11 @@ export default {
         // vm.$store.dispatch("isLoading", false);
       });
     },
+    ...mapActions("cartsModules", ["getCart"]),
+  },
+  computed: {
+    ...mapGetters("cartsModules", ["cart"]),
+    ...mapGetters(["isLoading"]),
   },
   created() {
     this.getCart();
@@ -277,9 +260,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.wrap {
-  max-width: 1024px;
-  margin: auto;
-  background-color: rgba(255, 247, 214, 0.336);
+
+.noItem {
+  height: 63vh;
+  margin: 10px;
+  font-size: 28px;
+  color: red;
 }
 </style>

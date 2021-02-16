@@ -1,7 +1,9 @@
+
 .container {
   max-width: 1024px;
   background-color: #ddc18e;
 }
+
 .row {
   padding-left: 0;
 }
@@ -31,27 +33,27 @@ i {
   padding: 36px 3px 0px 3px;
 }
 
-.ig:hover{
+.ig:hover {
   padding-top: 30px;
 }
 
-.txt{
+.txt {
   min-width: 80px;
   max-width: 80px;
 }
 
-.right{
+.right {
   margin-top: 1rem;
-} 
+}
 
-@media(max-width:550px){
-  .right{
+@media (max-width: 550px) {
+  .right {
     font-size: 8px;
     margin-top: 1rem;
     margin-left: 5px;
     text-align: left;
   }
-  .col-4 p{
+  .col-4 p {
     padding-top: 8px;
     font-size: 14px;
   }

@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap">
+  <div>
     <Navbar />
     <div class="search d-flex justify-content-center pt-2">
       <form class="form-inline my-3 my-lg-0 img">
@@ -17,6 +17,12 @@
             </button>
           </div>
         </div>
+        <th class="click" @click="changeType('price')">價格
+          <!-- isReverse 為反轉 className -->
+          <span class="icon" :class="{'inverse': isReverse}" v-if="sortType == 'price'">
+            <i class=" fas fa-angle-up text-success"></i>
+          </span>
+        </th>
       </form>
     </div>
     <b-container class="bv-example-row">
@@ -48,53 +54,55 @@
         <b-col cols="9" class="bv-example-row-flex-cols container a">
           <div class="row no-gutters d-flex flex-wrap b">
             <div
-              class="col-lg-4 col-md-4 mt-4"
-              v-for="(item, key) in filterData[currentPage]"
+              class="col-lg-4 col-md-6 mt-4"
+              v-for="(item, key) in display[currentPage]"
               :key="key"
             >
-              <div class="mb-4 pr-4 sizing">
-                <div @click="getProduct(item.id)">
-                  <div class="card mb-1">
-                    <div
-                      style="
-                        height: 150px;
-                        background-size: cover;
-                        background-position: center;
-                      "
-                      class="asd"
-                      :style="{ backgroundImage: `url(${item.imageUrl})` }"
-                    ></div>
-                    <div class="card-body">
-                      <span class="badge badge-secondary float-right ml-2">{{
-                        item.category
-                      }}</span>
-                      <h5 class="card-title text-left">
-                        <a href="/" class="text-dark">{{ item.title }}</a>
-                      </h5>
-                      <p class="card-text text-left">{{ item.content }}</p>
+              <div data-aos="fade-up" data-aos-duration="1000">
+                <div class="mb-4 pr-4 sizing">
+                  <div @click="getProduct(item.id)">
+                    <div class="card mb-1">
                       <div
-                        class="d-flex justify-content-between align-items-baseline"
-                      >
-                        <del class="h6">{{ item.origin_price }}</del>
-                        <div class="h5">{{ item.price }}</div>
+                        style="
+                          height: 150px;
+                          background-size: cover;
+                          background-position: center;
+                        "
+                        class="asd"
+                        :style="{ backgroundImage: `url(${item.imageUrl})` }"
+                      ></div>
+                      <div class="card-body">
+                        <span class="badge badge-secondary float-right ml-2">{{
+                          item.category
+                        }}</span>
+                        <h5 class="card-title text-left">
+                          <a href="/" class="text-dark">{{ item.title }}</a>
+                        </h5>
+                        <p class="card-text text-left">{{ item.content }}</p>
+                        <div
+                          class="d-flex justify-content-between align-items-baseline"
+                        >
+                          <del class="h6">{{ item.origin_price }}</del>
+                          <div class="h5">{{ item.price }}</div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="card-footer p-1">
-                  <button
-                    type="button"
-                    class="btn btn-outline-danger btn-sm ml-auto"
-                    @click="addtoCart(item.id)"
-                  >
-                    <i
-                      class="fas fa-spinner fa-pulse"
-                      v-if="status.loadingItem === item.id"
-                    ></i>
-                    <i class="fas fa-shopping-cart fa-lg" />
+                  <div class="card-footer p-1">
+                    <button
+                      type="button"
+                      class="btn btn-outline-danger btn-sm ml-auto"
+                      @click="addtoCart(item.id)"
+                    >
+                      <i
+                        class="fas fa-spinner fa-pulse"
+                        v-if="status.loadingItem === item.id"
+                      ></i>
+                      <i class="fas fa-shopping-cart fa-lg" />
 
-                    <span class="">放入購物車</span>
-                  </button>
+                      <span class="">放入購物車</span>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -104,7 +112,7 @@
 
       <nav aria-label="..." class="d-flex justify-content-center mt-2">
         <ul class="pagination">
-          <li class="page-item">
+          <li class="page-item" :class="{ disabled: currentPage === 0 }">
             <a
               class="page-link"
               href="#"
@@ -127,7 +135,10 @@
               >{{ page }}</a
             >
           </li>
-          <li class="page-item">
+          <li
+            class="page-item"
+            :class="{ disabled: currentPage === newData.length - 1 }"
+          >
             <a class="page-link" href="#" @click.prevent="next">»</a>
           </li>
         </ul>
@@ -152,6 +163,9 @@ export default {
   },
   data() {
     return {
+      displayData: [],
+     sortType: "price",
+    isReverse: false,
       product: {},
       currentPage: 0,
       newData: [],
@@ -162,6 +176,16 @@ export default {
     };
   },
   methods: {
+changeType: function (type) {
+      var vm = this;
+      if (vm.sortType == type) {
+        vm.isReverse = !vm.isReverse;
+      } else {
+        vm.isReverse = false;
+      }
+      vm.sortType = type;
+    },
+
     getProduct(id) {
       const vm = this;
       vm.$router.push(`/product/${id}`);
@@ -218,20 +242,42 @@ export default {
           return data;
         }
       });
-      tempData.forEach((item, i) => {
+      // tempData.forEach((item, i) => {
+      //   if (i % 6 == 0) {
+      //     vm.newData.push([]);
+      //   }
+      //   const pagenum = parseInt(i / 6);
+      //   vm.newData[pagenum].push(item);
+      // });
+      // vm.$store.dispatch("updataLoading", false);
+      return vm.newData;
+    },
+    sortData() {
+      var vm = this;
+      var type = vm.sortType;
+       vm.newData.sort(function (a, b) {
+        if (vm.isReverse) 
+        {
+          return b[type] - a[type]
+        }
+        else{ 
+          return a[type] - b[type]
+        };
+      });
+    },
+    display() {
+      newData.forEach((item, i) => {
         if (i % 6 == 0) {
-          vm.newData.push([]);
+          vm.displayData.push([]);
         }
         const pagenum = parseInt(i / 6);
-        vm.newData[pagenum].push(item);
+        vm.displayData[pagenum].push(item);
       });
       vm.$store.dispatch("updataLoading", false);
-      return vm.newData;
     },
     ...mapGetters("productModules", ["categories", "products"]),
     ...mapGetters(["isLoading"]),
   },
-
   created() {
     this.getProducts();
   },
@@ -240,4 +286,18 @@ export default {
 
 <style scoped lang="scss">
 @import "@/assets/listProducts.scss";
+.table th.click {
+  cursor: pointer;
+}
+
+.table th.click {
+  cursor: pointer;
+}
+
+.icon {
+  display: inline-block;
+}
+.icon.inverse {
+  transform: rotate(180deg)
+}
 </style>

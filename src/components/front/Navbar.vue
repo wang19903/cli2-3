@@ -1,5 +1,6 @@
 <template>
   <div class="bgImg">
+    <div class="slogan"><p>鼎中美食 鮮香味美</p></div>
     <loading :active.sync="isLoading"></loading>
     <b-navbar
       toggleable="sm"
@@ -10,7 +11,7 @@
       <div class="container-fluid">
         <router-link class="navbar-brand p-0" to="/">
           <b-navbar-brand href="" class="p-0">
-            <img src="@/assets/img/logo.png" style="height: 45px" alt="" />
+            <img src="@/assets/img/logo.png" style="height: 45px" alt="鼎鮮飯麵LOGO" />
           </b-navbar-brand>
         </router-link>
 
@@ -47,7 +48,7 @@
               data-offset="400"
             >
               <div class="dropdown">
-                <table class="table">
+                <table class="table" v-if="cart.carts.length">
                   <thead>
                     <th></th>
                     <th>品名</th>
@@ -91,12 +92,18 @@
                     </tr>
                   </tfoot>
                 </table>
-                <div v-if="cart.length === 0">
-                  <div class="d-flex flex-column align-items-center">
-                    <p>購物車尚未有商品</p>
-                  </div>
+
+                <div
+                  class="d-flex flex-column align-items-center"
+                  v-if="cart.carts.length === 0"
+                >
+                  購物車尚未有商品唷!!
                 </div>
-                <button class="btn border btn-block mt-3" @click="checkout">
+                <button
+                  class="btn border btn-block mt-3"
+                  @click="checkout"
+                  v-if="cart.carts.length"
+                >
                   前往結帳
                 </button>
               </div>

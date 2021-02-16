@@ -1,5 +1,5 @@
 <template>
-  <div class="container pt-2">
+  <div class="container p-0 pt-2">
     <swiper class="swiper" :options="swiperOption">
       <swiper-slide>
         <router-link to="categorylist/-ML8mX5lDMN3dt-f47QL">
