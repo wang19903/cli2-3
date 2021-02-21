@@ -54,7 +54,7 @@ export default new Vuex.Store({
   },
   getters: {
     isLoading: state => state.isLoading,
-    message: state => state.messages,
+    messages: state => state.messages,
   },
   modules: {
     productModules,

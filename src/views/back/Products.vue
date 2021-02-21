@@ -9,13 +9,13 @@
     <table class="table mt-4">
       <thead>
         <tr>
-          <th width="120">分類</th>
+          <th width="100">分類</th>
           <th>產品名稱</th>
-          <th width="120">原價</th>
-          <th width="120">售價</th>
-          <th width="100">是否啟用</th>
-          <th width="80">編輯</th>
-          <th width="80">刪除</th>
+          <th width="100">原價</th>
+          <th width="100">售價</th>
+          <th width="60">是否啟用</th>
+          <th width="70">編輯</th>
+          <th width="70">刪除</th>
         </tr>
       </thead>
       <tbody>
@@ -285,7 +285,7 @@
 <script>
 import $ from "jquery";
 import pagination from "@/components/Pagination";
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 
 export default {
   data() {
@@ -333,16 +333,21 @@ export default {
         api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${vm.tempProduct.id}`;
         httpMethod = "put";
       }
-      console.log(process.env.VUE_APP_APIPATH, process.env.VUE_APP_CUSTOMPATH);
       this.$http[httpMethod](api, { data: vm.tempProduct }).then((response) => {
-        console.log(response.data);
         if (response.data.success) {
           $("#productModal").modal("hide");
           vm.getProducts();
+          vm.$store.dispatch("updateMessage", {
+            message: response.data.message,
+            status: "success",
+          });
         } else {
           $("#productModal").modal("hide");
           vm.getProducts();
-          console.log("新增失敗");
+          vm.$store.dispatch("updateMessage", {
+            message: response.data.message,
+            status: "danger",
+          });
         }
         this.clearFile = "false";
       });
@@ -356,13 +361,24 @@ export default {
       const vm = this;
       let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${vm.tempProduct.id}`;
       this.$http.delete(api).then((response) => {
-        console.log(response, vm.tempProduct);
-        $("#delProductModal").modal("hide");
-        vm.getProducts();
+        if (response.data.success) {
+          $("#delProductModal").modal("hide"); // 關閉modal
+          vm.getProduct(); // 重新取得更新完的資料
+          vm.$store.dispatch("updateMessage", {
+            message: "刪除商品成功",
+            status: "success",
+          });
+        } else {
+          $("#delProductModal").modal("hide"); // 關閉modal
+          vm.getProduct(); // 重新取得更新完的資料
+          vm.$store.dispatch("updateMessage", {
+            message: "刪除商品成功失敗",
+            status: "danger",
+          });
+        }
       });
     },
     uploadFile() {
-      console.log(this);
       const uploadedFile = this.$refs.files.files[0];
       const vm = this;
       const formData = new FormData();
@@ -376,19 +392,25 @@ export default {
           // },
         })
         .then((response) => {
-          //console.log(response.data);
           vm.status.fileUploading = false;
           if (response.data.success) {
             vm.$set(vm.tempProduct, "imageUrl", response.data.imageUrl);
+            vm.$store.dispatch("updateMessage", {
+              message: "上傳圖片成功",
+              status: "success",
+            });
           } else {
-            this.$bus.$emit("messsage:push", response.data.message, "danger");
+            vm.$store.dispatch("updateMessage", {
+              message: "上傳圖片失敗",
+              status: "danger",
+            });
           }
         });
       this.clearFile = false;
     },
   },
   computed: {
- ...mapGetters(['isLoading'])
+    ...mapGetters(["isLoading"]),
   },
   created() {
     this.getProducts();

@@ -57,12 +57,9 @@ export default {
 </script>
 
 <style scoped>
-@media (max-width: 430px) {
-  .logout{
-    padding-right: 65px;
-  }
-  #sidebarMenu{
-    padding-top: 0px;
+@media (max-width: 768px) {
+  .navbar-brand{
+   padding-left: 56px;
   }
 
 }

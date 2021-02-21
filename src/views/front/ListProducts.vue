@@ -17,15 +17,11 @@
                 <i class="fa fa-search" aria-hidden="true"></i> 搜尋
               </button>
             </div>
-            <div>
-              價格
-              <span
-                class="icon"
-                :class="{ inverse: isReverse }"
-                v-if="sortType == 'price'"
-              >
-                <i class="fas fa-angle-up text-success"></i>
-              </span>
+            <div class="click" @click="changeType('price')">價格
+          <!-- isReverse 為反轉 className -->
+          <span class="icon" :class="{'inverse': isReverse}" v-if="sortType == 'price'">
+            <i class=" fas fa-angle-up text-success"></i>
+          </span>
             </div>
           </div>
           <!-- <th class="click" @click="changeType('price')">價格
@@ -190,16 +186,6 @@ export default {
     };
   },
   methods: {
-    // changeType: function (type) {
-    //       let vm = this;
-    //       if (vm.sortType == type) {
-    //         vm.isReverse = !vm.isReverse;
-    //       } else {
-    //         vm.isReverse = false;
-    //       }
-    //       vm.sortType = type;
-    //     },
-
     getProduct(id) {
       const vm = this;
       vm.$router.push(`/product/${id}`);
@@ -238,17 +224,6 @@ export default {
     ...mapActions("productModules", ["getProducts"]),
   },
   computed: {
-    // categoryData() {
-    //   const vm = this;
-    //   let category = "";
-    //   return vm.products.reduce((prev, curr) => {
-    //     if (curr.category !== category) {
-    //       prev.push(curr.category);
-    //     }
-    //     category = curr.category;
-    //     return prev;
-    //   }, []);
-    // },
     filterData() {
       const vm = this;
       vm.currentPage = 0;
@@ -300,19 +275,19 @@ export default {
     //       return vm.newData;
     // },
 
-    // sortData() {
-    //   let vm = this;
-    //   let type = vm.sortType;
-    //    vm.newData.sort(function (a, b) {
-    //     if (vm.isReverse)
-    //     {
-    //       return b[type] - a[type]
-    //     }
-    //     else{
-    //       return a[type] - b[type]
-    //     };
-    //   });
-    // },
+    sortData() {
+      let vm = this;
+      let type = vm.sortType;
+       vm.newData.sort(function (a, b) {
+        if (vm.isReverse)
+        {
+          return b[type] - a[type]
+        }
+        else{
+          return a[type] - b[type]
+        };
+      });
+    },
     // display() {
     //   let vm = this;
     //   this.newData.forEach((item, i) => {
@@ -335,18 +310,18 @@ export default {
 
 <style scoped lang="scss">
 @import "@/assets/listProducts.scss";
-// .table th.click {
-//   cursor: pointer;
-// }
+.click {
+  cursor: pointer;
+}
 
-// .table th.click {
-//   cursor: pointer;
-// }
+.click {
+  cursor: pointer;
+}
 
-// .icon {
-//   display: inline-block;
-// }
-// .icon.inverse {
-//   transform: rotate(180deg)
-// }
+.icon {
+  display: inline-block;
+}
+.icon.inverse {
+  transform: rotate(180deg)
+}
 </style>

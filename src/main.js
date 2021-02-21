@@ -35,6 +35,7 @@ import {
   faBoxOpen,
   faTicketAlt,
   faSearch,
+  faAngleUp,
   faFish,
   faHeart,
   faSpinner,
@@ -45,7 +46,7 @@ import { faFacebookSquare,
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { dom } from '@fortawesome/fontawesome-svg-core'
   library.add(faConciergeBell, faShoppingCart, faUser, faPhone, faMapMarkerAlt,
-  faTrashAlt, faListAlt, faBoxOpen, faTicketAlt, faSearch, faFish,  faHeart, faSpinner, faFacebookSquare, faInstagram);
+  faTrashAlt, faListAlt, faBoxOpen, faTicketAlt, faAngleUp,faSearch, faFish,  faHeart, faSpinner, faFacebookSquare, faInstagram);
 
 dom.watch()
 
