@@ -1,190 +1,211 @@
 <template>
-  <div >
-    <Navbar />
-    <div class="container">
-      <div class="row justify-content-md-center">
-        <div class="col col-md-8">
-          <table class="table mt-4" v-if="cart.carts.length">
-            <thead>
-              <th></th>
-              <th>品名</th>
-              <th>數量</th>
-              <th></th>
-            </thead>
-            <tbody>
-              <tr v-for="item in cart.carts" :key="item.id">
-                <td class="align-middle">
-                  <button
-                    type="button"
-                    class="btn btn-outline-danger btn-sm"
-                    @click="removeCart(item.id)"
-                  >
-                    <i class="fas fa-trash-alt"></i>
-                  </button>
-                </td>
-                <td class="align-middle">
-                  {{ item.product.title }}
-                  <!-- <div class="text-success" v-if="item.coupon">
-          已套用優惠券
-        </div> -->
-                </td>
-                <td class="align-middle">
-                  {{ item.qty }}{{ item.product.unit }}
-                </td>
-              </tr>
-            </tbody>
-            <tfoot>
-              <tr>
-                <td colspan="3" class="text-right">總計</td>
-                <td class="text-right">{{ cart.total | currency }}</td>
-              </tr>
-              <tr v-if="cart.final_total !== cart.total">
-                <td colspan="3" class="text-right text-success">折扣價</td>
-                <td class="text-right text-success">{{ cart.final_total }}</td>
-              </tr>
-            </tfoot>
-          </table>
-          <div class="input-group mb-3 input-group-sm" v-if="cart.carts.length">
-            <input
-              type="text"
-              class="form-control"
-              v-model="coupon_code"
-              placeholder="請輸入優惠碼"
-            />
-            <div class="input-group-append">
-              <button
-                class="btn btn-outline-secondary"
-                type="button"
-                @click="addCouponCode"
-              >
-                套用優惠碼
-              </button>
-            </div>
-          </div>
-          <div
-            class="d-flex flex-column align-items-center noItem"
-            v-if="cart.carts.length === 0"
-          >
-            購物車尚未有商品唷!!
-            
-          </div>
-          <ValidationObserver
-            v-slot="{ invalid }"
-            class="col-md-6"
-            v-if="cart.carts.length"
-          >
-            <form @submit.prevent="createOrder">
-              <ValidationProvider
-                rules="required|email"
-                name="email"
-                class="form-group"
-                tag="div"
-                v-slot="{ errors, classes, passed }"
-              >
-                <!-- 輸入框 -->
-                <label for="email">Email</label>
-                <input
-                  id="email"
-                  type="email"
-                  name="email"
-                  v-model="form.user.email"
-                  class="form-control"
-                  :class="classes"
-                />
-                <!-- 錯誤訊息 -->
-                <span class="invalid-feedback">{{ errors[0] }}</span>
-                <span v-if="passed" class="valid-feedback">Email 正確</span>
-              </ValidationProvider>
-
-              <ValidationProvider
-                rules="required"
-                name="name"
-                class="form-group"
-                tag="div"
-                v-slot="{ errors, classes, passed }"
-              >
-                <!-- 輸入框 -->
-                <label for="name">訂購者名稱</label>
-                <input
-                  id="name"
-                  type="name"
-                  name="name"
-                  v-model="form.user.name"
-                  class="form-control"
-                  :class="classes"
-                />
-                <!-- 錯誤訊息 -->
-                <span class="invalid-feedback">{{ errors[0] }}</span>
-                <span v-if="passed" class="valid-feedback"
-                  >包裹收件人為 {{ form.user.name }}</span
+  <div>
+    <div class="wrapper">
+      <Navbar />
+      <div class="container">
+        <div class="row justify-content-md-center">
+          <div class="col col-md-8">
+            <table class="table table-striped mt-4" v-if="cart.carts.length">
+              <thead >
+                <th></th>
+                <th></th>
+                <th>品名</th>
+                <th>數量</th>               
+              </thead>
+              <tbody>
+                <tr v-for="item in cart.carts" :key="item.id">
+                  <td class="align-middle">
+                    <button
+                      type="button"
+                      class="btn btn-outline-danger btn-sm"
+                      @click="removeCart(item.id)"
+                    >
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                  </td>
+                  <td class="align-middle">
+                   <div
+                        style="
+                          height: 50px;
+                          background-size: cover;
+                          background-position: center;
+                        "
+                        class=""
+                        :style="{ backgroundImage: `url(${item.product.imageUrl})` }"
+                      ></div>
+                  </td>
+                  <td class="align-middle">
+                    {{ item.product.title }}
+                    <!-- <div class="text-success" v-if="item.coupon">
+                      已套用優惠券
+                    </div> -->
+                  </td>
+                  <td class="align-middle ">
+                    {{ item.qty }}{{ item.product.unit }}
+                  </td>                  
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="3" class="text-right">總計</td>
+                  <td class="text-right">{{ cart.total | currency }}</td>
+                </tr>
+                <tr v-if="cart.final_total !== cart.total">
+                  <td colspan="3" class="text-right text-success">折扣價</td>
+                  <td class="text-right text-success">
+                    {{ cart.final_total }}
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+            <div
+              class="input-group mb-3 input-group-sm"
+              v-if="cart.carts.length"
+            >
+              <input
+                type="text"
+                class="form-control"
+                v-model="coupon_code"
+                placeholder="請輸入優惠碼"
+              />
+              <div class="input-group-append">
+                <button
+                  class="btn btn-outline-secondary"
+                  type="button"
+                  @click="addCouponCode"
                 >
-              </ValidationProvider>
-
-              <ValidationProvider
-                rules="required|numeric"
-                name="tel"
-                class="form-group"
-                tag="div"
-                v-slot="{ errors, classes, passed }"
-              >
-                <!-- 輸入框 -->
-                <label for="tel">電話</label>
-                <input
-                  id="tel"
-                  type="tel"
-                  name="tel"
-                  v-model="form.user.tel"
-                  class="form-control"
-                  :class="classes"
-                />
-                <!-- 錯誤訊息 -->
-                <span class="invalid-feedback">{{ errors[0] }}</span>
-                <span v-if="passed" class="valid-feedback"
-                  >收件人電話為 {{ form.user.tel }}</span
-                >
-              </ValidationProvider>
-
-              <ValidationProvider
-                rules="required"
-                name="address"
-                class="form-group"
-                tag="div"
-                v-slot="{ errors, classes, passed }"
-              >
-                <!-- 輸入框 -->
-                <label for="address">地址</label>
-                <input
-                  id="address"
-                  type="address"
-                  name="address"
-                  v-model="form.user.address"
-                  class="form-control"
-                  :class="classes"
-                />
-                <!-- 錯誤訊息 -->
-                <span class="invalid-feedback">{{ errors[0] }}</span>
-                <span v-if="passed" class="valid-feedback"
-                  >收件人地址為 {{ form.user.address }}</span
-                >
-              </ValidationProvider>
-
-              <div class="form-group">
-                <label for="comment">留言</label>
-                <textarea
-                  name=""
-                  id="comment"
-                  class="form-control"
-                  cols="30"
-                  rows="10"
-                  v-model="form.message"
-                ></textarea>
+                  套用優惠碼
+                </button>
               </div>
+            </div>
+            <div
+              class="d-flex flex-column align-items-center noItem"
+              v-if="cart.carts.length === 0"
+            >
+              購物車尚未有商品唷!!
+            </div>
+            <ValidationObserver
+              v-slot="{ invalid }"
+              class="col-md-6"
+              v-if="cart.carts.length"
+            >
+              <form @submit.prevent="createOrder">
+                <ValidationProvider
+                  rules="required|email"
+                  name="email"
+                  class="form-group"
+                  tag="div"
+                  v-slot="{ errors, classes, passed }"
+                >
+                  <!-- 輸入框 -->
+                  <label for="email">Email</label>
+                  <input
+                    id="email"
+                    type="email"
+                    name="email"
+                    v-model="form.user.email"
+                    class="form-control"
+                    :class="classes"
+                  />
+                  <!-- 錯誤訊息 -->
+                  <span class="invalid-feedback">{{ errors[0] }}</span>
+                  <span v-if="passed" class="valid-feedback">Email 正確</span>
+                </ValidationProvider>
 
-              <button type="submit" class="btn btn-primary" :disabled="invalid">
-                送出表單
-              </button>
-            </form>
-          </ValidationObserver>
+                <ValidationProvider
+                  rules="required"
+                  name="name"
+                  class="form-group"
+                  tag="div"
+                  v-slot="{ errors, classes, passed }"
+                >
+                  <!-- 輸入框 -->
+                  <label for="name">訂購者名稱</label>
+                  <input
+                    id="name"
+                    type="name"
+                    name="name"
+                    v-model="form.user.name"
+                    class="form-control"
+                    :class="classes"
+                  />
+                  <!-- 錯誤訊息 -->
+                  <span class="invalid-feedback">{{ errors[0] }}</span>
+                  <span v-if="passed" class="valid-feedback"
+                    >包裹收件人為 {{ form.user.name }}</span
+                  >
+                </ValidationProvider>
+
+                <ValidationProvider
+                  rules="required|numeric"
+                  name="tel"
+                  class="form-group"
+                  tag="div"
+                  v-slot="{ errors, classes, passed }"
+                >
+                  <!-- 輸入框 -->
+                  <label for="tel">電話</label>
+                  <input
+                    id="tel"
+                    type="tel"
+                    name="tel"
+                    v-model="form.user.tel"
+                    class="form-control"
+                    :class="classes"
+                  />
+                  <!-- 錯誤訊息 -->
+                  <span class="invalid-feedback">{{ errors[0] }}</span>
+                  <span v-if="passed" class="valid-feedback"
+                    >收件人電話為 {{ form.user.tel }}</span
+                  >
+                </ValidationProvider>
+
+                <ValidationProvider
+                  rules="required"
+                  name="address"
+                  class="form-group"
+                  tag="div"
+                  v-slot="{ errors, classes, passed }"
+                >
+                  <!-- 輸入框 -->
+                  <label for="address">地址</label>
+                  <input
+                    id="address"
+                    type="address"
+                    name="address"
+                    v-model="form.user.address"
+                    class="form-control"
+                    :class="classes"
+                  />
+                  <!-- 錯誤訊息 -->
+                  <span class="invalid-feedback">{{ errors[0] }}</span>
+                  <span v-if="passed" class="valid-feedback"
+                    >收件人地址為 {{ form.user.address }}</span
+                  >
+                </ValidationProvider>
+
+                <div class="form-group">
+                  <label for="comment">留言</label>
+                  <textarea
+                    name=""
+                    id="comment"
+                    class="form-control"
+                    cols="30"
+                    rows="10"
+                    v-model="form.message"
+                  ></textarea>
+                </div>
+
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  :disabled="invalid"
+                >
+                  送出表單
+                </button>
+              </form>
+            </ValidationObserver>
+          </div>
         </div>
       </div>
     </div>
@@ -260,9 +281,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+table{
+  background-color: #e7dbc1;
+}
+
 
 .noItem {
-  height: 63vh;
   margin: 10px;
   font-size: 28px;
   color: red;

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container p-0 pt-3">
+    <div class="container p-0 pt-3 footer">
       <ul class="row d-flex justify-content-between no-gutters mb-0">
         <li class="col-3 d-flex">
           <div class="txt">
@@ -31,7 +31,7 @@
           </p>
           <p class="h6">
             <font-awesome-icon icon="map-marker-alt" size="1x" class="fas" />
-            地址:新北市中和區中安街51號
+            地址:新北市中和區安樂路51號
           </p>
         </li>
       </ul>

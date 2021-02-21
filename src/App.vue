@@ -1,12 +1,11 @@
 <template>
   <div id="app">
     <router-view />
-    
   </div>
 </template>
 
 <style lang="scss">
-#app{
+#app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -15,23 +14,15 @@
   max-width: 1024px;
 }
 html,
-body  {
-  background-color: rgba(212, 208, 189, 0.336);  
-}
-
-
-html {
-    position: relative;
-    min-height: 100%;
-}
 body {
-    margin: 0 0 100px; /* bottom = footer height */
+  background-color: rgba(212, 208, 189, 0.336);
 }
+
+.wrapper {
+  min-height: calc(100vh - 100px);
+}
+
 .footer {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 100px;
-    width: 100%;
+  height: 100px;
 }
 </style>

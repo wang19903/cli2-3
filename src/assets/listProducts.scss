@@ -55,6 +55,7 @@
 .card:hover {
   border: 1px solid gray;
   box-shadow: 1px 1px black;
+  cursor: pointer;
   animation: goBig;
   animation-duration: 0.3s;
   animation-fill-mode: both;

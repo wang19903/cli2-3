@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navbar />
-    <div class="my-5 row justify-content-center">
+    <div class="my-5 row justify-content-center wrapper">
       <form class="col-md-6" @submit.prevent="payOrder">
         <table class="table">
           <thead>

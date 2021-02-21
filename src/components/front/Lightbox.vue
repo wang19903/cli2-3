@@ -46,6 +46,14 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import "../../assets/lightbox";
+.container {
+  max-width: 1024px;
+  position: relative;
+  z-index: 0;
+}
+img {
+  width: 100%;
+  max-height: 424px;
+}
 </style>
 

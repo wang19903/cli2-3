@@ -8,7 +8,7 @@
           height="48"
           viewBox="0 0 24 24"
           fill="none"
-          stroke="#4a5568"
+          stroke="#000000"
           stroke-width="1"
           stroke-linecap="square"
           stroke-linejoin="arcs"
@@ -56,9 +56,12 @@ export default {
   position: fixed;
   right: 0;
   bottom: 0;
-
   width: 48px;
   height: 48px;
   z-index: 1;
+}
+
+svg{
+  color:rgb(255, 0, 0);
 }
 </style>
