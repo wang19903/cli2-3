@@ -13,7 +13,7 @@
           <th>產品名稱</th>
           <th width="100">原價</th>
           <th width="100">售價</th>
-          <th width="60">是否啟用</th>
+          <th width="90">是否上架</th>
           <th width="70">編輯</th>
           <th width="70">刪除</th>
         </tr>
@@ -29,8 +29,8 @@
             {{ item.price | currency }}
           </td>
           <td class="text-right">
-            <span v-if="item.is_enabled" class="text-success">啟用</span>
-            <span v-else>未啟用</span>
+            <span v-if="item.is_enabled" class="text-success">O</span>
+            <span v-else class="text-danger">X</span>
           </td>
           <td>
             <button

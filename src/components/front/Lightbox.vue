@@ -8,8 +8,8 @@
       </swiper-slide>
 
       <swiper-slide>
-        <router-link to="categorylist/-ML3iyflcI5sVGwv7UHF">
-          <img src="@/assets/img/box2.png" alt="abc" />
+        <router-link to="/product/-MU7jaUl3bMSvBesWTsI">
+          <img src="@/assets/img/promote.png" alt="abc" />
         </router-link>
       </swiper-slide>
 

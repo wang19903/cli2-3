@@ -7,14 +7,13 @@
         <div class="row d-flex justify-content-center">
           <div class="col-md-6 p-1">
             <div data-aos="fade-right" data-aos-duration="3000"
-             v-html="message"
             type="button"
             v-clipboard:copy="message"
             v-clipboard:success="onCopy"
             v-clipboard:error="onError"
-            class="as">
-            
-              <img src="@/assets/img/box2.png" class="img-fluid dd" alt="..." />
+            :style="{backgroundImage: 'url(' + require('@/assets/img/box2.png') + ')'}"
+            class="copyDiv"
+            > 
             </div>
           </div>
 
@@ -22,17 +21,22 @@
             <div
               data-aos="flip-up"
               data-aos-easing="ease-out-cubic"
-              data-aos-duration="3000"
+              data-aos-duration="3000"     
             >
               <img src="@/assets/img/box1.jpg" class="img-fluid" alt="..." />
             </div>
           </div>
         </div>
         <div>
-<ul>
-  <li>這邊</li>
-  <li>放廣格文</li>
-  <li>衝長度</li>
+<ul class="d-flex justify-content-around">
+  <li>
+    <img src="@/assets/img/11.jpg" alt="" class="li_img">
+    <p>努力工作買不起房</p>
+  </li>
+  <li><img src="@/assets/img/22.jpg" alt="" class="li_img">
+    <p>就好像</p></li>
+  <li><img src="@/assets/img/login.jpg" alt="" class="li_img">
+    <p>在非洲採收可可的小孩買不起巧克力一樣</p></li>
 </ul>
         </div>
       </div>
@@ -58,7 +62,7 @@ export default {
   },
   data: function () {
     return {
-      message: "s",
+      message: "感謝你的注意!!",
     };
   },
   methods: {
@@ -72,12 +76,20 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.as{
-height: 100%;
-background-image: url(~@/assets/img/box2.png);
- background-repeat: no-repeat;
-
+.copyDiv{
+  height: 100%;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  background-size: cover;
+}
+ul{
+  list-style-type: none;
 }
 
+.li_img{
+  width: 100px;
+  height: 100px;
+}
 
 </style>

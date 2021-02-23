@@ -90,6 +90,7 @@ body {
 }
 .wrap{
   background-image:url("~@/assets/img/login.jpg");
+  opacity: .9;
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;

@@ -48,7 +48,8 @@
 
         <div class="modal-footer">
           <div class="text-muted text-nowrap mr-3">
-            小計<strong> {{ product.num * product.price }} </strong>
+            小計<strong v-if="product.num * product.price >= 0"> {{ product.num * product.price }} </strong>
+            <strong v-if="product.num * product.price === NaN"></strong>
           </div>
           <button
             type="button"
