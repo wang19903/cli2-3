@@ -37,6 +37,9 @@
             現在只要 {{ product.price }} 元
           </div>
         </div>
+        <div>
+          注意事項:絕對不含防腐劑，所以無論您是現場購買或宅配冷藏到貨， 我們建議您當天沒食用完，請放入冰箱冷藏冷凍。
+        </div>
         <select name="" class="form-control mt-3" v-model="product.num">
           <option :value="num" v-for="num in 10" :key="num">
             選購{{ num }} {{ product.unit }}

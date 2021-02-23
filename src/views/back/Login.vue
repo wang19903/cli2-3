@@ -1,8 +1,8 @@
 <template>
-  <div class="wrap pt-5">
+  <div class="wrap">
     <loading :active.sync="isLoading"></loading>
     <main class="form-signin pt-5" @submit.prevent="signin" @keyup.enter="signin">
-      <form class="pt-3">
+      <form class="pt-5">
         <h1 class="h3 mb-3 fw-normal text-center">請登入帳號</h1>
         <label for="inputEmail" class="visually-hidden">使用者信箱</label>
         <input
@@ -29,11 +29,11 @@
           </label>
         </div> -->
         <div class="btnwrap">
-        <button class="w-100 btn btn-lg btn-outline-warning mt-3" type="submit">
+        <button class="w-100 btn btn-lg btn-dark mt-3" type="submit">
           登入
         </button>
         </div>
-        <p class="mt-5 pt-5 mb-3 text-muted text-center">&copy;  All Right Reserved</p>
+        <p class="mt-5 pt-2 mb-3 text-muted text-center">&copy;  All Right Reserved(demo)</p>
       </form>
     </main>
   </div>
@@ -89,8 +89,12 @@ body {
   background-color: #f5f5f5;
 }
 .wrap{
-  background-image: linear-gradient( 135deg,rgb(248, 118, 12),rgba(202, 189, 71, 0.993));
+  background-image:url("~@/assets/img/login.jpg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
   height:100vh;
+  padding-top: 270px;
 }
 .form-signin {
   width: 100%;
@@ -136,6 +140,10 @@ button{
   top: 56px;
   right: 20px;
   z-index: 1100;
+}
+
+@media(max-width:768px){
+  
 }
 </style>
 

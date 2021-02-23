@@ -17,19 +17,17 @@
                 <i class="fa fa-search" aria-hidden="true"></i> 搜尋
               </button>
             </div>
-            <div class="click" @click="changeType('price')">價格
-          <!-- isReverse 為反轉 className -->
-          <span class="icon" :class="{'inverse': isReverse}" v-if="sortType == 'price'">
-            <i class=" fas fa-angle-up text-success"></i>
-          </span>
-            </div>
           </div>
-          <!-- <th class="click" @click="changeType('price')">價格
-          
-          <span class="icon" :class="{'inverse': isReverse}" v-if="sortType == 'price'">
-            <i class=" fas fa-angle-up text-success"></i>
-          </span>
-        </th> -->
+          <div class="click" @click="changeType('price')">
+            價格排序
+            <span
+              class="icon"
+              :class="{ inverse: isReverse }"
+              v-if="sortType == 'price'"
+            >
+              <i class="fas fa-angle-up text-success"></i>
+            </span>
+          </div>
         </form>
       </div>
       <b-container class="bv-example-row">
@@ -117,7 +115,6 @@
             </div>
           </b-col>
         </b-row>
-
         <nav aria-label="..." class="d-flex justify-content-center mt-2">
           <ul class="pagination">
             <li class="page-item" :class="{ disabled: currentPage === 0 }">
@@ -152,6 +149,7 @@
           </ul>
         </nav>
       </b-container>
+      <GoTop />
     </div>
     <Footer />
   </div>
@@ -162,6 +160,7 @@ import Navbar from "@/components/front/Navbar.vue";
 import Footer from "@/components/front/Footer.vue";
 import pagination from "@/components/Pagination.vue";
 import { mapGetters, mapActions } from "vuex";
+import GoTop from "@/components/front/GoTop.vue";
 
 export default {
   name: "ListProducts",
@@ -169,13 +168,13 @@ export default {
     Navbar,
     Footer,
     pagination,
+    GoTop,
   },
   data() {
     return {
-      //   displayData: [],
       sortType: "price",
       isReverse: false,
-      //tempData : [],
+      tempData: [],
       product: {},
       currentPage: 0,
       newData: [],
@@ -227,27 +226,29 @@ export default {
     filterData() {
       const vm = this;
       vm.currentPage = 0;
-      let tempData = [];
       let sortdata = [];
-      //vm.newData = [];
       vm.$store.dispatch("updataLoading", true);
       vm.tempData = vm.products.filter((item) => {
         if (vm.searchText === "") {
           return vm.products;
-        } else {
-          const data = item.title
+        } else if (vm.searchText === item.category) {
+          let category_data = item.category
             .toLowerCase()
             .includes(vm.searchText.toLowerCase());
-          return data;
+          return category_data;
+        } else if (vm.searchText !== item.title) {
+          let title_data = item.title
+            .toLowerCase()
+            .includes(vm.searchText.toLowerCase());
+          return title_data;
         }
       });
-
-      //vm.newData = vm.tempData;
       let type = vm.sortType;
-      sortdata = tempData.sort(function (a, b) {
+      sortdata = vm.tempData.sort(function (a, b) {
         if (vm.isReverse) return b[type] - a[type];
         else return a[type] - b[type];
       });
+      vm.newData = [];
       sortdata.forEach((item, i) => {
         if (i % 6 == 0) {
           vm.newData.push([]);
@@ -255,50 +256,9 @@ export default {
         const pagenum = parseInt(i / 6);
         vm.newData[pagenum].push(item);
       });
-      //console.log(vm.newData);
       vm.$store.dispatch("updataLoading", false);
       return vm.newData;
     },
-
-    // filterData(){
-    //   const vm = this;
-    //   vm.currentPage = 0;
-    //   //vm.newData = [];
-    //   vm.tempData.forEach((item, i) => {
-    //         if (i % 6 == 0) {
-    //           vm.newData.push([]);
-    //         }
-    //         const pagenum = parseInt(i / 6);
-    //         vm.newData[pagenum].push(item);
-    //       });
-    //       vm.$store.dispatch("updataLoading", false);
-    //       return vm.newData;
-    // },
-
-    sortData() {
-      let vm = this;
-      let type = vm.sortType;
-       vm.newData.sort(function (a, b) {
-        if (vm.isReverse)
-        {
-          return b[type] - a[type]
-        }
-        else{
-          return a[type] - b[type]
-        };
-      });
-    },
-    // display() {
-    //   let vm = this;
-    //   this.newData.forEach((item, i) => {
-    //     if (i % 6 == 0) {
-    //       vm.displayData.push([]);
-    //     }
-    //     const pagenum = parseInt(i / 6);
-    //     vm.displayData[pagenum].push(item);
-    //   });
-    //   vm.$store.dispatch("updataLoading", false);
-    // },
     ...mapGetters("productModules", ["categories", "products"]),
     ...mapGetters(["isLoading"]),
   },
@@ -310,18 +270,4 @@ export default {
 
 <style scoped lang="scss">
 @import "@/assets/listProducts.scss";
-.click {
-  cursor: pointer;
-}
-
-.click {
-  cursor: pointer;
-}
-
-.icon {
-  display: inline-block;
-}
-.icon.inverse {
-  transform: rotate(180deg)
-}
 </style>

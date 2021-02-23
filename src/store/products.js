@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { VBModalPlugin } from 'bootstrap-vue';
 
 export default {
   namespaced: true,
@@ -8,9 +9,14 @@ export default {
   },
   actions: {
     getProducts(context) {
+      const vm = this;
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`;
       context.commit('LOADING', true, { root: true });
       axios.get(url).then((response) => {
+        const temp = response.data.products;
+        vm.products = temp.filter((item) =>{
+          return item.is_enabled === 1
+        })
         context.commit('PRODUCTS', response.data.products);
         context.commit('CATEGORIES', response.data.products);
       //  console.log('取得產品列表:', response);

@@ -1,5 +1,5 @@
 import Vue from "vue";
-import Vuex from 'vuex';
+import Vuex from "vuex";
 import axios from "axios";
 import VueAxios from "vue-axios";
 import Loading from "vue-loading-overlay";
@@ -21,7 +21,7 @@ import * as rules from "vee-validate/dist/rules";
 import TW from "vee-validate/dist/locale/zh_TW.json";
 import App from "./App.vue";
 import router from "./router";
-import store from './store';
+import store from "./store";
 import "./bus";
 import currencyFilter from "./filters/currency";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -40,15 +40,37 @@ import {
   faHeart,
   faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
-import { faListAlt } from '@fortawesome/free-regular-svg-icons'
-import { faFacebookSquare,
-  faInstagram } from '@fortawesome/free-brands-svg-icons'
+import { faListAlt } from "@fortawesome/free-regular-svg-icons";
+import {
+  faFacebookSquare,
+  faInstagram,
+} from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { dom } from '@fortawesome/fontawesome-svg-core'
-  library.add(faConciergeBell, faShoppingCart, faUser, faPhone, faMapMarkerAlt,
-  faTrashAlt, faListAlt, faBoxOpen, faTicketAlt, faAngleUp,faSearch, faFish,  faHeart, faSpinner, faFacebookSquare, faInstagram);
+import { dom } from "@fortawesome/fontawesome-svg-core";
+library.add(
+  faConciergeBell,
+  faShoppingCart,
+  faUser,
+  faPhone,
+  faMapMarkerAlt,
+  faTrashAlt,
+  faListAlt,
+  faBoxOpen,
+  faTicketAlt,
+  faAngleUp,
+  faSearch,
+  faFish,
+  faHeart,
+  faSpinner,
+  faFacebookSquare,
+  faInstagram
+);
 
-dom.watch()
+import VueClipboard from 'vue-clipboard2'
+
+Vue.use(VueClipboard)
+
+dom.watch();
 
 Object.keys(rules).forEach((rule) => {
   extend(rule, rules[rule]);
@@ -58,7 +80,7 @@ localize("zh_TW", TW);
 AOS.init();
 
 Vue.config.productionTip = false;
- Vue.component("font-awesome-icon", FontAwesomeIcon);
+Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.component("ValidationObserver", ValidationObserver);
 Vue.component("ValidationProvider", ValidationProvider);
 Vue.component("Loading", Loading);
