@@ -72,17 +72,17 @@ const routes = [
         meta: { requiresAuth: true }
       },
       
-      {
-        path: "customer_order",
-        name: "CustomerOrder",
-        component: () => import("@/components/CustomerOrder.vue"),
-      },
+      // {
+      //   path: "customer_order",
+      //   name: "CustomerOrder",
+      //   component: () => import("@/components/back/CustomerOrder.vue"),
+      // },
 
-      {
-        path: "customer_checkout/:orderId",
-        name: "CustomerCheckout",
-        component: () => import("@/components/CustomerCheckout.vue"),
-      },
+      // {
+      //   path: "customer_checkout/:orderId",
+      //   name: "CustomerCheckout",
+      //   component: () => import("@/components/back/CustomerCheckout.vue"),
+      // },
     ]
   },
 

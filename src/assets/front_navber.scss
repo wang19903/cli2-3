@@ -13,9 +13,9 @@
 .bgImg {
   width: 100%;
   height: 350px;
-  background-image: url("~@/assets/img/logoBg.jpg");
+  background-image: url("~@/assets/img/nav.jpg");
   background-repeat: no-repeat;
-  background-position: bottom center;
+  background-position: top center;
   background-size: cover;
   position: relative;
   z-index: 1;
@@ -35,7 +35,7 @@
   bottom: 0;
   background-color: #fff;
   z-index: -1;
-  opacity: 0.175;
+  opacity: 0.1;
 }
 
 .slogan {

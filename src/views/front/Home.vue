@@ -6,38 +6,58 @@
       <div class="container-fluid pt-2 pb-2">
         <div class="row d-flex justify-content-center">
           <div class="col-md-6 p-1">
-            <div data-aos="fade-right" data-aos-duration="3000"
-            type="button"
-            v-clipboard:copy="message"
-            v-clipboard:success="onCopy"
-            v-clipboard:error="onError"
-            :style="{backgroundImage: 'url(' + require('@/assets/img/box2.png') + ')'}"
-            class="copyDiv"
-            > 
-            </div>
+            <div
+              data-aos="fade-right"
+              data-aos-duration="3000"
+              type="button"
+              v-clipboard:copy="message"
+              v-clipboard:success="onCopy"
+              v-clipboard:error="onError"
+              :style="[
+                {
+                  backgroundImage:
+                    'url(' + require('@/assets/img/aos1.png') + ')',
+                },
+                { 'max-width': '510px' },
+                { 'min-height': '280px' },
+              ]"
+              class="infoDiv"
+            ></div>
           </div>
 
           <div class="col-md-6 p-1">
             <div
               data-aos="flip-up"
               data-aos-easing="ease-out-cubic"
-              data-aos-duration="3000"     
+              data-aos-duration="3000"
+              :style="[
+                {
+                  backgroundImage:
+                    'url(' + require('@/assets/img/aos2.jpg') + ')',
+                },
+                { 'max-width': '510px' },
+                { 'min-height': '280px' },
+              ]"
+              class="infoDiv"
             >
-              <img src="@/assets/img/box1.jpg" class="img-fluid" alt="..." />
             </div>
           </div>
         </div>
-        <div>
-<ul class="d-flex justify-content-around">
-  <li>
-    <img src="@/assets/img/11.jpg" alt="" class="li_img">
-    <p>努力工作買不起房</p>
-  </li>
-  <li><img src="@/assets/img/22.jpg" alt="" class="li_img">
-    <p>就好像</p></li>
-  <li><img src="@/assets/img/login.jpg" alt="" class="li_img">
-    <p>在非洲採收可可的小孩買不起巧克力一樣</p></li>
-</ul>
+        <div class="container pt-2">
+          <ul class="d-flex justify-content-around row p-0">
+            <li class="col-md-4">
+              <img src="@/assets/img/UL1.jpg" alt="" class="li_img" />
+              <p class="pt-2">從路邊攤滷味起家，在台深耕20年，深得顧客喜愛，逐漸開發多樣產品</p>
+            </li>
+            <li class="col-md-4">
+              <img src="@/assets/img/UL2.jpg" alt="" class="li_img" />
+              <p class="pt-2">每日採購新鮮食材，不使用半成品，確保食品來源，關心顧客健康</p>
+            </li>
+            <li class="col-md-4">
+              <img src="@/assets/img/UL3.jpg" alt="" class="li_img" />
+              <p class="pt-2">獨特口味，對於專業絕不馬虎</p>
+            </li>
+          </ul>
         </div>
       </div>
       <GoTop />
@@ -62,12 +82,12 @@ export default {
   },
   data: function () {
     return {
-      message: "感謝你的注意!!",
+      message: "order999",
     };
   },
   methods: {
     onCopy: function (e) {
-      alert("You just copied: " + e.text);
+      alert("複製" + e.text + "摟~");
     },
     onError: function (e) {
       alert("Failed to copy texts");
@@ -75,21 +95,23 @@ export default {
   },
 };
 </script>
+
 <style lang="scss" scoped>
-.copyDiv{
-  height: 100%;
-  width: 100%;
+.infoDiv {
   background-repeat: no-repeat;
-  background-position: bottom center;
+  background-position: center center;
   background-size: cover;
 }
-ul{
+
+ul {
   list-style-type: none;
 }
 
-.li_img{
-  width: 100px;
-  height: 100px;
+.li_img {
+  width: 125px;
+  height: 125px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center center;
 }
-
 </style>

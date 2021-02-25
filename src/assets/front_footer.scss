@@ -26,10 +26,10 @@ i {
   font-size: 18px;
   padding-right: 3px;
 }
-.fb,
-.ig {
+.fb
+ {
   font-size: 28px;
-  padding: 36px 3px 0px 3px;
+  padding: 0px 3px 0px 15px;
 }
 
 .ig:hover {
@@ -41,21 +41,25 @@ i {
   max-width: 80px;
 }
 
-.right {
-  margin-top: 1rem;
+.rightbox {
+  padding-top: 75px;
+  font-size: 12px;
 }
 
 @media (max-width: 550px) {
-  .right {
+  .rightbox {
+    padding-top: 90px;
+    padding-left: 15px;
     font-size: 8px;
-    margin-top: 1rem;
-    margin-left: 5px;
     text-align: left;
+    line-height: 15px;
   }
-  .col-4 p {
-    padding-top: 8px;
-    font-size: 14px;
+  
+  .infobox{
+    font-size: 12px;
+    line-height: 15px;
   }
+
   .fa-phone,
   .fa-map-marker-alt {
     font-size: 13px;

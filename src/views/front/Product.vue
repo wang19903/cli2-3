@@ -2,15 +2,14 @@
   <div class="wrap wrapper">
     <Navbar />
     <div
-      class="container"
       id="productModal"
       tabindex="-1"
       role="dialog"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >
-      <div class="row" role="document">
-        <div class="col-6 border-0">
+      <div class="container" role="document">
+        <div class="row-col border-0">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">
               <span>{{ product.title }}</span>
@@ -20,49 +19,51 @@
             <img :src="product.imageUrl" class="img-fluid" alt="" />
           </div>
         </div>
-        <div class="col-6">
-        <blockquote class="blockquote mt-3">
-          <footer class="blockquote-footer text-right">
-            {{ product.description }}
-          </footer>
-        </blockquote>
-        <div class="d-flex justify-content-between align-items-baseline">
-          <div class="h5" v-if="!product.price">
-            {{ product.origin_price }} 元
+        <div class="row-col pr-5 pl-5">
+          <blockquote class="blockquote mt-3">
+            <footer class="blockquote-footer text-right">
+              {{ product.description }}
+            </footer>
+          </blockquote>
+          <div class="d-flex justify-content-between align-items-baseline">
+            <div class="h5" v-if="!product.price">
+              {{ product.origin_price }} 元
+            </div>
+            <del class="h6" v-if="product.price"
+              >原價 {{ product.origin_price }} 元</del
+            >
+            <div class="h5" v-if="product.price">
+              現在只要 {{ product.price }} 元
+            </div>
           </div>
-          <del class="h6" v-if="product.price"
-            >原價 {{ product.origin_price }} 元</del
-          >
-          <div class="h5" v-if="product.price">
-            現在只要 {{ product.price }} 元
+          <div>
+            注意事項:絕對不含防腐劑，所以無論您是現場購買或宅配冷藏到貨，
+            我們建議您當天沒食用完，請放入冰箱冷藏冷凍。
           </div>
-        </div>
-        <div>
-          注意事項:絕對不含防腐劑，所以無論您是現場購買或宅配冷藏到貨， 我們建議您當天沒食用完，請放入冰箱冷藏冷凍。
-        </div>
-        <select name="" class="form-control mt-3" v-model="product.num">
-          <option :value="num" v-for="num in 10" :key="num">
-            選購{{ num }} {{ product.unit }}
-          </option>
-        </select>
 
-        <div class="modal-footer">
-          <div class="text-muted text-nowrap mr-3">
-            小計<strong v-if="product.num * product.price >= 0"> {{ product.num * product.price }} </strong>
-            <strong v-if="product.num * product.price === NaN"></strong>
+          <div class="modal-footer">
+            <select name="" class="form-control mt-3" v-model="product.num">
+              <option :value="num" v-for="num in 10" :key="num">
+                選購{{ num }} {{ product.unit }}
+              </option>
+            </select>
+            <div class="text-muted text-nowrap mr-3">
+              小計<strong v-if="product.num * product.price >= 0">
+                {{ product.num * product.price }}
+              </strong>
+            </div>
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click="addtoCart(product.id, product.num)"
+            >
+              <i
+                class="fas fa-spinner fa-pulse"
+                v-if="product.id === status.loadingItem"
+              ></i>
+              加到購物車
+            </button>
           </div>
-          <button
-            type="button"
-            class="btn btn-primary"
-            @click="addtoCart(product.id, product.num)"
-          >
-            <i
-              class="fas fa-spinner fa-pulse"
-              v-if="product.id === status.loadingItem"
-            ></i>
-            加到購物車
-          </button>
-        </div>
         </div>
       </div>
     </div>
@@ -115,5 +116,16 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/front_product.scss";
+.wrap {
+  max-width: 1024px;
+  background-color: rgba(255, 247, 214, 0.336);
+}
+
+img {
+  width: 70%;
+}
+
+.form-control {
+  width: 50%;
+}
 </style>

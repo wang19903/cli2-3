@@ -19,10 +19,10 @@ body {
 }
 
 .wrapper {
-  min-height: calc(100vh - 100px);
+  min-height: calc(100vh - 185px);
 }
 
 .footer {
-  height: 100px;
+  height: 185px;
 }
 </style>

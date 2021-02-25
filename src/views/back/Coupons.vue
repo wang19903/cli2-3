@@ -12,10 +12,10 @@
           <th>活動名稱</th>
           <th width="120">折扣碼</th>
           <th width="120">到期日</th>
-          <th width="120">折扣百分比 (%)</th>
-          <th width="100">是否啟用</th>
-          <th width="80">編輯</th>
-          <th width="80">刪除</th>
+          <th width="75">折扣(%)</th>
+          <th width="110">是否啟用</th>
+          <th width="75">編輯</th>
+          <th width="75">刪除</th>
         </tr>
       </thead>
       <tbody>

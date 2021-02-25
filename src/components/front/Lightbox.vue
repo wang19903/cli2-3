@@ -2,14 +2,14 @@
   <div class="container p-0 pt-2">
     <swiper class="swiper" :options="swiperOption">
       <swiper-slide>
-        <router-link to="categorylist/-ML8mX5lDMN3dt-f47QL">
-          <img src="@/assets/img/box1.jpg" />
+        <router-link to="/products">
+          <img src="@/assets/img/promote2.jpg" />
         </router-link>
       </swiper-slide>
 
       <swiper-slide>
         <router-link to="/product/-MU7jaUl3bMSvBesWTsI">
-          <img src="@/assets/img/promote.png" alt="abc" />
+          <img src="@/assets/img/promote.png" alt="" />
         </router-link>
       </swiper-slide>
 
@@ -54,6 +54,7 @@ export default {
 img {
   width: 100%;
   max-height: 424px;
+  min-height: 226px;
 }
 </style>
 
