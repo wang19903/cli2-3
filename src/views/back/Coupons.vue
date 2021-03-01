@@ -1,6 +1,7 @@
 <template>
   <div>
     <loading :active.sync="isLoading"></loading>
+    <div class="wrap">
     <div class="text-right mt-4">
       <button class="btn btn-primary" @click="openModal(true)">
         新增優惠券
@@ -55,6 +56,7 @@
       @emitPage="getCoupons($event)"
     ></pagination>
     <!-- Modal -->
+    </div>
     <div
       class="modal fade"
       id="couponModal"
@@ -311,3 +313,9 @@ export default {
   },
 };
 </script>
+
+.<style lang="scss" scoped>
+.wrap{
+  height: 100vh;
+}
+</style>

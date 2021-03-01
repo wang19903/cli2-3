@@ -38,7 +38,7 @@
             >
           </li>
         </ul>
-        <h6
+        <!-- <h6
           class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
         >
           <span>模擬功能</span>
@@ -56,7 +56,7 @@
               <i class="fas fa-ticket-alt"></i>
               模擬訂單</router-link>            
           </li>
-        </ul>
+        </ul> -->
       </div>
     </nav>
   </div>

@@ -1,6 +1,7 @@
 <template>
   <div>
     <loading :active.sync="isLoading"></loading>
+    <div class="wrap">
     <table class="table mt-4">
       <thead>
         <tr>
@@ -40,6 +41,7 @@
       :pagination="pagination"
       @emitPage="getProducts($event)"
     ></pagination>
+    </div>
   </div>
 </template>
 
@@ -92,3 +94,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.wrap {
+  height: 100vh;
+}
+</style>
