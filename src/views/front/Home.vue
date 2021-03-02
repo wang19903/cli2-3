@@ -3,9 +3,9 @@
     <div class="wrapper">
       <Navbar />
       <Slick />
-      <div class="container-fluid pt-2 pb-2">
-        <div class="row d-flex justify-content-center">
-          <div class="col-md-6 p-1">
+      <div class="container-fluid p-0">
+        <div class="row">
+          <div class="col-md-6 pt-2">
             <div
               data-aos="fade-right"
               data-aos-duration="3000"
@@ -20,12 +20,13 @@
                 },
                 { 'max-width': '510px' },
                 { 'min-height': '280px' },
+                { margin: 'auto' },
               ]"
               class="infoDiv"
             ></div>
           </div>
 
-          <div class="col-md-6 p-1">
+          <div class="col-md-6 pt-2">
             <div
               data-aos="flip-up"
               data-aos-easing="ease-out-cubic"
@@ -37,24 +38,35 @@
                 },
                 { 'max-width': '510px' },
                 { 'min-height': '280px' },
+                { 'background-size': 'cover' },
+                { margin: 'auto' },
               ]"
               class="infoDiv"
-            >
-            </div>
+            ></div>
           </div>
         </div>
-        <div class="container pt-2">
-          <ul class="d-flex justify-content-around row p-0">
+        <div class="container-fluid p-0">
+          <ul class="d-flex justify-content-around row p-0 m-0">
             <li class="col-md-4">
-              <img src="@/assets/img/UL1.jpg" alt="" class="li_img" />
-              <p class="pt-2">從路邊攤滷味起家，在台深耕20年，深得顧客喜愛，逐漸開發多樣產品</p>
+              <div class="rotate">
+                <img src="@/assets/img/UL1.jpg" alt="" class="li_img" />
+              </div>
+              <p class="pt-2">
+                從路邊攤滷味起家，在台深耕20年，深得顧客喜愛，逐漸開發多樣產品
+              </p>
             </li>
             <li class="col-md-4">
-              <img src="@/assets/img/UL2.jpg" alt="" class="li_img" />
-              <p class="pt-2">每日採購新鮮食材，不使用半成品，確保食品來源，關心顧客健康</p>
+              <div class="rotate">
+                <img src="@/assets/img/UL2.jpg" alt="" class="li_img" />
+              </div>
+              <p class="pt-2">
+                每日採購新鮮食材，不使用半成品，確保食品來源，關心顧客健康
+              </p>
             </li>
             <li class="col-md-4">
-              <img src="@/assets/img/UL3.jpg" alt="" class="li_img" />
+              <div class="rotate">
+                <img src="@/assets/img/UL3.jpg" alt="" class="li_img" />
+              </div>
               <p class="pt-2">獨特口味，對於專業絕不馬虎</p>
             </li>
           </ul>
@@ -97,21 +109,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.infoDiv {
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
-}
-
-ul {
-  list-style-type: none;
-}
-
-.li_img {
-  width: 125px;
-  height: 125px;
-  border-radius: 50%;
-  background-size: cover;
-  background-position: center center;
-}
+@import "../../assets/home.scss";
 </style>
