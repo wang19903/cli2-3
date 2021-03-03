@@ -13,7 +13,7 @@
               aria-label="Search"
             />
             <div class="input-group-append">
-              <button class="btn btn-outline-danger" type="submit" disabled>
+              <button class="btn searchbtn" type="submit" disabled>
                 <i class="fa fa-search" aria-hidden="true"></i> 搜尋
               </button>
             </div>
@@ -73,7 +73,6 @@
                             background-size: cover;
                             background-position: center;
                           "
-                          class=""
                           :style="{ backgroundImage: `url(${item.imageUrl})` }"
                         ></div>
                         <div class="card-body">
