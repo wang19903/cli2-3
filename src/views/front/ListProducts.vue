@@ -18,14 +18,14 @@
               </button>
             </div>
           </div>
-          <div class="click" @click="changeType('price')">
+          <div class="click box-sizing" @click="changeType('price')">
             價格排序
             <span
               class="icon"
               :class="{ inverse: isReverse }"
               v-if="sortType == 'price'"
             >
-              <i class="fas fa-angle-up text-success"></i>
+              <i class="fas fa-angle-up"></i>
             </span>
           </div>
         </form>

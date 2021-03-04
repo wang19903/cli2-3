@@ -99,18 +99,14 @@
                 <div class="form-group">
                   <label for="customFile"
                     >或 上傳圖片
-                    <i
-                      class="fas fa-spinner fa-spin"
-                      v-if="status.fileUploading"
-                    ></i>
+                    <i class="fas fa-spinner fa-spin" v-if="fileUploading"></i>
                   </label>
                   <input
                     type="file"
                     id="customFile"
                     class="form-control"
                     ref="files"
-                    @change="uploadFile"
-                    v-if="clearFile"
+                    @change="uploadFile"                    
                   />
                 </div>
                 <img
@@ -291,15 +287,11 @@ import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      clearFile: true,
       products: [],
       pagination: {},
       tempProduct: {},
       isNew: false,
-      status: {
-        fileUploading: false,
-        //loading: false,
-      },
+      fileUploading: false,
     };
   },
   components: {
@@ -350,7 +342,6 @@ export default {
             status: "danger",
           });
         }
-        this.clearFile = "false";
       });
     },
     openDeleteModal(item) {
@@ -364,14 +355,14 @@ export default {
       this.$http.delete(api).then((response) => {
         if (response.data.success) {
           $("#delProductModal").modal("hide"); // 關閉modal
-          vm.getProduct(); // 重新取得更新完的資料
+          vm.getProducts(); // 重新取得更新完的資料
           vm.$store.dispatch("updateMessage", {
             message: "刪除商品成功",
             status: "success",
           });
         } else {
           $("#delProductModal").modal("hide"); // 關閉modal
-          vm.getProduct(); // 重新取得更新完的資料
+          vm.getProducts(); // 重新取得更新完的資料
           vm.$store.dispatch("updateMessage", {
             message: "刪除商品成功失敗",
             status: "danger",
@@ -385,15 +376,15 @@ export default {
       const formData = new FormData();
       formData.append("file-to-upload", uploadedFile);
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/upload`;
-      vm.status.fileUploading = true;
+      vm.fileUploading = true;
       this.$http
         .post(url, formData, {
-          //headers: {
-          "Content-Type": "multipart/form-data",
-          // },
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         })
         .then((response) => {
-          vm.status.fileUploading = false;
+          vm.fileUploading = false;
           if (response.data.success) {
             vm.$set(vm.tempProduct, "imageUrl", response.data.imageUrl);
             vm.$store.dispatch("updateMessage", {
@@ -407,7 +398,6 @@ export default {
             });
           }
         });
-      this.clearFile = false;
     },
   },
   computed: {
@@ -419,3 +409,8 @@ export default {
 };
 </script>
 
+<style lang="scss" scoped>
+.wrap {
+  height: 100vh;
+}
+</style>

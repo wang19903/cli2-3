@@ -49,10 +49,17 @@ $bold: 600;
 
 .click:hover{
 font-size: 18px;
+color:rgb(235, 201, 139);
+border-radius: 10%;
+background-color:rgb(150, 94, 57);
+border: solid 2px rgb(145, 62, 7);
+transition: 0.2s;
 }
+
 
 .icon {
   display: inline-block;
+  color:red;
 }
 .icon.inverse {
   transform: rotate(180deg)

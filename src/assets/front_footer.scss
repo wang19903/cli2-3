@@ -1,11 +1,10 @@
-.container {
+.container,.footer {
   max-width: 1024px;
   background-color: #ddc18e;
+  position: relative;
 }
 
-.row {
-  padding-left: 0;
-}
+
 span {
   font-size: 28px;
   color: rgb(165, 23, 23);
@@ -26,14 +25,9 @@ i {
   font-size: 18px;
   padding-right: 3px;
 }
-.fb
- {
+.fb {
   font-size: 28px;
   padding: 0px 3px 0px 15px;
-}
-
-.ig:hover {
-  padding-top: 30px;
 }
 
 .txt {
@@ -48,14 +42,24 @@ i {
 
 @media (max-width: 550px) {
   .rightbox {
-    padding-top: 90px;
-    padding-left: 15px;
     font-size: 8px;
     text-align: left;
     line-height: 15px;
+    position: absolute;
+    left: -35%;
+    top: 20%;
   }
-  
-  .infobox{
+
+  .leftbox {
+    padding-right: 15px;
+  }
+
+  .fb,
+  .ig {
+    padding: 0px;
+  }
+
+  .infobox {
     font-size: 12px;
     line-height: 15px;
   }
@@ -63,5 +67,8 @@ i {
   .fa-phone,
   .fa-map-marker-alt {
     font-size: 13px;
+  }
+  .footer{
+    padding-top: 8px;
   }
 }

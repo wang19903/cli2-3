@@ -24,6 +24,7 @@ import router from "./router";
 import store from "./store";
 import "./bus";
 import currencyFilter from "./filters/currency";
+import dateFilter from "./filters/date";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faConciergeBell,
@@ -89,6 +90,7 @@ Vue.use(IconsPlugin);
 Vue.use(Vuex);
 Vue.use(VueAxios, axios);
 Vue.filter("currency", currencyFilter);
+Vue.filter("date", dateFilter);
 
 configure({
   classes: {

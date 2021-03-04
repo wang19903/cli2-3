@@ -45,8 +45,8 @@ export default {
   data() {
     return {
       user: {
-        username: '',
-        password: '',
+        username: 'lf21715@yahoo.com.tw',
+        password: '19900917',
       },
       isLoading: false,
     };
