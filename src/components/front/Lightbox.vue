@@ -2,14 +2,14 @@
   <div class="container p-0 pt-2">
     <swiper class="swiper" :options="swiperOption">
       <swiper-slide>
-        <router-link to="/products">
+        <router-link to="/product/-MQLq88vyZuiaLnRve9i">
           <img src="@/assets/img/promote2.jpg" />
         </router-link>
       </swiper-slide>
 
       <swiper-slide>
         <router-link to="/product/-MU7jaUl3bMSvBesWTsI">
-          <img src="@/assets/img/promote.png" alt="" />
+          <img src="@/assets/img/promote.png" />
         </router-link>
       </swiper-slide>
 

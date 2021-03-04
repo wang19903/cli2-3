@@ -19,7 +19,7 @@
                     :icon="{ prefix: 'fab', iconName: 'facebook-square' }"
                 /></a>
               </li>
-              <li class="ig">
+              <li class="ig pl-2">
                 <a href="https://www.instagram.com/">
                   <span> <i class="fab fa-instagram"></i></span
                 ></a>
