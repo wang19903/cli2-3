@@ -39,7 +39,7 @@ import {
   faAngleUp,
   faFish,
   faHeart,
-  faSpinner,
+faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
 import { faListAlt } from "@fortawesome/free-regular-svg-icons";
 import {

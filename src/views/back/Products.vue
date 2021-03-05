@@ -54,7 +54,7 @@
       </table>
       <!-- pagination -->
       <pagination
-        class="fixed-bottom"
+        class=""
         v-if="products.length"
         :pagination="pagination"
         @emitPage="getProducts($event)"
@@ -99,7 +99,7 @@
                 <div class="form-group">
                   <label for="customFile"
                     >或 上傳圖片
-                    <i class="fas fa-spinner fa-spin" v-if="fileUploading"></i>
+                    <font-awesome-icon icon="spinner" spin v-if="fileUploading"/>
                   </label>
                   <input
                     type="file"

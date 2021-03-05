@@ -2,46 +2,91 @@
   <div>
     <loading :active.sync="isLoading"></loading>
     <div class="wrap">
-    <table class="table mt-4">
-      <thead>
-        <tr>
-          <th width="100">購買時間</th>
-          <th width="180">客戶名稱</th>
-          <th width="200">Email</th>
-          <th width="200">購買款項</th>
-          <th width="100">應付金額</th>
-          <th width="80">是否付款</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(item, key) in sortOrder" :key="key">
-          <td>{{ item.create_at | date }}</td>
-          <td>{{ item.user.name }}</td>
-          <td>{{ item.user.email }}</td>
-          <ul class="list-unstyled">
-            <li v-for="(orders, i) in item.orders" :key="i">
-              {{ product.product.title }} / 數量：{{ product.qty
-              }}{{ product.product.unit }}
-            </li>
-          </ul>
-          <td class="text-right">
-            {{ item.total | currency }}
-          </td>
-          <td class="text-right">
-            <span v-if="item.is_paid" class="text-success">已付款</span>
-            <span v-else class="text-danger">尚未付款</span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <!-- pagination -->
-    <pagination
-      class="fixed-bottom"
-      v-if="orders.length"
-      :pagination="pagination"
-      @emitPage="getProducts($event)"
-    ></pagination>
+      <table class="table mt-4">
+        <thead>
+          <tr>
+            <th width="100">購買時間</th>
+            <th width="180">客戶名稱</th>
+            <th width="200">訂單編號</th>
+            <th width="200">購買款項</th>
+            <th width="100">應付金額</th>
+            <th width="80">結清</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(item, key) in sortOrder" :key="key">
+            <td>{{ item.create_at | date }}</td>
+            <td>{{ item.user.name }}</td>
+            <td>{{ item.id }}</td>
+            <td>
+              <button type="button" class="btn btn-primary" @click="openModal(item.id)">
+                商品清單
+              </button>
+            </td>
+            <td class="text-right">
+              {{ item.total | currency }}
+            </td>
+            <td class="text-right">
+              <span v-if="item.is_paid" class="text-success">O</span>
+              <span v-else class="text-danger">X</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- pagination -->
+      <pagination
+        class=""
+        v-if="orders.length"
+        :pagination="pagination"
+        @emitPage="getProducts($event)"
+      ></pagination>
     </div>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">訂單編號{{order.id}}</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+           <!-- <div class="modal-body">             
+            <table>
+              <thead>
+                <th>商品名稱</th>
+                <th>數量</th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{order.products.id}}</td>
+                  <td>{{order.produvts.qty}} 個</td>
+                </tr>
+              </tbody>
+            </table>
+          </div> -->
+          <!--<div class="text-left border-top">
+            <p>備註: {{order.message}}</p>
+            <p>Email:{{order.user.email}}</p>
+            <p>電話:{{order.user.tel}}</p>
+          </div>-->
+        </div>
+      </div> 
+    </div>
+
   </div>
 </template>
 
@@ -55,9 +100,8 @@ export default {
     return {
       orders: [],
       pagination: {},
-      tempProduct: {},
-      //isNew: false,
-      isLoading: false,
+      order: [],
+      isLoading: false,//
     };
   },
   components: {
@@ -67,13 +111,25 @@ export default {
     getProducts(page = 1) {
       const vm = this;
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/orders?page=${page}`;
-      vm.isLoading = true;
+      vm.isLoading = true;//
       this.$http.get(api).then((response) => {
-        vm.isLoading = false;
+        vm.isLoading = false;//
         vm.orders = response.data.orders;
         vm.pagination = response.data.pagination;
       });
     },
+    openModal(id) {
+const vm = this;
+const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order/${id}`;
+  vm.$http.get(api).then((res) => {
+  vm.order =res.data.products;
+    console.log(res.data.order);
+    console.log(vm.order);
+  })
+
+    //  $("#exampleModal").modal("show");
+    },
+
   },
   computed: {
     sortOrder() {

@@ -50,7 +50,7 @@
     </table>
     <!-- pagination -->
     <pagination
-      class="fixed-bottom"
+      class=""
       v-if="coupons.length"
       :pagination="pagination"
       @emitPage="getCoupons($event)"
