@@ -51,6 +51,9 @@ export default {
       isLoading: false,
     };
   },
+  components:{
+    OP,
+  },
   methods: {
     signin() {
       const api = `${process.env.VUE_APP_APIPATH}/admin/signin`;
@@ -144,7 +147,15 @@ button{
 }
 
 @media(max-width:768px){
-  
+  .wrap{
+    padding-top: 200px;
+  }
+}
+
+@media(max-width:576px){
+  .wrap{
+    padding-top: 100px;
+  }
 }
 </style>
 

@@ -56,15 +56,15 @@
             </div>
           </b-col>
 
-          <b-col cols="9" class="bv-example-row-flex-cols container a">
-            <div class="row no-gutters d-flex flex-wrap b">
+          <b-col cols="9" class="bv-example-row-flex-cols container">
+            <div class="row no-gutters d-flex flex-wrap mb-4">
               <div
-                class="col-lg-4 col-md-6 mt-4"
+                class="col-lg-4 col-md-6"
                 v-for="(item, key) in filterData[currentPage]"
                 :key="key"
               >
                 <div data-aos="fade-up" data-aos-duration="1000">
-                  <div class="mb-4 pr-4 sizing">
+                  <div class="pr-4 sizing">
                     <div @click="getProduct(item.id)">
                       <div class="card mb-1">
                         <div

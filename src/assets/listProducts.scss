@@ -51,7 +51,7 @@ $bold: 600;
 font-size: 18px;
 color:rgb(235, 201, 139);
 border-radius: 10%;
-background-color:rgb(150, 94, 57);
+background-color:rgb(148, 85, 43);
 border: solid 2px rgb(145, 62, 7);
 transition: 0.2s;
 }
@@ -83,6 +83,7 @@ transition: 0.2s;
 .sizing {
   box-sizing: border-box;
   height: 351px;
+  margin-bottom: 24px;
 }
 
 .card:hover {
@@ -126,5 +127,9 @@ transition: 0.2s;
   .list-group-item {
     padding: 5px 0px 5px 0px;
     font-weight: $bold;
+  }
+
+  .sizing{
+    margin: 0px;
   }
 }

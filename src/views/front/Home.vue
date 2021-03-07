@@ -1,5 +1,6 @@
 <template>
   <div class="container-fluid p-0">
+<OP/>
     <div class="wrapper">
       <Navbar />
       <Slick />
@@ -83,6 +84,7 @@ import Slick from "@/components/front/Lightbox";
 import Navbar from "@/components/front/Navbar";
 import Footer from "@/components/front/Footer";
 import GoTop from "@/components/front/GoTop";
+import OP from "@/components/front/Opening.vue";
 
 export default {
   name: "home",
@@ -91,6 +93,7 @@ export default {
     Navbar,
     Footer,
     GoTop,
+    OP,
   },
   data: function () {
     return {
