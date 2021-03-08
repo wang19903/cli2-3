@@ -51,9 +51,6 @@ export default {
       isLoading: false,
     };
   },
-  components:{
-    OP,
-  },
   methods: {
     signin() {
       const api = `${process.env.VUE_APP_APIPATH}/admin/signin`;

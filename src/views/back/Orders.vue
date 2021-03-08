@@ -5,11 +5,11 @@
       <table class="table mt-4">
         <thead>
           <tr>
-            <th width="100">購買時間</th>
-            <th width="180">客戶名稱</th>
-            <th width="200">訂單編號</th>
-            <th width="200">購買款項</th>
-            <th width="100">應付金額</th>
+            <th width="80">購買時間</th>
+            <th>客戶名稱</th>
+            <th>訂單編號</th>
+            <th>細項</th>
+            <th width="80">金額</th>
             <th width="80">結清</th>
           </tr>
         </thead>
@@ -20,7 +20,7 @@
             <td>{{ item.id }}</td>
             <td>
               <button type="button" class="btn btn-primary" @click="openModal(item.id)">
-                商品清單
+               <i class="far fa-list-alt "></i>
               </button>
             </td>
             <td class="text-right">
@@ -54,7 +54,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">訂單編號{{order.id}}</h5>
+            <h5 class="modal-title" id="exampleModalLabel">訂單編號:  {{order.id}}</h5>
             <button
               type="button"
               class="close"
@@ -64,25 +64,25 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-           <!-- <div class="modal-body">             
+           <div class="modal-body">             
             <table>
               <thead>
                 <th>商品名稱</th>
                 <th>數量</th>
               </thead>
               <tbody>
-                <tr>
-                  <td>{{order.products.id}}</td>
-                  <td>{{order.produvts.qty}} 個</td>
+                <tr v-for="item in order.products" :key="item.id">
+                  <td>{{item.product.title}}</td>
+                  <td>{{item.product.num}} {{item.product.nuit}}</td>
                 </tr>
               </tbody>
             </table>
-          </div> -->
-          <!--<div class="text-left border-top">
+          </div> 
+          <div class="text-left border-top">
             <p>備註: {{order.message}}</p>
             <p>Email:{{order.user.email}}</p>
             <p>電話:{{order.user.tel}}</p>
-          </div>-->
+          </div>
         </div>
       </div> 
     </div>
@@ -100,8 +100,14 @@ export default {
     return {
       orders: [],
       pagination: {},
-      order: [],
-      isLoading: false,//
+      order: {
+        products: {},
+        user: {
+          email:'',
+          tel:'',
+        },
+      },
+      isLoading: false,
     };
   },
   components: {
@@ -122,12 +128,9 @@ export default {
 const vm = this;
 const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order/${id}`;
   vm.$http.get(api).then((res) => {
-  vm.order =res.data.products;
-    console.log(res.data.order);
-    console.log(vm.order);
+    $("#exampleModal").modal("show");
+  vm.order = res.data.order;
   })
-
-    //  $("#exampleModal").modal("show");
     },
 
   },

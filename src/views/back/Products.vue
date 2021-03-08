@@ -11,10 +11,10 @@
         <thead>
           <tr>
             <th width="100">分類</th>
-            <th>產品名稱</th>
+            <th>名稱</th>
             <th width="100">原價</th>
             <th width="100">售價</th>
-            <th width="90">是否上架</th>
+            <th width="90">上架</th>
             <th width="70">編輯</th>
             <th width="70">刪除</th>
           </tr>

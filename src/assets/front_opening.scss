@@ -1,64 +1,67 @@
-.a_wrap {
+@mixin flash {
+  width: 1000px;
+  height: 100vh;
+  position: absolute;
+  clip-path: polygon(25% 0%, 63% 0, 38% 100%, 0 100%);
+  top: 0px;
+  animation: run 2s infinite;
+}
+
+@mixin green{
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: green;
+}
+
+@mixin dot{
+  position: absolute;
+  border: solid 13px rgb(148, 85, 43);
+  border-radius: 50%;
+  top: 3px;
+  background: rgb(148, 85, 43);
+  animation: run 0.5s infinite;
+}
+
+.flash_wrap {
   position: fixed;
-  overflow: hidden;
-  height: 100%;
+  height: 100vh;
   width: 100vw;
   z-index: 9999;
-  animation:opening 5s normal forwards;
-  animation-timing-function: cubic-bezier(1,1,1,9);
+  animation: opening 5s normal forwards;
+  animation-timing-function: cubic-bezier(1, 1, 1, 9);
 }
 
 @keyframes opening {
-    0% {
-        top:0;
-      opacity: 1;
-    }
-    99%{
-        opacity: 0;
-        z-index: -9999;
-    }
-    100% {
-        bottom:-100%;
-    }
+  0% {  
+    opacity: 1;
   }
+  100% {
+    opacity: 0;
+    z-index: -9999;
+  }
+}
 
-.a1 {
-  width: 1000px;
-  height: 100vh;
+.flash1 {
+@include flash;
   background: #e7dbc1;
-  position: absolute;
-  clip-path: polygon(25% 0%, 63% 0, 38% 100%, 0 100%);
-  top: 0px;
-  animation: run 2s infinite;
   animation-delay: 0.4s;
 }
 
-.a2 {
-  width: 1000px;
-  height: 100vh;
+.flash2 {
+  @include flash;
   background: rgb(235, 201, 139);
-  position: absolute;
-  clip-path: polygon(25% 0%, 63% 0, 38% 100%, 0 100%);
-  border: solid red px;
-  top: 0px;
-  animation: run 2s infinite;
   animation-delay: 0.8s;
 }
 
-.a3 {
-  width: 1000px;
-  height: 100vh;
+.flash3 {
+  @include flash;
   background: #ddc18e;
-  position: absolute;
-  clip-path: polygon(25% 0%, 63% 0, 38% 100%, 0 100%);
-  border: solid red px;
-  top: 0px;
-  animation: run 2s infinite;
 }
 
 @keyframes run {
   0% {
-    left: -50%;
+    left: -100%;
   }
   100% {
     left: 100%;
@@ -66,12 +69,16 @@
 }
 
 .panwrap {
-  top: 40vh;
-  position: relative;
   width: 200px;
   height: 200px;
-  margin: auto;
   overflow: hidden;
+  z-index: 9999;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: opening 5s normal forwards;
+  animation-timing-function: cubic-bezier(1, 1, 1, 9);
 }
 
 .pan {
@@ -158,6 +165,7 @@
     transform: rotate(0deg);
   }
 }
+
 .carrot {
   width: 28px;
   height: 28px;
@@ -246,59 +254,41 @@
 }
 
 .green0 {
-  position: absolute;
+  @include green;
   left: 55px;
-  width: 6px;
-  height: 6px;
-  background: green;
   animation: jump 0.8s infinite alternate;
 }
 
 .green1 {
-  position: absolute;
+  @include green;
   left: 70px;
-  width: 6px;
-  height: 6px;
-  background: green;
   animation: jump 0.8s infinite alternate;
   animation-delay: 0.1s;
 }
 
 .green2 {
-  position: absolute;
+  @include green;
   left: 77px;
-  width: 6px;
-  height: 6px;
-  background: green;
   animation: jump 1s infinite alternate;
   animation-delay: 0.2s;
 }
 
 .green3 {
-  position: absolute;
+  @include green;
   left: 87px;
-  width: 6px;
-  height: 6px;
-  background: green;
   animation: turn 1s infinite alternate;
   animation-delay: 0.1s;
 }
 
 .green4 {
-  position: absolute;
+  @include green;
   left: 110px;
-  width: 6px;
-  height: 6px;
-  background: green;
   animation: jump 1s infinite alternate;
 }
 
 .green5 {
-  position: absolute;
+  @include green;
   left: 90px;
-  width: 6px;
-  height: 6px;
-  background: green;
   animation: turn 1s infinite alternate;
   animation-delay: 0.1s;
 }
@@ -313,27 +303,18 @@
   overflow: hidden;
 }
 .dot1 {
-  position: absolute;
-  border: solid 13px rgb(109, 75, 13);
-  border-radius: 50%;
-  top: 3px;
-  background: rgb(109, 75, 13);
-  animation: run 0.5s infinite;
+  @include dot;
 }
 
 .dot2 {
-  position: absolute;
-  border: solid 13px rgb(148, 85, 43);
-  border-radius: 50%;
-  top: 3px;
-  left: 50px;
-  background: rgb(148, 85, 43);
-  animation: run 0.5s infinite;
-  animation-delay: 0.2s;
+  @include dot;
+  animation-delay: 0.3s;
 }
 
-@media(max-width:414px){
-.a1, .a2, .a3{
+@media (max-width: 414px) {
+  .flash1,
+  .flash2,
+  .flash3 {
     width: 600px;
-}
+  }
 }

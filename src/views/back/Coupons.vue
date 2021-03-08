@@ -314,7 +314,7 @@ export default {
 };
 </script>
 
-.<style lang="scss" scoped>
+<style lang="scss" scoped>
 .wrap{
   height: 100vh;
 }
