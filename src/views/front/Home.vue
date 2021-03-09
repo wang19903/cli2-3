@@ -19,9 +19,10 @@
                   backgroundImage:
                     'url(' + require('@/assets/img/aos1.png') + ')',
                 },
-                { 'max-width': '510px' },
-                { 'min-height': '280px' },
-                { margin: 'auto' },
+                { 'width': '100%' },
+                
+                { 'background-size': 'cover' },
+              {'background-position':'top center'}
               ]"
               class="infoDiv"
             ></div>
@@ -37,10 +38,9 @@
                   backgroundImage:
                     'url(' + require('@/assets/img/aos2.jpg') + ')',
                 },
-                { 'max-width': '510px' },
-                { 'min-height': '280px' },
+                { 'max-width': '100%' },
                 { 'background-size': 'cover' },
-                { margin: 'auto' },
+                {'background-position':'top center'}
               ]"
               class="infoDiv"
             ></div>

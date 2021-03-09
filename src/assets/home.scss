@@ -7,6 +7,7 @@
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
+  min-height: 280px;
 }
 
 ul {
@@ -80,5 +81,8 @@ li {
     right: 0px;
     top: 0px;
     z-index: -1;
+  }
+  .infoDiv{
+    min-height: 220px;
   }
 }
