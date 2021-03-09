@@ -21,7 +21,7 @@
         </div>
         <div class="row-col pr-5 pl-5">
           <blockquote class="blockquote mt-3">
-            <footer class="blockquote-footer text-right">
+            <footer class="blockquote-footer text-left">
               {{ product.description }}
             </footer>
           </blockquote>
@@ -36,13 +36,14 @@
               現在只要 {{ product.price }} 元
             </div>
           </div>
-          <div>
+          <div class="text-left">
             注意事項:絕對不含防腐劑，所以無論您是現場購買或宅配冷藏到貨，
             我們建議您當天沒食用完，請放入冰箱冷藏冷凍。
           </div>
 
           <div class="modal-footer">
-            <select name="" class="form-control mt-3" v-model="product.num">
+            <select  class="form-control mt-3" v-model="product.num">
+              <option value="0" disabled selected>--請選擇--</option>
               <option :value="num" v-for="num in 10" :key="num">
                 選購{{ num }} {{ product.unit }}
               </option>
@@ -98,6 +99,7 @@ export default {
       this.$http.get(api).then((response) => {
         vm.$store.dispatch("updataLoading", true);
         vm.product = response.data.product;
+        vm.product.num = 1;
         vm.$store.dispatch("updataLoading", false);
       });
     },

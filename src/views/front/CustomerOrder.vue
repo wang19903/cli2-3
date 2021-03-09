@@ -285,10 +285,14 @@ table{
   background-color: #e7dbc1;
 }
 
-
 .noItem {
   margin: 10px;
   font-size: 28px;
   color: red;
+}
+
+form .form-control{
+  min-width: 100%;
+  margin: auto;
 }
 </style>

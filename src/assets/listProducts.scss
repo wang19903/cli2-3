@@ -82,8 +82,8 @@ transition: 0.2s;
 
 .sizing {
   box-sizing: border-box;
-  height: 351px;
-  margin-bottom: 24px;
+  max-height: 351px;
+  margin-top: 24px;
 }
 
 .card:hover {
@@ -104,6 +104,12 @@ transition: 0.2s;
     height: 100% + 1%;
     width: 100% + 1%;
   }
+}
+
+.card-text{
+  text-overflow: ellipsis;
+  overflow: hidden;
+white-space: nowrap;
 }
 
 .card-footer button {
@@ -127,9 +133,5 @@ transition: 0.2s;
   .list-group-item {
     padding: 5px 0px 5px 0px;
     font-weight: $bold;
-  }
-
-  .sizing{
-    margin: 0px;
   }
 }

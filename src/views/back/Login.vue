@@ -46,7 +46,7 @@ export default {
     return {
       user: {
         username: 'lf21715@yahoo.com.tw',
-        password: '19900917',
+        password: '',
       },
       isLoading: false,
     };
@@ -112,6 +112,7 @@ body {
   height: auto;
   padding: 10px;
   font-size: 16px;
+  min-width: 300px;
 }
 .form-signin .form-control:focus {
   z-index: 2;

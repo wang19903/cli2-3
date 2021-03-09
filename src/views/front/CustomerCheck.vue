@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navbar />
-    <div class="my-5 row justify-content-center wrapper">
+    <div class="container-fluid my-5 row justify-content-center ">
       <form class="col-md-6" @submit.prevent="payOrder">
         <table class="table">
           <thead>
@@ -48,7 +48,14 @@
               <th>付款狀態</th>
               <td>
                 <span v-if="!order.is_paid">尚未付款</span>
-                <span v-else class="text-success">付款完成</span>
+                <div v-else>
+                  <div class="text-success mb-2">付款完成</div>
+                  <router-link to="/">
+                    <a class="text-light border border-danger bg-danger rounded"
+                      >返回首頁</a
+                    >
+                  </router-link>
+                </div>
               </td>
             </tr>
           </tbody>
@@ -112,3 +119,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+ul{
+  margin-top: 0px;
+}
+</style>
