@@ -1,5 +1,6 @@
 <template>
   <div class="wrap">
+    <Alert/>
     <loading :active.sync="isLoading"></loading>
     <main class="form-signin pt-5" @submit.prevent="signin" @keyup.enter="signin">
       <form class="pt-5">
@@ -40,6 +41,7 @@
 </template>
 
 <script>
+import Alert from'@/components/AlertMessage.vue'
 export default {
   name: "HelloWorld",
   data() {
@@ -50,6 +52,9 @@ export default {
       },
       isLoading: false,
     };
+  },
+  components:{
+    Alert
   },
   methods: {
     signin() {
