@@ -40,7 +40,7 @@
                       已套用優惠券
                     </div> -->
                   </td>
-                  <td class="align-middle ">
+                  <td class="align-middle">
                     {{ item.qty }}{{ item.product.unit }}
                   </td>                  
                 </tr>
@@ -248,10 +248,10 @@ export default {
       const coupon = {
         code: vm.coupon_code,
       };
-      //   vm.$store.dispatch("isLoading", true);
+      vm.$store.dispatch("updataLoading", true);
       this.$http.post(api, { data: coupon }).then((response) => {
         vm.getCart();
-        // vm.$store.dispatch("isLoading", false);
+        vm.$store.dispatch("updataLoading", false);
       });
     },
     createOrder() {
@@ -262,10 +262,11 @@ export default {
       this.$http.post(api, { data: order }).then((response) => {
         console.log("okok", response);
         if (response.data.success) {
+          vm.$store.dispatch("updataLoading", true);
           vm.$router.push(`/customercheck/${response.data.orderId}`);
         }
 
-        // vm.$store.dispatch("isLoading", false);
+        vm.$store.dispatch("updataLoading", false);
       });
     },
     ...mapActions("cartsModules", ["getCart"]),

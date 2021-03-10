@@ -46,7 +46,7 @@ export default {
     return {
       user: {
         username: 'lf21715@yahoo.com.tw',
-        password: '',
+        password: '19900917',
       },
       isLoading: false,
     };
@@ -59,14 +59,18 @@ export default {
       this.$http.post(api, vm.user).then((response) => {
         vm.isLoading = false;
         if (response.data.success) {
+          vm.$store.dispatch("updateMessage", {
+            message: response.data.message,
+            status: "success",
+          });
            const token = response.data.token;
            const expired = response.data.expired;
            document.cookie = `hexToken=${token}; expires=${new Date(expired)};`;
            vm.$router.push('/admin/products');
         }else{
-          vm.$store.dispatch('updateMessage', {
-            message: '上傳圖片失敗',
-            status: 'danger',
+          vm.$store.dispatch("updateMessage", {
+            message: response.data.message,
+            status: "danger",
           });
         }
       });

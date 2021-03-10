@@ -72,6 +72,7 @@
 <script>
 import Navbar from "@/components/front/Navbar";
 import Footer from "@/components/front/Footer";
+import { mapGetters } from "vuex";
 
 export default {
   name: "CustomerCheck",
@@ -91,21 +92,21 @@ export default {
     getOrder() {
       const vm = this;
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order/${vm.orderId}`;
-      // vm.isLoading = true;
+     vm.$store.dispatch("updataLoading", true);
       this.$http.get(api).then((response) => {
         vm.order = response.data.order;
         console.log(response);
-        //vm.isLoading = false;
+        vm.$store.dispatch("updataLoading", false);
       });
     },
 
     payOrder() {
       const vm = this;
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/pay/${vm.orderId}`;
-      //vm.isLoading = true;
+      vm.$store.dispatch("updataLoading", true);
       this.$http.post(api).then((response) => {
         console.log(response);
-        //vm.isLoading = false;
+        vm.$store.dispatch("updataLoading", false);
         if (response.data.success) {
           vm.getOrder();
         }
@@ -116,6 +117,9 @@ export default {
     this.orderId = this.$route.params.orderId;
     console.log(this.orderId);
     this.getOrder();
+  },
+    computed: {
+    ...mapGetters(["isLoading"]),
   },
 };
 </script>

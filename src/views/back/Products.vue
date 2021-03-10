@@ -10,11 +10,11 @@
       <table class="table mt-4">
         <thead>
           <tr>
-            <th width="100">分類</th>
+            <th width="90">分類</th>
             <th>名稱</th>
-            <th width="100">原價</th>
-            <th width="100">售價</th>
-            <th width="90">上架</th>
+            <th class="origin_price">原價</th>
+            <th width="90">售價</th>
+            <th width="70">上架</th>
             <th width="70">編輯</th>
             <th width="70">刪除</th>
           </tr>
@@ -23,7 +23,7 @@
           <tr v-for="item in products" :key="item.id">
             <td>{{ item.category }}</td>
             <td>{{ item.title }}</td>
-            <td class="text-right">
+            <td class="text-right origin_price">
               {{ item.origin_price | currency }}
             </td>
             <td class="text-right">
@@ -99,14 +99,18 @@
                 <div class="form-group">
                   <label for="customFile"
                     >或 上傳圖片
-                    <font-awesome-icon icon="spinner" spin v-if="fileUploading"/>
+                    <font-awesome-icon
+                      icon="spinner"
+                      spin
+                      v-if="fileUploading"
+                    />
                   </label>
                   <input
                     type="file"
                     id="customFile"
                     class="form-control"
                     ref="files"
-                    @change="uploadFile"                    
+                    @change="uploadFile"
                   />
                 </div>
                 <img
@@ -412,5 +416,14 @@ export default {
 <style lang="scss" scoped>
 .wrap {
   height: 100vh;
+  font-size: 15px;
+}
+.origin_price{
+  width: 90px;
+}
+@media (max-width: 375px) {
+  .origin_price {
+    display: none;
+  }
 }
 </style>

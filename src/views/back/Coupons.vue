@@ -1,61 +1,69 @@
 <template>
   <div>
     <loading :active.sync="isLoading"></loading>
-    <div class="wrap">
-    <div class="text-right mt-4">
-      <button class="btn btn-primary" @click="openModal(true)">
-        新增優惠券
-      </button>
-    </div>
-    <table class="table mt-4">
-      <thead>
-        <tr>
-          <th>活動名稱</th>
-          <th width="120">折扣碼</th>
-          <th width="120">到期日</th>
-          <th width="75">折扣(%)</th>
-          <th width="110">是否啟用</th>
-          <th width="75">編輯</th>
-          <th width="75">刪除</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="item in coupons" :key="item.id">
-          <td>{{ item.title }}</td>
-          <td>{{ item.code }}</td>
-          <td>{{ new Date(item.due_date).toLocaleDateString()  }}</td>
-          <td>{{ item.percent}}%</td>
-          <td class="text-right">
-            <span v-if="item.is_enabled" class="text-success">啟用</span>
-            <span v-else>未啟用</span>
-          </td>
-          <td>
-            <button
-              class="btn btn-outline-primary btn-sm"
-              @click="openModal(false, item)"
-            >
-              編輯
-            </button>
-          </td>
-          <td>
-            <button
-              class="btn btn-outline-danger btn-sm"
-              @click="openDeleteModal(item)"
-            >
-              刪除
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <!-- pagination -->
-    <pagination
-      class=""
-      v-if="coupons.length"
-      :pagination="pagination"
-      @emitPage="getCoupons($event)"
-    ></pagination>
-    <!-- Modal -->
+    <div class="wrap m-0">
+      <div class="text-right mt-4">
+        <button class="btn btn-primary" @click="openModal(true)">
+          新增優惠券
+        </button>
+      </div>
+      <table class="table mt-4">
+        <thead>
+          <tr>
+            <th>活動名稱</th>
+            <th width="80">折扣碼</th>
+            <th width="80">到期日</th>
+            <th width="70">折扣(%)</th>
+            <th width="70" class="RWDnone">啟用</th>
+            <th width="70" class="RWDnone">編輯</th>
+            <th width="70" class="RWDnone">刪除</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in coupons" :key="item.id">
+            <td><div class="RWDnone">
+              {{ item.title }}</div>
+              <button
+                class="RWDon btn btn-outline-primary btn-sm"
+                @click="openModal(false, item)"
+              >
+                {{ item.title }}
+              </button>
+            </td>
+            <td>{{ item.code }}</td>
+            <td>{{ new Date(item.due_date).toLocaleDateString() }}</td>
+            <td>{{ item.percent }}%</td>
+            <td class="text-center RWDnone">
+              <span v-if="item.is_enabled" class="text-success">O</span>
+              <span v-else>X</span>
+            </td>
+            <td class="RWDnone">
+              <button
+                class="btn btn-outline-primary btn-sm"
+                @click="openModal(false, item)"
+              >
+                編輯
+              </button>
+            </td>
+            <td class="RWDnone">
+              <button
+                class="btn btn-outline-danger btn-sm"
+                @click="openDeleteModal(item)"
+              >
+                刪除
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- pagination -->
+      <pagination
+        class=""
+        v-if="coupons.length"
+        :pagination="pagination"
+        @emitPage="getCoupons($event)"
+      ></pagination>
+      <!-- Modal -->
     </div>
     <div
       class="modal fade"
@@ -81,7 +89,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <div class="row"> 
+            <div class="row">
               <div class="col-sm">
                 <div class="form-group">
                   <label for="title">活動名稱</label>
@@ -161,9 +169,11 @@
                       :false-value="1"
                       id="is_enabled"
                     />
-                    <label class="form-check-label" for="is_enabled">
+                    <label class="form-check-label text-left" for="is_enabled">
                       是否啟用
-                    </label>
+                    </label><span class="text-right">
+                    目前狀態:<span v-if="tempCoupon.is_enabled" class="text-success">O</span>
+              <span v-else>X</span></span>
                   </div>
                 </div>
               </div>
@@ -171,17 +181,19 @@
           </div>
           <div class="modal-footer">
             <button
+                class="btn btn-danger RWDon"
+                @click="openDeleteModal(item)"
+              >
+                刪除
+              </button>
+            <button
               type="button"
               class="btn btn-outline-secondary"
               data-dismiss="modal"
             >
               取消
             </button>
-            <button
-              type="button"
-              class="btn btn-primary"
-              @click="updateCoupon"
-            >
+            <button type="button" class="btn btn-primary" @click="updateCoupon">
               確認
             </button>
           </div>
@@ -240,11 +252,11 @@ import $ from "jquery";
 import pagination from "@/components/Pagination";
 
 export default {
-    name: 'Coupons',
+  name: "Coupons",
   data() {
     return {
       coupons: [],
-      pagination: {}, 
+      pagination: {},
       tempCoupon: {},
       isNew: false,
       isLoading: false,
@@ -274,7 +286,7 @@ export default {
       }
       $("#couponModal").modal("show");
     },
-    updateCoupon () {
+    updateCoupon() {
       const vm = this;
       let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon`;
       let httpMethod = "post";
@@ -315,7 +327,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.wrap{
+.wrap {
   height: 100vh;
+}
+
+.RWDon{
+  display: none;
+}
+@media (max-width: 576px) {
+  td {
+    padding: 6px 6px 6px 6px;
+    font-size: 15px;
+  }
+
+  .RWDnone {
+    display: none;
+  }
+
+  .RWDon {
+    display: block;
+  }
 }
 </style>
