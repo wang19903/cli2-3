@@ -11,7 +11,11 @@
       <div class="container-fluid">
         <router-link class="navbar-brand p-0" to="/">
           <b-navbar-brand href="" class="p-0">
-            <img src="@/assets/img/logo.png" style="height: 45px" alt="鼎鮮飯麵LOGO" />
+            <img
+              src="@/assets/img/logo.png"
+              style="height: 45px"
+              alt="鼎鮮飯麵LOGO"
+            />
           </b-navbar-brand>
         </router-link>
 
@@ -125,33 +129,33 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
-  name: "Navbar",
+  name: 'Navbar',
   data() {
-    return {};
+    return {}
   },
   methods: {
     removeCart(id) {
-      this.$store.dispatch("cartsModules/removeCart", id);
+      this.$store.dispatch('cartsModules/removeCart', id)
     },
     checkout() {
-      this.$router.push("/order");
+      this.$router.push('/order')
     },
-    ...mapActions("cartsModules", ["getCart"]),
+    ...mapActions('cartsModules', ['getCart']),
   },
   computed: {
-    ...mapGetters("cartsModules", ["cart"]),
-    ...mapGetters(["isLoading"]),
+    ...mapGetters('cartsModules', ['cart']),
+    ...mapGetters(['isLoading']),
   },
   created() {
-    this.getCart();
-    this.$bus.$on("updateCart", () => {});
+    this.getCart()
+    this.$bus.$on('updateCart', () => {})
   },
-};
+}
 </script>
 
 <style scoped lang="scss">
-@import "../../assets/front_navber";
+@import '../../assets/front_navber';
 </style>

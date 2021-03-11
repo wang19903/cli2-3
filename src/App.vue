@@ -26,7 +26,7 @@ body {
   height: 185px;
 }
 
-ul{
+ul {
   margin: 0;
 }
 </style>

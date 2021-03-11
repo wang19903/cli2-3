@@ -1,9 +1,6 @@
 <template>
   <div>
-    <nav
-      id="sidebarMenu"
-      class="col d-md-block bg-light sidebar collapse"
-    >
+    <nav id="sidebarMenu" class="col d-md-block bg-light sidebar collapse">
       <div class="sidebar-sticky pt-3">
         <h6
           class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-1 mb-1 text-muted"
@@ -19,18 +16,18 @@
         </h6>
         <ul class="nav flex-column mb-2">
           <li class="nav-item">
-            <router-link class="nav-link" to="/admin/products">            
+            <router-link class="nav-link" to="/admin/products">
               <i class="fas fa-box-open"></i>
               產品列表</router-link
             >
           </li>
-           <li class="nav-item">
+          <li class="nav-item">
             <router-link class="nav-link" to="/admin/orders">
-              <i class="far fa-list-alt "></i>
+              <i class="far fa-list-alt"></i>
               訂單列表</router-link
             >
           </li>
-           <li class="nav-item">
+          <li class="nav-item">
             <router-link class="nav-link" to="/admin/coupons">
               <i class="fas fa-ticket-alt"></i>
               優惠券</router-link

@@ -27,28 +27,28 @@ export default {
     return {
       scTimer: 0,
       scY: 0,
-    };
+    }
   },
   mounted() {
-    window.addEventListener("scroll", this.handleScroll);
+    window.addEventListener('scroll', this.handleScroll)
   },
   methods: {
     handleScroll: function () {
-      if (this.scTimer) return;
+      if (this.scTimer) return
       this.scTimer = setTimeout(() => {
-        this.scY = window.scrollY;
-        clearTimeout(this.scTimer);
-        this.scTimer = 0;
-      }, 100);
+        this.scY = window.scrollY
+        clearTimeout(this.scTimer)
+        this.scTimer = 0
+      }, 100)
     },
     toTop: function () {
       window.scrollTo({
         top: 0,
-        behavior: "smooth",
-      });
+        behavior: 'smooth',
+      })
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>
@@ -61,7 +61,7 @@ export default {
   z-index: 1;
 }
 
-svg{
-  color:rgb(255, 0, 0);
+svg {
+  color: rgb(255, 0, 0);
 }
 </style>

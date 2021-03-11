@@ -21,8 +21,10 @@
         </thead>
         <tbody>
           <tr v-for="item in coupons" :key="item.id">
-            <td><div class="RWDnone">
-              {{ item.title }}</div>
+            <td>
+              <div class="RWDnone">
+                {{ item.title }}
+              </div>
               <button
                 class="RWDon btn btn-outline-primary btn-sm"
                 @click="openModal(false, item)"
@@ -170,22 +172,24 @@
                       id="is_enabled"
                     />
                     <label class="form-check-label text-left" for="is_enabled">
-                      是否啟用
-                    </label><span class="text-right">
-                    目前狀態:<span v-if="tempCoupon.is_enabled" class="text-success">O</span>
-              <span v-else>X</span></span>
+                      是否啟用 </label
+                    ><span class="text-right">
+                      目前狀態:<span
+                        v-if="tempCoupon.is_enabled"
+                        class="text-success"
+                        >O</span
+                      >
+                      <span v-else>X</span></span
+                    >
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <div class="modal-footer">
-            <button
-                class="btn btn-danger RWDon"
-                @click="openDeleteModal(item)"
-              >
-                刪除
-              </button>
+            <button class="btn btn-danger RWDon" @click="openDeleteModal(item)">
+              刪除
+            </button>
             <button
               type="button"
               class="btn btn-outline-secondary"
@@ -248,11 +252,11 @@
 </template>
 
 <script>
-import $ from "jquery";
-import pagination from "@/components/Pagination";
+import $ from 'jquery'
+import pagination from '@/components/Pagination'
 
 export default {
-  name: "Coupons",
+  name: 'Coupons',
   data() {
     return {
       coupons: [],
@@ -260,70 +264,70 @@ export default {
       tempCoupon: {},
       isNew: false,
       isLoading: false,
-    };
+    }
   },
   components: {
     pagination,
   },
   methods: {
     getCoupons(page = 1) {
-      const vm = this;
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupons?page=${page}`;
-      vm.isLoading = true;
-      this.$http.get(api).then((response) => {
-        vm.isLoading = false;
-        vm.coupons = response.data.coupons;
-        vm.pagination = response.data.pagination;
-      });
+      const vm = this
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupons?page=${page}`
+      vm.isLoading = true
+      this.$http.get(api).then(response => {
+        vm.isLoading = false
+        vm.coupons = response.data.coupons
+        vm.pagination = response.data.pagination
+      })
     },
     openModal(isNew, item) {
       if (isNew) {
-        this.tempCoupon = {};
-        this.isNew = true;
+        this.tempCoupon = {}
+        this.isNew = true
       } else {
-        this.tempCoupon = Object.assign({}, item);
-        this.isNew = false;
+        this.tempCoupon = Object.assign({}, item)
+        this.isNew = false
       }
-      $("#couponModal").modal("show");
+      $('#couponModal').modal('show')
     },
     updateCoupon() {
-      const vm = this;
-      let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon`;
-      let httpMethod = "post";
+      const vm = this
+      let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon`
+      let httpMethod = 'post'
       if (!vm.isNew) {
-        api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${vm.tempCoupon.id}`;
-        httpMethod = "put";
+        api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${vm.tempCoupon.id}`
+        httpMethod = 'put'
       }
-      console.log(process.env.APIPATH, process.env.CUSTOMPATH);
-      this.$http[httpMethod](api, { data: vm.tempCoupon }).then((response) => {
+      console.log(process.env.APIPATH, process.env.CUSTOMPATH)
+      this.$http[httpMethod](api, { data: vm.tempCoupon }).then(response => {
         if (response.data.success) {
-          $("#couponModal").modal("hide");
-          vm.getCoupons();
+          $('#couponModal').modal('hide')
+          vm.getCoupons()
         } else {
-          $("#couponModal").modal("hide");
-          vm.getCoupons();
-          console.log("新增失敗");
+          $('#couponModal').modal('hide')
+          vm.getCoupons()
+          console.log('新增失敗')
         }
-      });
+      })
     },
     openDeleteModal(item) {
-      const vm = this;
-      $("#delCouponModal").modal("show");
-      vm.tempCoupon = Object.assign({}, item);
+      const vm = this
+      $('#delCouponModal').modal('show')
+      vm.tempCoupon = Object.assign({}, item)
     },
     deleteCoupon() {
-      const vm = this;
-      let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${vm.tempCoupon.id}`;
-      this.$http.delete(api).then((response) => {
-        $("#delCouponModal").modal("hide");
-        vm.getCoupons();
-      });
+      const vm = this
+      let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${vm.tempCoupon.id}`
+      this.$http.delete(api).then(response => {
+        $('#delCouponModal').modal('hide')
+        vm.getCoupons()
+      })
     },
   },
   created() {
-    this.getCoupons();
+    this.getCoupons()
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>
@@ -331,7 +335,7 @@ export default {
   height: 100vh;
 }
 
-.RWDon{
+.RWDon {
   display: none;
 }
 @media (max-width: 576px) {

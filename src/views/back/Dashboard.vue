@@ -14,9 +14,9 @@
 </template>  
 
 <script>
-import Sidebar from "../../components/back/Sidebar";
-import Navbar from "../../components/back/Navbar";
-import Alert from "../../components/AlertMessage";
+import Sidebar from '../../components/back/Sidebar'
+import Navbar from '../../components/back/Navbar'
+import Alert from '../../components/AlertMessage'
 
 export default {
   components: {
@@ -27,9 +27,9 @@ export default {
   created() {
     const mycookie = document.cookie.replace(
       /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
-      "$1"
-    );
-    this.$http.defaults.headers.common.Authorization = mycookie;
+      '$1'
+    )
+    this.$http.defaults.headers.common.Authorization = mycookie
   },
-};
+}
 </script>  

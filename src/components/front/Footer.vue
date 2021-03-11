@@ -11,7 +11,7 @@
               <span>飯麵</span>
             </div>
           </li>
-          <li >
+          <li>
             <ul class="p-0 d-flex">
               <li class="fb">
                 <a href="https://www.facebook.com/">
@@ -55,10 +55,10 @@
 
 <script>
 export default {
-  name: "Footer",
-};
+  name: 'Footer',
+}
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/front_footer";
+@import '@/assets/front_footer';
 </style>

@@ -6,11 +6,11 @@
         <div class="row justify-content-md-center">
           <div class="col col-md-8">
             <table class="table table-striped mt-4" v-if="cart.carts.length">
-              <thead >
+              <thead>
                 <th></th>
                 <th></th>
                 <th>品名</th>
-                <th>數量</th>               
+                <th>數量</th>
               </thead>
               <tbody>
                 <tr v-for="item in cart.carts" :key="item.id">
@@ -24,15 +24,17 @@
                     </button>
                   </td>
                   <td class="align-middle">
-                   <div
-                        style="
-                          height: 50px;
-                          background-size: cover;
-                          background-position: center;
-                        "
-                        class=""
-                        :style="{ backgroundImage: `url(${item.product.imageUrl})` }"
-                      ></div>
+                    <div
+                      style="
+                        height: 50px;
+                        background-size: cover;
+                        background-position: center;
+                      "
+                      class=""
+                      :style="{
+                        backgroundImage: `url(${item.product.imageUrl})`,
+                      }"
+                    ></div>
                   </td>
                   <td class="align-middle">
                     {{ item.product.title }}
@@ -42,7 +44,7 @@
                   </td>
                   <td class="align-middle">
                     {{ item.qty }}{{ item.product.unit }}
-                  </td>                  
+                  </td>
                 </tr>
               </tbody>
               <tfoot>
@@ -214,75 +216,75 @@
 </template>
 
 <script>
-import Navbar from "@/components/front/Navbar";
-import Footer from "@/components/front/Footer";
-import { mapGetters, mapActions } from "vuex";
+import Navbar from '@/components/front/Navbar'
+import Footer from '@/components/front/Footer'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
-  name: "CustomerOrder",
+  name: 'CustomerOrder',
   components: {
     Navbar,
     Footer,
   },
   data() {
     return {
-      coupon_code: "",
+      coupon_code: '',
       form: {
         user: {
-          name: "",
-          email: "",
-          tel: "",
-          address: "",
+          name: '',
+          email: '',
+          tel: '',
+          address: '',
         },
-        message: "",
+        message: '',
       },
-    };
+    }
   },
   methods: {
     removeCart(id) {
-      this.$store.dispatch("cartsModules/removeCart", id);
+      this.$store.dispatch('cartsModules/removeCart', id)
     },
     addCouponCode() {
-      const vm = this;
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/coupon`;
+      const vm = this
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/coupon`
       const coupon = {
         code: vm.coupon_code,
-      };
-      vm.$store.dispatch("updataLoading", true);
-      this.$http.post(api, { data: coupon }).then((response) => {
-        vm.getCart();
-        vm.$store.dispatch("updataLoading", false);
-      });
+      }
+      vm.$store.dispatch('updataLoading', true)
+      this.$http.post(api, { data: coupon }).then(response => {
+        vm.getCart()
+        vm.$store.dispatch('updataLoading', false)
+      })
     },
     createOrder() {
-      const vm = this;
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order`;
-      const order = vm.form;
+      const vm = this
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order`
+      const order = vm.form
 
-      this.$http.post(api, { data: order }).then((response) => {
-        console.log("okok", response);
+      this.$http.post(api, { data: order }).then(response => {
+        console.log('okok', response)
         if (response.data.success) {
-          vm.$store.dispatch("updataLoading", true);
-          vm.$router.push(`/customercheck/${response.data.orderId}`);
+          vm.$store.dispatch('updataLoading', true)
+          vm.$router.push(`/customercheck/${response.data.orderId}`)
         }
 
-        vm.$store.dispatch("updataLoading", false);
-      });
+        vm.$store.dispatch('updataLoading', false)
+      })
     },
-    ...mapActions("cartsModules", ["getCart"]),
+    ...mapActions('cartsModules', ['getCart']),
   },
   computed: {
-    ...mapGetters("cartsModules", ["cart"]),
-    ...mapGetters(["isLoading"]),
+    ...mapGetters('cartsModules', ['cart']),
+    ...mapGetters(['isLoading']),
   },
   created() {
-    this.getCart();
+    this.getCart()
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>
-table{
+table {
   background-color: #e7dbc1;
 }
 
@@ -292,7 +294,7 @@ table{
   color: red;
 }
 
-form .form-control{
+form .form-control {
   min-width: 100%;
   margin: auto;
 }

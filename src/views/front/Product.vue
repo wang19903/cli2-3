@@ -42,7 +42,7 @@
           </div>
 
           <div class="modal-footer">
-            <select  class="form-control mt-3" v-model="product.num">
+            <select class="form-control mt-3" v-model="product.num">
               <option value="0" disabled selected>--請選擇--</option>
               <option :value="num" v-for="num in 10" :key="num">
                 選購{{ num }} {{ product.unit }}
@@ -73,12 +73,12 @@
 </template>
 
 <script>
-import Navbar from "@/components/front/Navbar";
-import Footer from "@/components/front/Footer";
-import { mapGetters } from "vuex";
+import Navbar from '@/components/front/Navbar'
+import Footer from '@/components/front/Footer'
+import { mapGetters } from 'vuex'
 
 export default {
-  name: "Product",
+  name: 'Product',
   components: {
     Navbar,
     Footer,
@@ -88,33 +88,33 @@ export default {
       product: {},
       productitem: {},
       status: {
-        loadingItem: "",
+        loadingItem: '',
       },
-    };
+    }
   },
   methods: {
     getProduct() {
-      const vm = this;
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${vm.productId}`;
-      this.$http.get(api).then((response) => {
-        vm.$store.dispatch("updataLoading", true);
-        vm.product = response.data.product;
-        vm.product.num = 1;
-        vm.$store.dispatch("updataLoading", false);
-      });
+      const vm = this
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${vm.productId}`
+      this.$http.get(api).then(response => {
+        vm.$store.dispatch('updataLoading', true)
+        vm.product = response.data.product
+        vm.product.num = 1
+        vm.$store.dispatch('updataLoading', false)
+      })
     },
     addtoCart(id, qty = 1) {
-      this.$store.dispatch("cartsModules/addtoCart", { id, qty });
+      this.$store.dispatch('cartsModules/addtoCart', { id, qty })
     },
   },
   computed: {
-    ...mapGetters(["isLoading"]),
+    ...mapGetters(['isLoading']),
   },
   created() {
-    this.productId = this.$route.params.productId;
-    this.getProduct();
+    this.productId = this.$route.params.productId
+    this.getProduct()
   },
-};
+}
 </script>
 
 <style lang="scss">

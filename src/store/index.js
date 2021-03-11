@@ -1,9 +1,9 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-import productModules from './products';
-import cartsModules from './carts';
+import Vue from 'vue'
+import Vuex from 'vuex'
+import productModules from './products'
+import cartsModules from './carts'
 
-Vue.use(Vuex);
+Vue.use(Vuex)
 
 export default new Vuex.Store({
   strict: true,
@@ -13,43 +13,43 @@ export default new Vuex.Store({
   },
   actions: {
     updataLoading(context, status) {
-      context.commit('LOADING', status);
+      context.commit('LOADING', status)
     },
     updateMessage(context, { message, status }) {
-      const timestamp = Math.floor(new Date() / 1000);
+      const timestamp = Math.floor(new Date() / 1000)
       const messages = {
         message,
         status,
         timestamp,
-      };
-      context.commit('MESSAGESPUSH', messages);
-      context.dispatch('removeMessageWithTiming', timestamp);
+      }
+      context.commit('MESSAGESPUSH', messages)
+      context.dispatch('removeMessageWithTiming', timestamp)
     },
     removeMessage(context, num) {
-      context.commit('MESSAGEREMOVE', num);
+      context.commit('MESSAGEREMOVE', num)
     },
     removeMessageWithTiming(context, timestamp) {
       setTimeout(() => {
-        context.commit('MESSAGETIMEING', timestamp);
-      }, 5000);
+        context.commit('MESSAGETIMEING', timestamp)
+      }, 5000)
     },
   },
   mutations: {
     LOADING(state, status) {
-      state.isLoading = status;
+      state.isLoading = status
     },
     MESSAGESPUSH(state, payload) {
-      state.messages.push(payload);
+      state.messages.push(payload)
     },
     MESSAGEREMOVE(state, payload) {
-      state.messages.splice(payload, 1);
+      state.messages.splice(payload, 1)
     },
     MESSAGETIMEING(state, payload) {
       state.messages.forEach((item, i) => {
         if (item.timestamp === payload) {
-          state.messages.splice(i, 1);
+          state.messages.splice(i, 1)
         }
-      });
+      })
     },
   },
   getters: {
@@ -60,4 +60,4 @@ export default new Vuex.Store({
     productModules,
     cartsModules,
   },
-});
+})

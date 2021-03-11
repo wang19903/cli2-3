@@ -155,14 +155,14 @@
 </template>
 
 <script>
-import Navbar from "@/components/front/Navbar.vue";
-import Footer from "@/components/front/Footer.vue";
-import pagination from "@/components/Pagination.vue";
-import { mapGetters, mapActions } from "vuex";
-import GoTop from "@/components/front/GoTop.vue";
+import Navbar from '@/components/front/Navbar.vue'
+import Footer from '@/components/front/Footer.vue'
+import pagination from '@/components/Pagination.vue'
+import { mapGetters, mapActions } from 'vuex'
+import GoTop from '@/components/front/GoTop.vue'
 
 export default {
-  name: "ListProducts",
+  name: 'ListProducts',
   components: {
     Navbar,
     Footer,
@@ -171,102 +171,102 @@ export default {
   },
   data() {
     return {
-      sortType: "price",
+      sortType: 'price',
       isReverse: false,
       tempData: [],
       product: {},
       currentPage: 0,
       newData: [],
-      searchText: "",
+      searchText: '',
       status: {
-        loadingItem: "",
+        loadingItem: '',
       },
-    };
+    }
   },
   methods: {
     getProduct(id) {
-      const vm = this;
-      vm.$router.push(`/product/${id}`);
+      const vm = this
+      vm.$router.push(`/product/${id}`)
     },
     addtoCart(id, qty = 1) {
-      this.$store.dispatch("cartsModules/addtoCart", { id, qty });
+      this.$store.dispatch('cartsModules/addtoCart', { id, qty })
     },
     prev() {
-      const vm = this;
+      const vm = this
       if (vm.currentPage === 0) {
-        vm.currentPage = 0;
+        vm.currentPage = 0
       } else {
-        vm.currentPage--;
+        vm.currentPage--
       }
     },
     next() {
-      const vm = this;
+      const vm = this
       if (vm.currentPage === vm.newData.length - 1) {
-        vm.currentPage = vm.newData.length - 1;
+        vm.currentPage = vm.newData.length - 1
       } else {
-        vm.currentPage++;
+        vm.currentPage++
       }
     },
     checkDetail(id) {
-      this.$router.push(`/product/${id}`);
+      this.$router.push(`/product/${id}`)
     },
     changeType: function (type) {
-      var vm = this;
+      var vm = this
       if (vm.sortType == type) {
-        vm.isReverse = !vm.isReverse;
+        vm.isReverse = !vm.isReverse
       } else {
-        vm.isReverse = false;
+        vm.isReverse = false
       }
-      vm.sortType = type;
+      vm.sortType = type
     },
-    ...mapActions("productModules", ["getProducts"]),
+    ...mapActions('productModules', ['getProducts']),
   },
   computed: {
     filterData() {
-      const vm = this;
-      vm.currentPage = 0;
-      let sortdata = [];
-      vm.$store.dispatch("updataLoading", true);
-      vm.tempData = vm.products.filter((item) => {
-        if (vm.searchText === "") {
-          return vm.products;
+      const vm = this
+      vm.currentPage = 0
+      let sortdata = []
+      vm.$store.dispatch('updataLoading', true)
+      vm.tempData = vm.products.filter(item => {
+        if (vm.searchText === '') {
+          return vm.products
         } else if (vm.searchText === item.category) {
           let category_data = item.category
             .toLowerCase()
-            .includes(vm.searchText.toLowerCase());
-          return category_data;
+            .includes(vm.searchText.toLowerCase())
+          return category_data
         } else if (vm.searchText !== item.title) {
           let title_data = item.title
             .toLowerCase()
-            .includes(vm.searchText.toLowerCase());
-          return title_data;
+            .includes(vm.searchText.toLowerCase())
+          return title_data
         }
-      });
-      let type = vm.sortType;
+      })
+      let type = vm.sortType
       sortdata = vm.tempData.sort(function (a, b) {
-        if (vm.isReverse) return b[type] - a[type];
-        else return a[type] - b[type];
-      });
-      vm.newData = [];
+        if (vm.isReverse) return b[type] - a[type]
+        else return a[type] - b[type]
+      })
+      vm.newData = []
       sortdata.forEach((item, i) => {
         if (i % 6 == 0) {
-          vm.newData.push([]);
+          vm.newData.push([])
         }
-        const pagenum = parseInt(i / 6);
-        vm.newData[pagenum].push(item);
-      });
-      vm.$store.dispatch("updataLoading", false);
-      return vm.newData;
+        const pagenum = parseInt(i / 6)
+        vm.newData[pagenum].push(item)
+      })
+      vm.$store.dispatch('updataLoading', false)
+      return vm.newData
     },
-    ...mapGetters("productModules", ["categories", "products"]),
-    ...mapGetters(["isLoading"]),
+    ...mapGetters('productModules', ['categories', 'products']),
+    ...mapGetters(['isLoading']),
   },
   created() {
-    this.getProducts();
+    this.getProducts()
   },
-};
+}
 </script>
 
 <style scoped lang="scss">
-@import "@/assets/listProducts.scss";
+@import '@/assets/listProducts.scss';
 </style>

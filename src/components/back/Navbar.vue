@@ -4,12 +4,10 @@
       class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow"
     >
       <router-link class="navbar-brand" to="/">
-          <a href="#" class="text-logo pl-3 pr-3">
-           回首頁
-          </a>
-        </router-link>
+        <a href="#" class="text-logo pl-3 pr-3"> 回首頁 </a>
+      </router-link>
       <button
-        class="navbar-toggler position-absolute d-md-none collapsed "
+        class="navbar-toggler position-absolute d-md-none collapsed"
         type="button"
         data-toggle="collapse"
         data-target="#sidebarMenu"
@@ -27,7 +25,9 @@
       /> -->
       <ul class="navbar-nav pr-3">
         <li class="nav-item text-nowrap">
-          <a class="nav-link logout" href="#" @click.prevent="signout()">登出</a>
+          <a class="nav-link logout" href="#" @click.prevent="signout()"
+            >登出</a
+          >
         </li>
       </ul>
     </nav>
@@ -36,31 +36,30 @@
 
 <script>
 export default {
-  name: "navbar",
+  name: 'navbar',
   methods: {
     signout() {
-      const api = `${process.env.VUE_APP_APIPATH}/logout`;
-      const vm = this;
-      this.$http.post(api).then((response) => {
-        console.log(response.data);
+      const api = `${process.env.VUE_APP_APIPATH}/logout`
+      const vm = this
+      this.$http.post(api).then(response => {
+        console.log(response.data)
         if (response.data.success) {
           //  const token = response.data.token;
           //  const expired = response.data.expired;
           //  console.log(token, expired);
           //  document.cookie = `someCookieName=${token}; expires=${new Date(expired)};`;
-          vm.$router.push("/login");
+          vm.$router.push('/login')
         }
-      });
+      })
     },
   },
-};
+}
 </script>
 
 <style scoped>
 @media (max-width: 768px) {
-  .navbar-brand{
-   padding-left: 56px;
+  .navbar-brand {
+    padding-left: 56px;
   }
-
 }
 </style>

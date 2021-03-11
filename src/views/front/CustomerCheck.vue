@@ -1,7 +1,7 @@
 <template>
   <div>
     <Navbar />
-    <div class="container-fluid my-5 row justify-content-center ">
+    <div class="container-fluid my-5 row justify-content-center">
       <form class="col-md-6" @submit.prevent="payOrder">
         <table class="table">
           <thead>
@@ -70,12 +70,12 @@
 </template>
 
 <script>
-import Navbar from "@/components/front/Navbar";
-import Footer from "@/components/front/Footer";
-import { mapGetters } from "vuex";
+import Navbar from '@/components/front/Navbar'
+import Footer from '@/components/front/Footer'
+import { mapGetters } from 'vuex'
 
 export default {
-  name: "CustomerCheck",
+  name: 'CustomerCheck',
   components: {
     Navbar,
     Footer,
@@ -85,47 +85,47 @@ export default {
       order: {
         user: {},
       },
-      orderId: "",
-    };
+      orderId: '',
+    }
   },
   methods: {
     getOrder() {
-      const vm = this;
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order/${vm.orderId}`;
-     vm.$store.dispatch("updataLoading", true);
-      this.$http.get(api).then((response) => {
-        vm.order = response.data.order;
-        console.log(response);
-        vm.$store.dispatch("updataLoading", false);
-      });
+      const vm = this
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order/${vm.orderId}`
+      vm.$store.dispatch('updataLoading', true)
+      this.$http.get(api).then(response => {
+        vm.order = response.data.order
+        console.log(response)
+        vm.$store.dispatch('updataLoading', false)
+      })
     },
 
     payOrder() {
-      const vm = this;
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/pay/${vm.orderId}`;
-      vm.$store.dispatch("updataLoading", true);
-      this.$http.post(api).then((response) => {
-        console.log(response);
-        vm.$store.dispatch("updataLoading", false);
+      const vm = this
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/pay/${vm.orderId}`
+      vm.$store.dispatch('updataLoading', true)
+      this.$http.post(api).then(response => {
+        console.log(response)
+        vm.$store.dispatch('updataLoading', false)
         if (response.data.success) {
-          vm.getOrder();
+          vm.getOrder()
         }
-      });
+      })
     },
   },
   created() {
-    this.orderId = this.$route.params.orderId;
-    console.log(this.orderId);
-    this.getOrder();
+    this.orderId = this.$route.params.orderId
+    console.log(this.orderId)
+    this.getOrder()
   },
-    computed: {
-    ...mapGetters(["isLoading"]),
+  computed: {
+    ...mapGetters(['isLoading']),
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>
-ul{
+ul {
   margin-top: 0px;
 }
 </style>

@@ -32,5 +32,5 @@
   </div>
 </template>
 <style lang="scss" scoped>
-@import "@/assets/front_opening.scss";
+@import '@/assets/front_opening.scss';
 </style>

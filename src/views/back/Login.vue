@@ -1,8 +1,12 @@
 <template>
   <div class="wrap">
-    <Alert/>
+    <Alert />
     <loading :active.sync="isLoading"></loading>
-    <main class="form-signin pt-5" @submit.prevent="signin" @keyup.enter="signin">
+    <main
+      class="form-signin pt-5"
+      @submit.prevent="signin"
+      @keyup.enter="signin"
+    >
       <form class="pt-5">
         <h1 class="h3 mb-3 fw-normal text-center">請登入帳號</h1>
         <label for="inputEmail" class="visually-hidden">使用者信箱</label>
@@ -30,20 +34,22 @@
           </label>
         </div> -->
         <div class="btnwrap">
-        <button class="w-100 btn btn-lg btn-dark mt-3" type="submit">
-          登入
-        </button>
+          <button class="w-100 btn btn-lg btn-dark mt-3" type="submit">
+            登入
+          </button>
         </div>
-        <p class="mt-5 pt-2 mb-3 text-muted text-center">&copy;  All Right Reserved(demo)</p>
+        <p class="mt-5 pt-2 mb-3 text-muted text-center">
+          &copy; All Right Reserved(demo)
+        </p>
       </form>
     </main>
   </div>
 </template>
 
 <script>
-import Alert from'@/components/AlertMessage.vue'
+import Alert from '@/components/AlertMessage.vue'
 export default {
-  name: "HelloWorld",
+  name: 'HelloWorld',
   data() {
     return {
       user: {
@@ -51,37 +57,37 @@ export default {
         password: '19900917',
       },
       isLoading: false,
-    };
+    }
   },
-  components:{
-    Alert
+  components: {
+    Alert,
   },
   methods: {
     signin() {
-      const api = `${process.env.VUE_APP_APIPATH}/admin/signin`;
-      const vm = this;
-      vm.isLoading = true;
-      this.$http.post(api, vm.user).then((response) => {
-        vm.isLoading = false;
+      const api = `${process.env.VUE_APP_APIPATH}/admin/signin`
+      const vm = this
+      vm.isLoading = true
+      this.$http.post(api, vm.user).then(response => {
+        vm.isLoading = false
         if (response.data.success) {
-          vm.$store.dispatch("updateMessage", {
+          vm.$store.dispatch('updateMessage', {
             message: response.data.message,
-            status: "success",
-          });
-           const token = response.data.token;
-           const expired = response.data.expired;
-           document.cookie = `hexToken=${token}; expires=${new Date(expired)};`;
-           vm.$router.push('/admin/products');
-        }else{
-          vm.$store.dispatch("updateMessage", {
+            status: 'success',
+          })
+          const token = response.data.token
+          const expired = response.data.expired
+          document.cookie = `hexToken=${token}; expires=${new Date(expired)};`
+          vm.$router.push('/admin/products')
+        } else {
+          vm.$store.dispatch('updateMessage', {
             message: response.data.message,
-            status: "danger",
-          });
+            status: 'danger',
+          })
         }
-      });
+      })
     },
   },
-};
+}
 </script>
 
 <style scoped>
@@ -97,13 +103,13 @@ body {
   padding-bottom: 40px;
   background-color: #f5f5f5;
 }
-.wrap{
-  background-image:url("~@/assets/img/login.jpg");
-  opacity: .9;
+.wrap {
+  background-image: url('~@/assets/img/login.jpg');
+  opacity: 0.9;
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
-  height:100vh;
+  height: 100vh;
   padding-top: 270px;
 }
 .form-signin {
@@ -126,23 +132,23 @@ body {
 .form-signin .form-control:focus {
   z-index: 2;
 }
-.form-signin input[type="email"] {
+.form-signin input[type='email'] {
   margin-bottom: -1px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
-.form-signin input[type="password"] {
+.form-signin input[type='password'] {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
 
-button{
+button {
   font-weight: bold;
-  color:black;
+  color: black;
 }
-.btnwrap :hover{
-  box-shadow: 1px 1px  rgb(182, 145, 67);
+.btnwrap :hover {
+  box-shadow: 1px 1px rgb(182, 145, 67);
   color: #fff;
 }
 .message-alert {
@@ -153,14 +159,14 @@ button{
   z-index: 1100;
 }
 
-@media(max-width:768px){
-  .wrap{
+@media (max-width: 768px) {
+  .wrap {
     padding-top: 200px;
   }
 }
 
-@media(max-width:576px){
-  .wrap{
+@media (max-width: 576px) {
+  .wrap {
     padding-top: 100px;
   }
 }

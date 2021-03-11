@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from 'vuex'
 // 註解處為原本使用event bus 的寫法，現在是使用vuex的寫法
 export default {
   name: 'Navbar',
@@ -43,7 +43,7 @@ export default {
   methods: {
     // ...mapActions('updateMessage','removeMessage','removeMessageWithTiming')
     updateMessage(message, status) {
-      this.$store.dispatch('updateMessage', { message, status });
+      this.$store.dispatch('updateMessage', { message, status })
       // const timestamp = Math.floor(new Date() / 1000);
       // this.messages.push({
       //     message,
@@ -54,11 +54,11 @@ export default {
       // console.log('回饋訊息資料',this.messages);
     },
     removeMessage(num) {
-      this.$store.dispatch('removeMessage', num);
+      this.$store.dispatch('removeMessage', num)
       // this.messages.splice(num, 1);
     },
     removeMessageWithTiming(timestamp) {
-      this.$store.dispatch('removeMessageWithTiming', timestamp);
+      this.$store.dispatch('removeMessageWithTiming', timestamp)
       // const vm = this;
       // setTimeout(() => {
       //     vm.messages.forEach((item, i) => {
@@ -70,7 +70,7 @@ export default {
       // },
     },
   },
-};
+}
 </script>
 
 <style scope>

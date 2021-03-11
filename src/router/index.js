@@ -5,14 +5,14 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: "*",
-    redirect: "/"
+    path: '*',
+    redirect: '/',
   },
 
   {
     path: '/',
     name: 'Home',
-    component: () => import('@/views/front/Home.vue')
+    component: () => import('@/views/front/Home.vue'),
   },
 
   {
@@ -22,56 +22,56 @@ const routes = [
   },
 
   {
-    path: "/order",
-    name: "Order",
-    component: () => import("@/views/front/CustomerOrder.vue"),
-  },
-  
-  {
-    path: "/customercheck/:orderId",
-    name: "CustomerCheck",
-    component: () => import("@/views/front/CustomerCheck.vue"),
-  },
-  
-  {
-    path: "/product/:productId",
-    name: "product",
-    component: () => import("@/views/front/Product.vue"),
-  },
-  
-  {
-    path: "/login",
-    name: "Login",
-    component: () => import("@/views/back/Login.vue"),
+    path: '/order',
+    name: 'Order',
+    component: () => import('@/views/front/CustomerOrder.vue'),
   },
 
   {
-    path: "/admin",
-    name: "Dashboard",
-    component: () => import("@/views/back/Dashboard.vue"),
+    path: '/customercheck/:orderId',
+    name: 'CustomerCheck',
+    component: () => import('@/views/front/CustomerCheck.vue'),
+  },
+
+  {
+    path: '/product/:productId',
+    name: 'product',
+    component: () => import('@/views/front/Product.vue'),
+  },
+
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/views/back/Login.vue'),
+  },
+
+  {
+    path: '/admin',
+    name: 'Dashboard',
+    component: () => import('@/views/back/Dashboard.vue'),
     meta: { requiresAuth: true },
     children: [
       {
-        path: "products",
-        name: "Products",
-        component: () => import("@/views/back/Products.vue"),
-        meta: { requiresAuth: true }
+        path: 'products',
+        name: 'Products',
+        component: () => import('@/views/back/Products.vue'),
+        meta: { requiresAuth: true },
       },
 
       {
-        path: "orders",
-        name: "Orders",
-        component: () => import("@/views/back/Orders.vue"),
-        meta: { requiresAuth: true }
+        path: 'orders',
+        name: 'Orders',
+        component: () => import('@/views/back/Orders.vue'),
+        meta: { requiresAuth: true },
       },
 
       {
-        path: "coupons",
-        name: "Coupons",
-        component: () => import("@/views/back/Coupons.vue"),
-        meta: { requiresAuth: true }
+        path: 'coupons',
+        name: 'Coupons',
+        component: () => import('@/views/back/Coupons.vue'),
+        meta: { requiresAuth: true },
       },
-      
+
       // {
       //   path: "customer_order",
       //   name: "CustomerOrder",
@@ -83,7 +83,7 @@ const routes = [
       //   name: "CustomerCheckout",
       //   component: () => import("@/components/back/CustomerCheckout.vue"),
       // },
-    ]
+    ],
   },
 
   // {
@@ -97,7 +97,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  routes
+  routes,
 })
 
 export default router

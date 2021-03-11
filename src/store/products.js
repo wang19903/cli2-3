@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { VBModalPlugin } from 'bootstrap-vue';
+import axios from 'axios'
+import { VBModalPlugin } from 'bootstrap-vue'
 
 export default {
   namespaced: true,
@@ -9,32 +9,32 @@ export default {
   },
   actions: {
     getProducts(context) {
-      const vm = this;
-      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`;
-      context.commit('LOADING', true, { root: true });
-      axios.get(url).then((response) => {
-        context.commit('PRODUCTS', response.data.products);
-        context.commit('CATEGORIES', response.data.products);
-        context.commit('LOADING', false, { root: true });
-      });
+      const vm = this
+      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`
+      context.commit('LOADING', true, { root: true })
+      axios.get(url).then(response => {
+        context.commit('PRODUCTS', response.data.products)
+        context.commit('CATEGORIES', response.data.products)
+        context.commit('LOADING', false, { root: true })
+      })
     },
   },
   mutations: {
     PRODUCTS(state, payload) {
-      state.products = payload.filter((item) =>{
+      state.products = payload.filter(item => {
         return item.is_enabled === 1
-      });
+      })
     },
     CATEGORIES(state, payload) {
-      const categories = new Set();
-      payload.forEach((item) => {
-        categories.add(item.category);
-      });
-      state.categories = Array.from(categories);
+      const categories = new Set()
+      payload.forEach(item => {
+        categories.add(item.category)
+      })
+      state.categories = Array.from(categories)
     },
   },
   getters: {
     categories: state => state.categories,
     products: state => state.products,
   },
-};
+}

@@ -19,10 +19,10 @@
 </template>
 
 <script>
-import { Swiper, SwiperSlide } from "vue-awesome-swiper";
-import "swiper/css/swiper.css";
+import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
+import 'swiper/css/swiper.css'
 export default {
-  name: "SwiperExampleSpaceBetween",
+  name: 'SwiperExampleSpaceBetween',
   components: {
     Swiper,
     SwiperSlide,
@@ -36,13 +36,13 @@ export default {
           delay: 4000,
         },
         pagination: {
-          el: ".swiper-pagination",
+          el: '.swiper-pagination',
           clickable: true,
         },
       },
-    };
+    }
   },
-};
+}
 </script>
 
 <style scoped lang="scss">

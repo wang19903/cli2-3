@@ -7,7 +7,7 @@
           <tr>
             <th width="80">購買時間</th>
             <th width="150">客戶名稱</th>
-            <th >訂單編號</th>
+            <th>訂單編號</th>
             <!-- <th width="70">細項</th> -->
             <th width="70" class="RWDnone">金額</th>
             <th width="70" class="RWDnone">結清</th>
@@ -18,7 +18,10 @@
             <td>{{ item.create_at | date }}</td>
             <td>{{ item.user.name }}</td>
             <td class="product_id">
-              <button class="btn btn-outline-primary" @click="openModal(item.id)">
+              <button
+                class="btn btn-outline-primary"
+                @click="openModal(item.id)"
+              >
                 {{ item.id }}
               </button>
             </td>
@@ -91,17 +94,17 @@
               <tfoot>
                 <tr>
                   <td class="text-left">
-                    Email:{{ order.user.email }} <br>電話:{{ order.user.tel }}
+                    Email:{{ order.user.email }} <br />電話:{{ order.user.tel }}
                   </td>
                   <td class="text-right">
                     <div class="RWDdisplay">
-                    總金額:
-                    {{ order.total | currency }}
-                    <div>
-                      是否結清:
-                      <span v-if="order.is_paid" class="text-success">O</span>
-                      <span v-else class="text-danger">X</span>
-                    </div>
+                      總金額:
+                      {{ order.total | currency }}
+                      <div>
+                        是否結清:
+                        <span v-if="order.is_paid" class="text-success">O</span>
+                        <span v-else class="text-danger">X</span>
+                      </div>
                     </div>
                   </td>
                 </tr>
@@ -118,11 +121,11 @@
 </template>
 
 <script>
-import $ from "jquery";
-import pagination from "@/components/Pagination";
+import $ from 'jquery'
+import pagination from '@/components/Pagination'
 
 export default {
-  name: "Orders",
+  name: 'Orders',
   data() {
     return {
       orders: [],
@@ -130,83 +133,85 @@ export default {
       order: {
         products: {},
         user: {
-          email: "",
-          tel: "",
+          email: '',
+          tel: '',
         },
       },
       isLoading: false,
-    };
+    }
   },
   components: {
     pagination,
   },
   methods: {
     getProducts(page = 1) {
-      const vm = this;
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/orders?page=${page}`;
-      vm.isLoading = true; //
-      this.$http.get(api).then((response) => {
-        vm.isLoading = false; //
-        vm.orders = response.data.orders;
-        vm.pagination = response.data.pagination;
-      });
+      const vm = this
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/orders?page=${page}`
+      vm.isLoading = true //
+      this.$http.get(api).then(response => {
+        vm.isLoading = false //
+        vm.orders = response.data.orders
+        vm.pagination = response.data.pagination
+      })
     },
     openModal(id) {
-      const vm = this;
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order/${id}`;
-      vm.$http.get(api).then((res) => {
-        $("#exampleModal").modal("show");
-        vm.order = res.data.order;
-      });
+      const vm = this
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order/${id}`
+      vm.$http.get(api).then(res => {
+        $('#exampleModal').modal('show')
+        vm.order = res.data.order
+      })
     },
   },
   computed: {
     sortOrder() {
-      const vm = this;
-      let newOrder = [];
+      const vm = this
+      let newOrder = []
       if (vm.orders.length) {
         newOrder = vm.orders.sort((a, b) => {
-          const aIsPaid = a.is_paid ? 1 : 0;
-          const bIsPaid = b.is_paid ? 1 : 0;
-          return bIsPaid - aIsPaid;
-        });
+          const aIsPaid = a.is_paid ? 1 : 0
+          const bIsPaid = b.is_paid ? 1 : 0
+          return bIsPaid - aIsPaid
+        })
       }
-      return newOrder;
+      return newOrder
     },
   },
   created() {
-    this.getProducts();
+    this.getProducts()
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>
 .wrap {
   height: 100vh;
 }
-.product_id, .product_id button{
+.product_id,
+.product_id button {
   width: 235px;
-    text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-.RWDdisplay{
-  display: none;
-}
-
-@media (max-width:576px) {
-  .product_id, .product_id button{
-  max-width: 120px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  padding: 6px 0px 6px 0px;
 }
-  .RWDnone{
+
+.RWDdisplay {
+  display: none;
+}
+
+@media (max-width: 576px) {
+  .product_id,
+  .product_id button {
+    max-width: 120px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 6px 0px 6px 0px;
+  }
+  .RWDnone {
     display: none;
   }
-  .RWDdisplay{
+  .RWDdisplay {
     display: block;
   }
 }

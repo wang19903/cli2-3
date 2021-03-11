@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid p-0">
-<OP/>
+    <OP />
     <div class="wrapper">
       <Navbar />
       <Slick />
@@ -19,10 +19,10 @@
                   backgroundImage:
                     'url(' + require('@/assets/img/aos1.png') + ')',
                 },
-                { 'width': '100%' },
-                
+                { width: '100%' },
+
                 { 'background-size': 'cover' },
-              {'background-position':'top center'}
+                { 'background-position': 'top center' },
               ]"
               class="infoDiv"
             ></div>
@@ -40,7 +40,7 @@
                 },
                 { 'max-width': '100%' },
                 { 'background-size': 'cover' },
-                {'background-position':'top center'}
+                { 'background-position': 'top center' },
               ]"
               class="infoDiv"
             ></div>
@@ -80,14 +80,14 @@
 </template>
 
 <script>
-import Slick from "@/components/front/Lightbox";
-import Navbar from "@/components/front/Navbar";
-import Footer from "@/components/front/Footer";
-import GoTop from "@/components/front/GoTop";
-import OP from "@/components/front/Opening.vue";
+import Slick from '@/components/front/Lightbox'
+import Navbar from '@/components/front/Navbar'
+import Footer from '@/components/front/Footer'
+import GoTop from '@/components/front/GoTop'
+import OP from '@/components/front/Opening.vue'
 
 export default {
-  name: "home",
+  name: 'home',
   components: {
     Slick,
     Navbar,
@@ -97,20 +97,20 @@ export default {
   },
   data: function () {
     return {
-      message: "order999",
-    };
+      message: 'order999',
+    }
   },
   methods: {
     onCopy: function (e) {
-      alert("複製" + e.text + "摟~");
+      alert('複製' + e.text + '摟~')
     },
     onError: function (e) {
-      alert("Failed to copy texts");
+      alert('Failed to copy texts')
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>
-@import "../../assets/home.scss";
+@import '../../assets/home.scss';
 </style>
