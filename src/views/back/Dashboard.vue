@@ -11,7 +11,7 @@
       </div>
     </div>
   </div>
-</template>  
+</template>
 
 <script>
 import Sidebar from '../../components/back/Sidebar'
@@ -32,4 +32,4 @@ export default {
     this.$http.defaults.headers.common.Authorization = mycookie
   },
 }
-</script>  
+</script>

@@ -14,7 +14,7 @@ cd dist
 
 git init
 git add -A
-git commit -m 'alert'
+git commit -m 'ESlint + Prettier'
 
 # if you are deploying to https://<USERNAME>.github.io
 # git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git master
@@ -22,4 +22,4 @@ git commit -m 'alert'
 # if you are deploying to https://<USERNAME>.github.io/<REPO>
 git push -f https://github.com/wang19903/cli2-3.git master:gh-pages
 
-cd -
+cd ..

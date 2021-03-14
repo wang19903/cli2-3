@@ -57,4 +57,3 @@ img {
   background-size: cover;
 }
 </style>
-

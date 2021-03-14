@@ -32,7 +32,7 @@
       </ul>
     </nav>
   </div>
-</template> 
+</template>
 
 <script>
 export default {

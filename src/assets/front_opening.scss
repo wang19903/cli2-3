@@ -7,14 +7,14 @@
   animation: run 2s infinite;
 }
 
-@mixin green{
+@mixin green {
   position: absolute;
   width: 6px;
   height: 6px;
   background: green;
 }
 
-@mixin dot{
+@mixin dot {
   position: absolute;
   border: solid 13px rgb(148, 85, 43);
   border-radius: 50%;
@@ -33,7 +33,7 @@
 }
 
 @keyframes opening {
-  0% {  
+  0% {
     opacity: 1;
   }
   100% {
@@ -43,7 +43,7 @@
 }
 
 .flash1 {
-@include flash;
+  @include flash;
   background: #e7dbc1;
   animation-delay: 0.4s;
 }
@@ -105,7 +105,7 @@
 }
 
 .pan:before {
-  content: "";
+  content: '';
   position: absolute;
   width: 55px;
   height: 11px;
@@ -117,7 +117,7 @@
 }
 
 .pan:after {
-  content: "";
+  content: '';
   position: absolute;
   width: 23px;
   height: 6px;
@@ -141,7 +141,7 @@
 }
 
 .ball:after {
-  content: "";
+  content: '';
   border-left: solid 1px #fff;
   border-right: solid 1px #fff;
   position: absolute;
