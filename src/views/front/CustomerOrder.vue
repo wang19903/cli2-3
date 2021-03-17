@@ -1,8 +1,8 @@
 <template>
   <div>
+    <Alert />
     <div class="wrapper">
-      <Navbar />
-      <div class="container">
+      <div class="container front-order-container">
         <div class="row justify-content-md-center">
           <div class="col col-md-8">
             <table class="table table-striped mt-4" v-if="cart.carts.length">
@@ -30,7 +30,6 @@
                         background-size: cover;
                         background-position: center;
                       "
-                      class=""
                       :style="{
                         backgroundImage: `url(${item.product.imageUrl})`,
                       }"
@@ -66,7 +65,7 @@
             >
               <input
                 type="text"
-                class="form-control"
+                class="form-control front-order-input"
                 v-model="coupon_code"
                 placeholder="請輸入優惠碼"
               />
@@ -106,7 +105,7 @@
                     type="email"
                     name="email"
                     v-model="form.user.email"
-                    class="form-control"
+                    class="form-control front-order-input"
                     :class="classes"
                   />
                   <!-- 錯誤訊息 -->
@@ -128,7 +127,7 @@
                     type="name"
                     name="name"
                     v-model="form.user.name"
-                    class="form-control"
+                    class="form-control front-order-input"
                     :class="classes"
                   />
                   <!-- 錯誤訊息 -->
@@ -152,7 +151,7 @@
                     type="tel"
                     name="tel"
                     v-model="form.user.tel"
-                    class="form-control"
+                    class="form-control front-order-input"
                     :class="classes"
                   />
                   <!-- 錯誤訊息 -->
@@ -176,7 +175,7 @@
                     type="address"
                     name="address"
                     v-model="form.user.address"
-                    class="form-control"
+                    class="form-control front-order-input"
                     :class="classes"
                   />
                   <!-- 錯誤訊息 -->
@@ -191,7 +190,7 @@
                   <textarea
                     name=""
                     id="comment"
-                    class="form-control"
+                    class="form-control front-order-input"
                     cols="30"
                     rows="10"
                     v-model="form.message"
@@ -211,21 +210,15 @@
         </div>
       </div>
     </div>
-    <Footer />
   </div>
 </template>
 
 <script>
-import Navbar from '@/components/front/Navbar'
-import Footer from '@/components/front/Footer'
+import Alert from '@/components/AlertMessage.vue'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'CustomerOrder',
-  components: {
-    Navbar,
-    Footer,
-  },
   data() {
     return {
       coupon_code: '',
@@ -240,6 +233,9 @@ export default {
       },
     }
   },
+      components: {
+    Alert,
+  },
   methods: {
     removeCart(id) {
       this.$store.dispatch('cartsModules/removeCart', id)
@@ -247,12 +243,23 @@ export default {
     addCouponCode() {
       const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/coupon`
+      vm.$store.dispatch('updataLoading', true)
       const coupon = {
         code: vm.coupon_code,
       }
-      vm.$store.dispatch('updataLoading', true)
-      this.$http.post(api, { data: coupon }).then(response => {
-        vm.getCart()
+      vm.$http.post(api, { data: coupon }).then(response => {
+        if (response.data.success) {
+          vm.$store.dispatch('updateMessage', {
+            message: response.data.message,
+            status: 'success',
+          })
+          vm.getCart()
+          }else {
+          vm.$store.dispatch('updateMessage', {
+            message: response.data.message,
+            status: 'danger',
+          })
+        }        
         vm.$store.dispatch('updataLoading', false)
       })
     },
@@ -261,13 +268,11 @@ export default {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order`
       const order = vm.form
 
-      this.$http.post(api, { data: order }).then(response => {
-        console.log('okok', response)
+      vm.$http.post(api, { data: order }).then(response => {
+        vm.$store.dispatch('updataLoading', true)
         if (response.data.success) {
-          vm.$store.dispatch('updataLoading', true)
           vm.$router.push(`/customercheck/${response.data.orderId}`)
         }
-
         vm.$store.dispatch('updataLoading', false)
       })
     },

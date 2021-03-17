@@ -5,9 +5,7 @@ import VueAxios from 'vue-axios'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
 import 'bootstrap'
-import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import {
@@ -22,7 +20,6 @@ import TW from 'vee-validate/dist/locale/zh_TW.json'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import './bus'
 import currencyFilter from './filters/currency'
 import dateFilter from './filters/date'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -85,8 +82,6 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component('ValidationObserver', ValidationObserver)
 Vue.component('ValidationProvider', ValidationProvider)
 Vue.component('Loading', Loading)
-Vue.use(BootstrapVue)
-Vue.use(IconsPlugin)
 Vue.use(Vuex)
 Vue.use(VueAxios, axios)
 Vue.filter('currency', currencyFilter)

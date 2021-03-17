@@ -5,38 +5,39 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '*',
-    redirect: '/',
-  },
-
-  {
     path: '/',
-    name: 'Home',
-    component: () => import('@/views/front/Home.vue'),
-  },
+    component: () => import('@/views/front/Layout.vue'),
+    children: [
+      {
+        path: '',
+        name: 'Home',
+        component: () => import('@/views/front/Home.vue'),
+      },
 
-  {
-    path: '/products',
-    name: 'ListProducts',
-    component: () => import('@/views/front/ListProducts.vue'),
-  },
+      {
+        path: '/products',
+        name: 'ListProducts',
+        component: () => import('@/views/front/ListProducts.vue'),
+      },
 
-  {
-    path: '/order',
-    name: 'Order',
-    component: () => import('@/views/front/CustomerOrder.vue'),
-  },
+      {
+        path: '/order',
+        name: 'Order',
+        component: () => import('@/views/front/CustomerOrder.vue'),
+      },
 
-  {
-    path: '/customercheck/:orderId',
-    name: 'CustomerCheck',
-    component: () => import('@/views/front/CustomerCheck.vue'),
-  },
+      {
+        path: '/customercheck/:orderId',
+        name: 'CustomerCheck',
+        component: () => import('@/views/front/CustomerCheck.vue'),
+      },
 
-  {
-    path: '/product/:productId',
-    name: 'product',
-    component: () => import('@/views/front/Product.vue'),
+      {
+        path: '/product/:productId',
+        name: 'product',
+        component: () => import('@/views/front/Product.vue'),
+      },
+    ],
   },
 
   {
@@ -71,33 +72,17 @@ const routes = [
         component: () => import('@/views/back/Coupons.vue'),
         meta: { requiresAuth: true },
       },
-
-      // {
-      //   path: "customer_order",
-      //   name: "CustomerOrder",
-      //   component: () => import("@/components/back/CustomerOrder.vue"),
-      // },
-
-      // {
-      //   path: "customer_checkout/:orderId",
-      //   name: "CustomerCheckout",
-      //   component: () => import("@/components/back/CustomerCheckout.vue"),
-      // },
     ],
   },
 
-  // {
-  //   path: '/about',
-  //   name: 'About',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue')
-  // }
+  {
+    path: '*',
+    redirect: '/',
+  },
 ]
 
 const router = new VueRouter({
-  routes,
+  routes, 
 })
 
 export default router

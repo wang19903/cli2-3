@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { VBModalPlugin } from 'bootstrap-vue'
 
 export default {
   namespaced: true,

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Navbar />
     <div class="container-fluid my-5 row justify-content-center">
       <form class="col-md-6" @submit.prevent="payOrder">
         <table class="table">
@@ -50,10 +49,8 @@
                 <span v-if="!order.is_paid">尚未付款</span>
                 <div v-else>
                   <div class="text-success mb-2">付款完成</div>
-                  <router-link to="/">
-                    <a class="text-light border border-danger bg-danger rounded"
-                      >返回首頁</a
-                    >
+                  <router-link to="/" class="text-light border border-danger bg-danger rounded">
+                    返回首頁                    
                   </router-link>
                 </div>
               </td>
@@ -61,25 +58,18 @@
           </tbody>
         </table>
         <div class="text-right" v-if="order.is_paid === false">
-          <button class="btn btn-danger">確認付款去</button>
+          <button class="btn btn-danger" type="button">確認付款去</button>
         </div>
       </form>
     </div>
-    <Footer />
   </div>
 </template>
 
 <script>
-import Navbar from '@/components/front/Navbar'
-import Footer from '@/components/front/Footer'
 import { mapGetters } from 'vuex'
 
 export default {
   name: 'CustomerCheck',
-  components: {
-    Navbar,
-    Footer,
-  },
   data() {
     return {
       order: {
@@ -93,9 +83,8 @@ export default {
       const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order/${vm.orderId}`
       vm.$store.dispatch('updataLoading', true)
-      this.$http.get(api).then(response => {
+      vm.$http.get(api).then(response => {
         vm.order = response.data.order
-        console.log(response)
         vm.$store.dispatch('updataLoading', false)
       })
     },
@@ -104,8 +93,7 @@ export default {
       const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/pay/${vm.orderId}`
       vm.$store.dispatch('updataLoading', true)
-      this.$http.post(api).then(response => {
-        console.log(response)
+      vm.$http.post(api).then(response => {
         vm.$store.dispatch('updataLoading', false)
         if (response.data.success) {
           vm.getOrder()
@@ -115,7 +103,6 @@ export default {
   },
   created() {
     this.orderId = this.$route.params.orderId
-    console.log(this.orderId)
     this.getOrder()
   },
   computed: {

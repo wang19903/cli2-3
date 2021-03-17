@@ -1,9 +1,8 @@
 <template>
-  <div class="container-fluid p-0">
-    <OP />
+  <div class="container-fluid p-0
+  home-container">
     <div class="wrapper">
-      <Navbar />
-      <Slick />
+      <Lightbox />
       <div class="container-fluid p-0">
         <div class="row">
           <div class="col-md-6 pt-2">
@@ -21,8 +20,6 @@
                 },
                 { width: '100%' },
 
-                { 'background-size': 'cover' },
-                { 'background-position': 'top center' },
               ]"
               class="infoDiv"
             ></div>
@@ -47,10 +44,10 @@
           </div>
         </div>
         <div class="container-fluid p-0">
-          <ul class="d-flex justify-content-around row p-0 m-0">
+          <ul class="d-flex justify-content-around row p-0 m-0 home-ul">
             <li class="col-md-4">
               <div class="rotate">
-                <img src="@/assets/img/UL1.jpg" alt="" class="li_img" />
+                <img src="@/assets/img/UL1.jpg" alt="主廚料理"  />
               </div>
               <p class="pt-2">
                 從路邊攤滷味起家，在台深耕20年，深得顧客喜愛，逐漸開發多樣產品
@@ -58,7 +55,7 @@
             </li>
             <li class="col-md-4">
               <div class="rotate">
-                <img src="@/assets/img/UL2.jpg" alt="" class="li_img" />
+                <img src="@/assets/img/UL2.jpg" alt="新鮮食材"  />
               </div>
               <p class="pt-2">
                 每日採購新鮮食材，不使用半成品，確保食品來源，關心顧客健康
@@ -66,7 +63,7 @@
             </li>
             <li class="col-md-4">
               <div class="rotate">
-                <img src="@/assets/img/UL3.jpg" alt="" class="li_img" />
+                <img src="@/assets/img/UL3.jpg" alt="獨特口味"  />
               </div>
               <p class="pt-2">獨特口味，對於專業絕不馬虎</p>
             </li>
@@ -75,25 +72,18 @@
       </div>
       <GoTop />
     </div>
-    <Footer class="footer" />
   </div>
 </template>
 
 <script>
-import Slick from '@/components/front/Lightbox'
-import Navbar from '@/components/front/Navbar'
-import Footer from '@/components/front/Footer'
-import GoTop from '@/components/front/GoTop'
-import OP from '@/components/front/Opening.vue'
+import Lightbox from '@/components/front/Lightbox.vue'
+import GoTop from '@/components/front/GoTop.vue'
 
 export default {
   name: 'home',
   components: {
-    Slick,
-    Navbar,
-    Footer,
+    Lightbox,
     GoTop,
-    OP,
   },
   data: function () {
     return {
@@ -111,6 +101,3 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-@import '../../assets/home.scss';
-</style>

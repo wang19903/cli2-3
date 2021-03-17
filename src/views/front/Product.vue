@@ -1,8 +1,6 @@
 <template>
   <div class="wrap wrapper">
-    <Navbar />
-    <div
-      id="productModal"
+    <div     
       tabindex="-1"
       role="dialog"
       aria-labelledby="exampleModalLabel"
@@ -16,7 +14,7 @@
             </h5>
           </div>
           <div class="modal-body">
-            <img :src="product.imageUrl" class="img-fluid" alt="" />
+            <img :src="product.imageUrl" class="img-fluid" alt="產品圖片" />
           </div>
         </div>
         <div class="row-col pr-5 pl-5">
@@ -68,21 +66,14 @@
         </div>
       </div>
     </div>
-    <Footer />
   </div>
 </template>
 
 <script>
-import Navbar from '@/components/front/Navbar'
-import Footer from '@/components/front/Footer'
 import { mapGetters } from 'vuex'
 
 export default {
   name: 'Product',
-  components: {
-    Navbar,
-    Footer,
-  },
   data() {
     return {
       product: {},
@@ -96,7 +87,7 @@ export default {
     getProduct() {
       const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${vm.productId}`
-      this.$http.get(api).then(response => {
+      vm.$http.get(api).then(response => {
         vm.$store.dispatch('updataLoading', true)
         vm.product = response.data.product
         vm.product.num = 1
@@ -117,7 +108,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .wrap {
   max-width: 1024px;
   background-color: rgba(255, 247, 214, 0.336);

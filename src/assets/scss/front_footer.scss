@@ -1,22 +1,26 @@
-.container,
+.foot-container,
 .footer {
-  max-width: 1024px;
   background-color: #ddc18e;
   position: relative;
 }
 
-span {
+.foot-txt {
+  min-width: 80px;
+  max-width: 80px;
+  span{
   font-size: 28px;
   color: rgb(165, 23, 23);
   text-align: left;
+  }
 }
 
 li {
   list-style-type: none;
 }
 
-i {
+.fa-instagram {
   color: saddlebrown;
+  margin-top: 7px;
   font-size: 28px;
 }
 
@@ -30,10 +34,6 @@ i {
   padding: 0px 3px 0px 15px;
 }
 
-.txt {
-  min-width: 80px;
-  max-width: 80px;
-}
 
 .rightbox {
   padding-top: 75px;
@@ -49,11 +49,7 @@ i {
     left: -35%;
     top: 20%;
   }
-
-  .leftbox {
-    padding-right: 15px;
-  }
-
+  
   .fb,
   .ig {
     padding: 0px;

@@ -3,7 +3,7 @@
     <loading :active.sync="isLoading"></loading>
     <div class="wrap">
       <div class="text-right mt-4">
-        <button class="btn btn-primary" @click="openModal(true)">
+        <button class="btn btn-primary" @click="openModal(true)" type="button">
           建立新產品
         </button>
       </div>
@@ -34,7 +34,7 @@
               <span v-else class="text-danger">X</span>
             </td>
             <td>
-              <button
+              <button type="button"
                 class="btn btn-outline-primary btn-sm"
                 @click="openModal(false, item)"
               >
@@ -42,7 +42,7 @@
               </button>
             </td>
             <td>
-              <button
+              <button type="button"
                 class="btn btn-outline-danger btn-sm"
                 @click="openDeleteModal(item)"
               >
@@ -54,12 +54,12 @@
       </table>
       <!-- pagination -->
       <pagination
-        class=""
         v-if="products.length"
         :pagination="pagination"
         @emitPage="getProducts($event)"
       ></pagination>
     </div>
+
     <div
       class="modal fade"
       id="productModal"
@@ -117,7 +117,7 @@
                   img="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=828346ed697837ce808cae68d3ddc3cf&auto=format&fit=crop&w=1350&q=80"
                   class="img-fluid"
                   :src="tempProduct.imageUrl"
-                  alt=""
+                  alt="上傳圖片"
                 />
               </div>
               <div class="col-sm-8">
@@ -285,7 +285,7 @@
 
 <script>
 import $ from 'jquery'
-import pagination from '@/components/Pagination'
+import pagination from '@/components/Pagination.vue'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -306,7 +306,7 @@ export default {
       const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/products?page=${page}`
       vm.$store.dispatch('updataLoading', true)
-      this.$http.get(api).then(response => {
+      vm.$http.get(api).then(response => {
         vm.products = response.data.products
         vm.pagination = response.data.pagination
         vm.$store.dispatch('updataLoading', false)
@@ -330,7 +330,7 @@ export default {
         api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${vm.tempProduct.id}`
         httpMethod = 'put'
       }
-      this.$http[httpMethod](api, { data: vm.tempProduct }).then(response => {
+      vm.$http[httpMethod](api, { data: vm.tempProduct }).then(response => {
         if (response.data.success) {
           $('#productModal').modal('hide')
           vm.getProducts()
@@ -356,17 +356,17 @@ export default {
     deleteProduct() {
       const vm = this
       let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${vm.tempProduct.id}`
-      this.$http.delete(api).then(response => {
+      vm.$http.delete(api).then(response => {
         if (response.data.success) {
-          $('#delProductModal').modal('hide') // 關閉modal
-          vm.getProducts() // 重新取得更新完的資料
+          $('#delProductModal').modal('hide') 
+          vm.getProducts() 
           vm.$store.dispatch('updateMessage', {
             message: '刪除商品成功',
             status: 'success',
           })
         } else {
-          $('#delProductModal').modal('hide') // 關閉modal
-          vm.getProducts() // 重新取得更新完的資料
+          $('#delProductModal').modal('hide') 
+          vm.getProducts() 
           vm.$store.dispatch('updateMessage', {
             message: '刪除商品成功失敗',
             status: 'danger',
@@ -375,13 +375,13 @@ export default {
       })
     },
     uploadFile() {
-      const uploadedFile = this.$refs.files.files[0]
       const vm = this
+      const uploadedFile = this.$refs.files.files[0]     
       const formData = new FormData()
       formData.append('file-to-upload', uploadedFile)
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/upload`
       vm.fileUploading = true
-      this.$http
+      vm.$http
         .post(url, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',

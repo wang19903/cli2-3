@@ -1,7 +1,7 @@
 <template>
   <div class="a">
     <transition name="fade">
-      <div id="pagetop" class="" v-show="scY > 300" @click="toTop">
+      <div id="pagetop" v-show="scY > 300" @click="toTop">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="48"

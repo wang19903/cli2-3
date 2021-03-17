@@ -14,7 +14,11 @@
 $color: rgb(197, 7, 7);
 $bold: 600;
 
-.img {
+.wrapper{
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.ListProducts-img {
   width: 100%;
   height: 150px;
   background-color: rgb(148, 85, 43);
@@ -24,18 +28,26 @@ $bold: 600;
   position: relative;
 }
 
-.searchbtn {
-  border: solid 2px $color;
-  border-left: 0px;
-  color: $color;
-  font-size: 18px;
-  font-weight: $bold;
-  background-color: rgba(255, 255, 255, 0.144);
-}
+.ListProducts-inputwrap {
+  position: relative;
+  height: 50px;
+  top: 50%;
+  transform: translateY(-50%);
 
-.input-group {
-  margin: auto;
-  width: 50%;
+  button {
+    border: solid 2px $color;
+    border-left: 0px;
+    color: $color;
+    font-size: 18px;
+    font-weight: $bold;
+    background-color: rgba(255, 255, 255, 0.144);
+  }
+
+  input {
+    width: 40%;
+    line-height: 33px;
+    border-radius: 5%;
+  }
 }
 
 .click {
@@ -52,31 +64,52 @@ $bold: 600;
   color: rgb(235, 201, 139);
   border-radius: 10%;
   background-color: rgb(148, 85, 43);
-  border: solid 2px rgb(145, 62, 7);
   transition: 0.2s;
+
+  span {
+    display: inline-block;
+    color: $color;
+  }
+
+  span .inverse {
+    transform: rotate(180deg);
+  }
 }
 
-.icon {
-  display: inline-block;
-  color: red;
-}
-.icon.inverse {
-  transform: rotate(180deg);
+.ListProducts-badge{
+  position: absolute;
+  top: 0px;
+  z-index: 9;
+  font-size: 15px;
+  font-weight: 600;
+  animation: fade-in;
+  animation-duration: 1s;
+  animation-fill-mode: both;
 }
 
-.pagination :hover,
-.list-group :hover,
-.page-item.active .page-link {
+@keyframes fade-in {
+  from {
+    right:40px;
+  }
+  to {
+    right:0px
+  }
+}
+
+.ListProducts-cardBG{
+background-color: rgba(212, 208, 189, 0.336);
+max-width:300px;
+}
+
+.list-group-item.active,
+.ListProducts-card-footer button,
+.list-group :hover{
   @include hover;
 }
 
 .active,
-.page-item.active .page-link {
+.ListProducts-badge {
   @include active;
-}
-
-.page-link {
-  color: black;
 }
 
 .sizing {
@@ -85,13 +118,17 @@ $bold: 600;
   margin-top: 24px;
 }
 
-.card:hover {
+.ListProducts-card:hover {
   border: 1px solid gray;
   box-shadow: 1px 1px black;
   cursor: pointer;
   animation: goBig;
   animation-duration: 0.3s;
   animation-fill-mode: both;
+
+  button:hover{
+    color: #FFF;
+  }
 }
 
 @keyframes goBig {
@@ -105,32 +142,33 @@ $bold: 600;
   }
 }
 
-.card-text {
+.ListProducts-card-text {
+  display: -webkit-box;
   text-overflow: ellipsis;
   overflow: hidden;
-  white-space: nowrap;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
-.card-footer button {
+.ListProducts-card-footer button {
   padding: 4px 12px 4px 12px;
   font-size: 18px;
   font-weight: $bold;
+  color: rgb(148, 85, 43);;
   width: 100%;
   display: flex;
   justify-content: space-around;
 }
 
 @media (max-width: 576px) {
-  .input-group {
-    width: 90%;
-  }
 
-  .col-3 {
+  .ListProducts-sidebar {
     padding: 0px 0px 0px 5px;
-  }
 
-  .list-group-item {
-    padding: 5px 0px 5px 0px;
-    font-weight: $bold;
+    a {
+      padding: 5px 0px 5px 0px;
+      font-weight: $bold;
+    }
   }
 }

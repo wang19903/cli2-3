@@ -3,7 +3,7 @@
     <loading :active.sync="isLoading"></loading>
     <div class="wrap m-0">
       <div class="text-right mt-4">
-        <button class="btn btn-primary" @click="openModal(true)">
+        <button type="button" class="btn btn-primary" @click="openModal(true)">
           新增優惠券
         </button>
       </div>
@@ -25,7 +25,7 @@
               <div class="RWDnone">
                 {{ item.title }}
               </div>
-              <button
+              <button type="button"
                 class="RWDon btn btn-outline-primary btn-sm"
                 @click="openModal(false, item)"
               >
@@ -40,7 +40,7 @@
               <span v-else>X</span>
             </td>
             <td class="RWDnone">
-              <button
+              <button type="button"
                 class="btn btn-outline-primary btn-sm"
                 @click="openModal(false, item)"
               >
@@ -48,7 +48,7 @@
               </button>
             </td>
             <td class="RWDnone">
-              <button
+              <button type="button"
                 class="btn btn-outline-danger btn-sm"
                 @click="openDeleteModal(item)"
               >
@@ -60,7 +60,6 @@
       </table>
       <!-- pagination -->
       <pagination
-        class=""
         v-if="coupons.length"
         :pagination="pagination"
         @emitPage="getCoupons($event)"
@@ -187,7 +186,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button class="btn btn-danger RWDon" @click="openDeleteModal(item)">
+            <button type="button" class="btn btn-danger RWDon" @click="openDeleteModal(item)">
               刪除
             </button>
             <button
@@ -253,7 +252,7 @@
 
 <script>
 import $ from 'jquery'
-import pagination from '@/components/Pagination'
+import pagination from '@/components/Pagination.vue'
 
 export default {
   name: 'Coupons',
@@ -274,7 +273,7 @@ export default {
       const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupons?page=${page}`
       vm.isLoading = true
-      this.$http.get(api).then(response => {
+      vm.$http.get(api).then(response => {
         vm.isLoading = false
         vm.coupons = response.data.coupons
         vm.pagination = response.data.pagination
@@ -298,15 +297,14 @@ export default {
         api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${vm.tempCoupon.id}`
         httpMethod = 'put'
       }
-      console.log(process.env.APIPATH, process.env.CUSTOMPATH)
-      this.$http[httpMethod](api, { data: vm.tempCoupon }).then(response => {
+      vm.$http[httpMethod](api, { data: vm.tempCoupon }).then(response => {
         if (response.data.success) {
           $('#couponModal').modal('hide')
           vm.getCoupons()
         } else {
           $('#couponModal').modal('hide')
           vm.getCoupons()
-          console.log('新增失敗')
+          alert('新增失敗')
         }
       })
     },
@@ -318,7 +316,7 @@ export default {
     deleteCoupon() {
       const vm = this
       let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${vm.tempCoupon.id}`
-      this.$http.delete(api).then(response => {
+      vm.$http.delete(api).then(response => {
         $('#delCouponModal').modal('hide')
         vm.getCoupons()
       })

@@ -12,41 +12,42 @@
 
 .bgImg {
   width: 100%;
-  height: 350px;
+  height: 500px;
   background-image: url('~@/assets/img/nav.jpg');
   background-repeat: no-repeat;
   background-position: top center;
   background-size: cover;
   position: relative;
   z-index: 1;
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #fff;
+    z-index: -1;
+    opacity: 0.1;
+  }
 }
 
-.container-fluid img:hover {
-  box-shadow: 1px 1px 1px rgb(173, 168, 159);
+.navbar-brand:hover {
+  transform: scale(1.1);
   border-radius: 10%;
-}
-
-.bgImg::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  background-color: #fff;
-  z-index: -1;
-  opacity: 0.1;
 }
 
 .slogan {
   position: absolute;
-  top: 50%;
-  left: 32%;
-  font-size: 35px;
+  top:55%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  font-size: 3em;
   font-weight: 600;
   background-color: rgba(255, 255, 255, 0.253);
-  letter-spacing: 5px;
-  height: 52px;
+  letter-spacing: 9px;
+  line-height: 40px;
 }
 
 .cartIcon {
@@ -69,30 +70,25 @@ img {
 
 .btn-secondary,
 .navbar,
-img {
+.nav-img {
   @include navSet;
 }
 
-.list-group-item {
+.dropdown-menu {
   @include navSet;
-  padding-right: 5px;
-}
-
-.dropdown-cart {
   min-width: 350px;
   position: absolute;
+  transform: translateX(-43%);
+  border: #000 solid 1px;
 }
 
-.btn-block:hover {
+.nav-table thead th, .nav-table td{
+  border-bottom: #000 solid 1px;
+}
+
+.nav-btn:hover {/**/
   background-color: rgb(124, 69, 7);
   color: #fff;
-}
-
-.firstBtn,
-.secondBtn,
-.thirdBtn {
-  display: inline-block;
-  text-decoration: none;
 }
 
 .firstBtn::after,
@@ -101,10 +97,11 @@ img {
   content: '';
   display: block;
   width: 0px;
-  height: 2px;
+  height: 4px;
   background: #000;
-  transition: width 0.3s;
+  transition: width 0.4s;
 }
+
 .firstBtn:hover::after,
 .secondBtn:hover::after,
 .thirdBtn:hover::after {
@@ -121,6 +118,11 @@ img {
 .thirdBtn:hover {
   @include btnColor;
   border-radius: 0.25rem;
+}
+
+.dropdown-toggle::after{
+  border-right: 0;
+  border-left: 0;
 }
 
 .firstBtn:hover svg,
@@ -153,9 +155,12 @@ img {
 }
 
 @media (max-width: 860px) {
-  .slogan {
-    left: 25%;
-  }
+.firstBtn:hover::after,
+.secondBtn:hover::after,
+.thirdBtn:hover::after {
+  margin: auto;
+  width: 30%;
+}
 }
 
 @media (max-width: 576px) {
@@ -164,16 +169,17 @@ img {
   }
 
   .slogan {
-    left: 10%;
-    font-size: 28px;
+    width: 66%;
+    font-size: 25px;
+    line-height: 2px;
   }
 
-  .btn {
+  .nav-btn {
     margin-bottom: 1px;
   }
 
   .secondBtn {
-    padding: 10px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
   }
 
   .spanCenter {
@@ -181,22 +187,9 @@ img {
     justify-content: center;
   }
 
-  .secondBtn svg {
-    margin-bottom: 5px;
-  }
-
-  .firstBtn::after,
-  .thirdBtn::after {
-    content: '';
-    margin: auto;
-    width: 100%;
-    border: solid 1px black;
-    animation-name: border;
-    animation-duration: 1s;
-    animation-fill-mode: both;
-  }
-
-  .secondBtn::after {
+  .firstBtn:after,
+  .secondBtn:after,
+  .thirdBtn:after {
     content: '';
     margin: auto;
     width: 100%;

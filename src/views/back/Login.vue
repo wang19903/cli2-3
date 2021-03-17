@@ -28,11 +28,6 @@
           required
           v-model="user.password"
         />
-        <!-- <div class="checkbox mb-3">
-          <label>
-            <input type="checkbox" value="remember-me" /> Remember me
-          </label>
-        </div> -->
         <div class="btnwrap">
           <button class="w-100 btn btn-lg btn-dark mt-3" type="submit">
             登入
@@ -48,15 +43,16 @@
 
 <script>
 import Alert from '@/components/AlertMessage.vue'
+import { mapGetters } from 'vuex'
+
 export default {
-  name: 'HelloWorld',
+  name: 'Login',
   data() {
     return {
       user: {
-        username: 'lf21715@yahoo.com.tw',
-        password: '19900917',
+        username: '',
+        password: '',
       },
-      isLoading: false,
     }
   },
   components: {
@@ -64,11 +60,11 @@ export default {
   },
   methods: {
     signin() {
-      const api = `${process.env.VUE_APP_APIPATH}/admin/signin`
       const vm = this
-      vm.isLoading = true
-      this.$http.post(api, vm.user).then(response => {
-        vm.isLoading = false
+      const api = `${process.env.VUE_APP_APIPATH}/admin/signin`
+        vm.$store.dispatch('updataLoading', true)
+      vm.$http.post(api, vm.user).then(response => {
+        vm.$store.dispatch('updataLoading', false)
         if (response.data.success) {
           vm.$store.dispatch('updateMessage', {
             message: response.data.message,
@@ -86,6 +82,9 @@ export default {
         }
       })
     },
+  },
+  computed: {
+    ...mapGetters(['isLoading']),
   },
 }
 </script>

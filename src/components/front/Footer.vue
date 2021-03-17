@@ -1,18 +1,17 @@
 <template>
   <div>
-    <div class="container p-0 pt-3">
+    <div class=" p-0 pt-3 foot-container">
       <ul
         class="row no-gutters d-flex justify-content-between flex-nowrap pl-0"
       >
-        <div class="leftbox d-flex">
-          <li class="col p-0">
-            <div class="txt">
+          <li class="col-1 p-0">
+            <div class="foot-txt">
               <span>鼎鮮</span>
               <span>飯麵</span>
             </div>
           </li>
           <li>
-            <ul class="p-0 d-flex">
+            <ul class="p-0 d-flex ">
               <li class="fb">
                 <a href="https://www.facebook.com/">
                   <font-awesome-icon
@@ -26,7 +25,6 @@
               </li>
             </ul>
           </li>
-        </div>
         <li class="col rightbox">
           <p class="text-center">
             &copy; All Right Reserved(Demo)<br />
@@ -37,12 +35,10 @@
           <p>
             <font-awesome-icon icon="phone" size="1x" class="fas" />+886
             2992915311
-          </p>
-          <p>
+          <br />
             <font-awesome-icon icon="map-marker-alt" size="1x" class="fas" />
             地址:新北市中和區安樂路x1號
-          </p>
-          <p>
+          <br />
             營業時間:AM11:30-PM2:30，PM5:00-PM9:00<br />
             最後點餐時間:結束前30分鐘，依現場為準。
             <br />周一公休
@@ -58,7 +54,3 @@ export default {
   name: 'Footer',
 }
 </script>
-
-<style scoped lang="scss">
-@import '@/assets/front_footer';
-</style>

@@ -8,7 +8,6 @@
             <th width="80">購買時間</th>
             <th width="150">客戶名稱</th>
             <th>訂單編號</th>
-            <!-- <th width="70">細項</th> -->
             <th width="70" class="RWDnone">金額</th>
             <th width="70" class="RWDnone">結清</th>
           </tr>
@@ -18,22 +17,13 @@
             <td>{{ item.create_at | date }}</td>
             <td>{{ item.user.name }}</td>
             <td class="product_id">
-              <button
+              <button type="button"
                 class="btn btn-outline-primary"
                 @click="openModal(item.id)"
               >
                 {{ item.id }}
               </button>
             </td>
-            <!-- <td>
-              <button
-                type="button"
-                class="btn btn-primary"
-                @click="openModal(item.id)"
-              >
-                <i class="far fa-list-alt"></i>
-              </button>
-            </td> -->
             <td class="text-right RWDnone">
               {{ item.total | currency }}
             </td>
@@ -46,7 +36,6 @@
       </table>
       <!-- pagination -->
       <pagination
-        class=""
         v-if="orders.length"
         :pagination="pagination"
         @emitPage="getProducts($event)"
@@ -122,7 +111,7 @@
 
 <script>
 import $ from 'jquery'
-import pagination from '@/components/Pagination'
+import pagination from '@/components/Pagination.vue'
 
 export default {
   name: 'Orders',
@@ -148,7 +137,7 @@ export default {
       const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/orders?page=${page}`
       vm.isLoading = true //
-      this.$http.get(api).then(response => {
+      vm.$http.get(api).then(response => {
         vm.isLoading = false //
         vm.orders = response.data.orders
         vm.pagination = response.data.pagination
