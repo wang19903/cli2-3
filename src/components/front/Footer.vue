@@ -4,34 +4,33 @@
       <ul
         class="row no-gutters d-flex justify-content-between flex-nowrap pl-0"
       >
-          <li class="col-1 p-0">
+          <li class="col-sm-1 p-0 d-flex">
             <div class="foot-txt">
               <span>鼎鮮</span>
               <span>飯麵</span>
             </div>
-          </li>
-          <li>
-            <ul class="p-0 d-flex ">
+          
+            <ul class="d-flex p-0">
               <li class="fb">
                 <a href="https://www.facebook.com/">
                   <font-awesome-icon
                     :icon="{ prefix: 'fab', iconName: 'facebook-square' }"
                 /></a>
               </li>
-              <li class="ig pl-2">
+              <li class="ig">
                 <a href="https://www.instagram.com/">
                   <span> <i class="fab fa-instagram"></i></span
                 ></a>
               </li>
             </ul>
           </li>
-        <li class="col rightbox">
+        <li class="col-md-3 rightbox">
           <p class="text-center">
             &copy; All Right Reserved(Demo)<br />
             本店絕對不會要求操作ATM
           </p>
         </li>
-        <li class="col-lg-4 col-sm-6 text-left pr-1 infobox">
+        <li class="col-lg-4 col-md-5 col-6 text-left pr-1 infobox">
           <p>
             <font-awesome-icon icon="phone" size="1x" class="fas" />+886
             2992915311

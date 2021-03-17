@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav id="sidebarMenu" class="col d-md-block bg-light sidebar collapse">
+    <nav id="sidebarMenu" class="col d-md-block bg-dark sidebar collapse">
       <div class="sidebar-sticky pt-3">
         <h6
           class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-1 mb-1 text-muted"
@@ -38,3 +38,15 @@
     </nav>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.nav-link{
+  color: #fff;
+}
+
+@media(max-width:767px){
+  .svg-inline--fa{
+    width: 10%;
+  }
+}
+</style>

@@ -19,7 +19,7 @@
         </div>
         <div class="row-col pr-5 pl-5">
           <blockquote class="blockquote mt-3">
-            <footer class="blockquote-footer text-left">
+            <footer class="blockquote-footer text-left text-body">
               {{ product.description }}
             </footer>
           </blockquote>
@@ -34,10 +34,13 @@
               現在只要 {{ product.price }} 元
             </div>
           </div>
-          <div class="text-left">
-            注意事項:絕對不含防腐劑，所以無論您是現場購買或宅配冷藏到貨，
-            我們建議您當天沒食用完，請放入冰箱冷藏冷凍。
-          </div>
+          <p class="text-left pt-2 text-muted">
+            注意事項:<br/>
+            每日採購新鮮食材並且不使用食品添加物、防腐劑等，所以除醬料品外，一律冷凍或冷藏宅配至府上。<br/>
+            醬料類以及滷汁請勿把表面油層倒掉，並且擦乾器具後使用除當日食用部分外<br/>
+            請勿放置在潮濕、高溫處，避免食物變成變質<br/>
+
+          </p>
 
           <div class="modal-footer">
             <select class="form-control mt-3" v-model="product.num">
@@ -46,14 +49,14 @@
                 選購{{ num }} {{ product.unit }}
               </option>
             </select>
-            <div class="text-muted text-nowrap mr-3">
+            <span class="text-muted text-nowrap mr-3">
               小計<strong v-if="product.num * product.price >= 0">
                 {{ product.num * product.price }}
               </strong>
-            </div>
+            </span>
             <button
               type="button"
-              class="btn btn-primary"
+              class="btn btn-secondary"
               @click="addtoCart(product.id, product.num)"
             >
               <i
@@ -110,15 +113,30 @@ export default {
 
 <style lang="scss" scoped>
 .wrap {
-  max-width: 1024px;
-  background-color: rgba(255, 247, 214, 0.336);
+  background-color: rgba(255, 248, 221, 0.171);
 }
 
 img {
   width: 70%;
 }
 
+p{
+  font-size: 15px;
+}
+
 .form-control {
   width: 50%;
+}
+
+@media(max-width: 550px){
+  .modal-footer{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    select{
+      width: 70%;
+    }
+  }
 }
 </style>

@@ -47,7 +47,7 @@
   font-weight: 600;
   background-color: rgba(255, 255, 255, 0.253);
   letter-spacing: 9px;
-  line-height: 40px;
+  line-height: 1.5em;
 }
 
 .cartIcon {
@@ -75,20 +75,11 @@ img {
 }
 
 .dropdown-menu {
-  @include navSet;
+
   min-width: 350px;
   position: absolute;
   transform: translateX(-43%);
   border: #000 solid 1px;
-}
-
-.nav-table thead th, .nav-table td{
-  border-bottom: #000 solid 1px;
-}
-
-.nav-btn:hover {/**/
-  background-color: rgb(124, 69, 7);
-  color: #fff;
 }
 
 .firstBtn::after,
@@ -154,13 +145,26 @@ img {
   }
 }
 
-@media (max-width: 860px) {
+@media (max-width: 767px) {
 .firstBtn:hover::after,
 .secondBtn:hover::after,
 .thirdBtn:hover::after {
   margin: auto;
   width: 30%;
 }
+
+.dropdown-menu{
+  min-width: 100%;
+}
+
+.dropdown-menu.show
+{
+position: absolute;
+left: 50%;
+top: 100%;
+transform: translate(-50%, 0%);
+}
+
 }
 
 @media (max-width: 576px) {
@@ -169,13 +173,9 @@ img {
   }
 
   .slogan {
-    width: 66%;
+    width: 100%;
     font-size: 25px;
     line-height: 2px;
-  }
-
-  .nav-btn {
-    margin-bottom: 1px;
   }
 
   .secondBtn {

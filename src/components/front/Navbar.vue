@@ -1,6 +1,6 @@
 <template>
   <div class="bgImg">
-    <div class="slogan"><p>鼎中美食 鮮香味美</p></div>
+    <div><p class="slogan">鼎中美食 鮮香味美</p></div>
     <loading :active.sync="isLoading"></loading>
 
     <nav class="navbar navbar-expand-md navbar-light border-bottom border-dark">
@@ -67,11 +67,11 @@
             </a>
 
             <div
-              class="dropdown-menu border border-secondary"
+              class="dropdown-menu"
               aria-labelledby="navbarDropdown"
             >
               <table
-                class="table border border-secondary
+                class="table 
                 nav-table"
                 v-if="cart.carts.length"
               >
@@ -86,7 +86,7 @@
                     <td class="align-middle">
                       <button
                         type="button"
-                        class="btn btn-outline-danger btn-sm nav-btn"
+                        class="btn btn-outline-dark btn-sm nav-btn"
                         @click="removeCart(item.id)"
                       >
                         <i class="fas fa-trash-alt"></i>
@@ -125,7 +125,7 @@
               </div>
               <button
                 type="button"
-                class="btn border btn-block mt-3 nav-btn"
+                class="btn btn-block mt-3 nav-btn btn-outline-dark"
                 @click="checkout"
                 v-if="cart.carts.length"
               >
