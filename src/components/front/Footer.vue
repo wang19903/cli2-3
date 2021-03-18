@@ -26,8 +26,7 @@
           </li>
         <li class="col-md-3 rightbox">
           <p class="text-center">
-            &copy; All Right Reserved(Demo)<br />
-            本店絕對不會要求操作ATM
+            &copy; All Right Reserved(Demo)            
           </p>
         </li>
         <li class="col-lg-4 col-md-5 col-6 text-left pr-1 infobox">

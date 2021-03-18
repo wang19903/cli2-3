@@ -1,101 +1,112 @@
 <template>
-  <div class="container-fluid p-0
-  home-container">
-    <div class="wrapper">
-      <Lightbox />
-      <div class="container-fluid p-0">
-        <div class="row">
-          <div class="col-md-6 pt-2">
-            <div
-              data-aos="fade-right"
-              data-aos-duration="3000"
-              type="button"
-              v-clipboard:copy="message"
-              v-clipboard:success="onCopy"
-              v-clipboard:error="onError"
-              :style="[
-                {
-                  backgroundImage:
-                    'url(' + require('@/assets/img/aos1.png') + ')',
-                },
-                { width: '100%' },
+  <div class="container-fluid p-0 home-container">
+    <Alert />
+    <div
+      data-aos="fade-down"
+      data-aos-easing="linear"
+      data-aos-duration="1500"
+      class="home-head mt-5 mb-5"
+    >
+      <img src="@/assets/img/home-head.jpg" alt="優惠碼" />
+      <div
+        class="copy-div"
+        v-clipboard:copy="message"
+        v-clipboard:success="onCopy"
+        v-clipboard:error="onError"
+      >
+        <h1>鼎鮮飯麵</h1>
+        <h3>官方網站開幕</h3>
+        <p>結帳輸入優惠碼<span>order999</span>享 九折優待</p>
+        <p>點擊即可複製</p>
+      </div>
+    </div>
 
-              ]"
-              class="infoDiv"
-            ></div>
-          </div>
+    <span class="news">最|新|消|息</span>
+    <div
+      data-aos="fade-right"
+      data-aos-easing="linear"
+      data-aos-duration="1500"
+      class="home-promote d-flex"
+    >
+      <div>
+        <h3>新產品<br />冷凍餛飩</h3>
+        <p>
+          輕鬆料理，可以加進麵、火鍋，也可以蒸、煎或油炸<br />更可以發會創意，做成自己喜歡的料理
+        </p>
 
-          <div class="col-md-6 pt-2">
-            <div
-              data-aos="flip-up"
-              data-aos-easing="ease-out-cubic"
-              data-aos-duration="3000"
-              :style="[
-                {
-                  backgroundImage:
-                    'url(' + require('@/assets/img/aos2.jpg') + ')',
-                },
-                { 'max-width': '100%' },
-                { 'background-size': 'cover' },
-                { 'background-position': 'top center' },
-              ]"
-              class="infoDiv"
-            ></div>
-          </div>
-        </div>
-        <div class="container-fluid p-0">
-          <ul class="d-flex justify-content-around row p-0 m-0 home-ul">
-            <li class="col-md-4">
-              <div class="rotate">
-                <img src="@/assets/img/UL1.jpg" alt="主廚料理"  />
-              </div>
-              <p class="pt-2">
-                從路邊攤滷味起家，在台深耕20年，深得顧客喜愛，逐漸開發多樣產品
-              </p>
-            </li>
-            <li class="col-md-4">
-              <div class="rotate">
-                <img src="@/assets/img/UL2.jpg" alt="新鮮食材"  />
-              </div>
-              <p class="pt-2">
-                每日採購新鮮食材，不使用半成品，確保食品來源，關心顧客健康
-              </p>
-            </li>
-            <li class="col-md-4">
-              <div class="rotate">
-                <img src="@/assets/img/UL3.jpg" alt="獨特口味"  />
-              </div>
-              <p class="pt-2">獨特口味，對於專業絕不馬虎</p>
-            </li>
+        <router-link to="/product/-MU7jaUl3bMSvBesWTsI"> 前往賣場 </router-link>
+      </div>
+      <img src="@/assets/img/promote.jpg" alt="推薦-商品餛飩" />
+    </div>
+
+    <span class="about">關於我們</span>
+
+    <div class="home-content d-flex">
+      <img src="@/assets/img/content.jpg" alt="說明範例圖" />
+      <div class="text-left">
+        <p>
+          從路邊攤滷味起家，在沒有宣傳下憑著手藝及堅持，慢慢累積顧客，並且在與客戶的交流下，慢慢改良產品，
+          經過多年的努力，在老客戶的累積下開出了店面，增加產品轉為中式創意料理店，中式番茄肉醬加上新鮮食材，健康美味；
+          純手工餛飩以及獨家醬料，在其他地方吃不到的味道。每到過年，老客戶都會來下訂滷味作為年菜，買餛飩或醬料來送禮。
+          如今要邁入二十個年頭，對於顧客的回饋，鼎鮮飯麵會繼續保持品質，並努力回應顧客的需求。
+        </p>
+        <br />
+        <div class="d-flex justify-content-md-between flex-wrap home-content-ulwrap">
+          <ul class="pt-2">
+            <li class="h2">我們的堅持</li>
+            <li>絕不使用人工添加物</li>
+            <li>每日採購新鮮食材，現點現做</li>
+            <li>食品來源:牛:澳洲 豬:台灣</li>
           </ul>
+          <img src="@/assets/img/id.jpg" alt="來源規定標章" class="home-content-img"/>
         </div>
       </div>
-      <GoTop />
     </div>
+
+    <GoTop />
   </div>
 </template>
 
 <script>
-import Lightbox from '@/components/front/Lightbox.vue'
 import GoTop from '@/components/front/GoTop.vue'
+import Alert from '@/components/AlertMessage.vue'
 
 export default {
   name: 'home',
   components: {
-    Lightbox,
+    Alert,
     GoTop,
   },
   data: function () {
     return {
       message: 'order999',
+      on: '',
     }
   },
   methods: {
     onCopy: function (e) {
-      alert('複製' + e.text + '摟~')
+      const vm = this
+      vm.on = 1
+      vm.alert()
     },
-    onError: function (e) {
-      alert('Failed to copy texts')
+    onError: function () {
+      const vm = this
+      vm.on = 0
+      vm.alert()
+    },
+    alert() {
+      const vm = this
+      if ((vm.on = 1)) {
+        vm.$store.dispatch('updateMessage', {
+          message: '複製成功',
+          status: 'success',
+        })
+      } else {
+        vm.$store.dispatch('updateMessage', {
+          message: '複製失敗',
+          status: 'success',
+        })
+      }
     },
   },
 }

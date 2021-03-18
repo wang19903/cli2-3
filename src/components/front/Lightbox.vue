@@ -1,15 +1,15 @@
 <template>
-  <div class="container p-0 pt-2">
+  <div class="container-fluid">
     <swiper class="swiper" :options="swiperOption">
       <swiper-slide>
         <router-link to="/product/-MQLq88vyZuiaLnRve9i">
-          <img src="@/assets/img/promote2.jpg" alt="推薦商品導引"/>
+          <img src="@/assets/img/aos2.jpg" alt="推薦商品導引"/>
         </router-link>
       </swiper-slide>
 
       <swiper-slide>
         <router-link to="/product/-MU7jaUl3bMSvBesWTsI">
-          <img src="@/assets/img/promote.png" alt="推薦商品導引"/>
+          <img src="@/assets/img/aos2.jpg" alt="推薦商品導引"/>
         </router-link>
       </swiper-slide>
 
@@ -47,13 +47,13 @@ export default {
 
 <style scoped lang="scss">
 .container {
-  max-width: 1024px;
+  
   position: relative;
   z-index: 0;
 }
 img {
   width: 100%;
-  max-height: 424px;
+  max-height: 100%;
   background-size: cover;
 }
 </style>
