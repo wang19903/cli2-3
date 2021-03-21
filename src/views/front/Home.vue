@@ -77,19 +77,19 @@ export default {
     Alert,
     GoTop,
   },
-  data: function () {
+  data() {
     return {
       message: 'order999',
       on: '',
     }
   },
   methods: {
-    onCopy: function (e) {
+    onCopy() {
       const vm = this
       vm.on = 1
       vm.alert()
     },
-    onError: function () {
+    onError() {
       const vm = this
       vm.on = 0
       vm.alert()

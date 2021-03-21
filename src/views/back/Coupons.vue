@@ -284,7 +284,7 @@ export default {
         this.tempCoupon = {}
         this.isNew = true
       } else {
-        this.tempCoupon = Object.assign({}, item)
+        this.tempCoupon = {...item};
         this.isNew = false
       }
       $('#couponModal').modal('show')
@@ -311,12 +311,12 @@ export default {
     openDeleteModal(item) {
       const vm = this
       $('#delCouponModal').modal('show')
-      vm.tempCoupon = Object.assign({}, item)
+      vm.tempCoupon = {...item}
     },
     deleteCoupon() {
       const vm = this
       let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${vm.tempCoupon.id}`
-      vm.$http.delete(api).then(response => {
+      vm.$http.delete(api).then(() => {
         $('#delCouponModal').modal('hide')
         vm.getCoupons()
       })

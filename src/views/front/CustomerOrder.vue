@@ -237,9 +237,61 @@ export default {
     Alert,
   },
   methods: {
-    removeCart(id) {
-      this.$store.dispatch('cartsModules/removeCart', id)
+    getCart () {
+      const vm = this
+      vm.cart = JSON.parse(localStorage.getItem('cart')) || []
+      vm.total = 0
+      vm.cartLength = 0
+      vm.cart.forEach((item) => {
+        vm.total += item.total
+        vm.cartLength += item.qty
+      })
     },
+    addTocart (product, qty = 1) {
+      const vm = this
+      let productIndex = -1
+      vm.getCart()
+      if (vm.cart.length > 0) {
+        vm.cart.forEach((item, index) => {
+          if (item.id === product.id) {
+            productIndex = index
+          }
+        })
+      }
+      if (productIndex === -1) {
+        const total = parseInt((product.origin_price * qty), 10)
+        vm.$set(product, 'qty', qty)
+        vm.$set(product, 'total', total)
+        vm.cart.push(product)
+      } else {
+        const tempProduct = { ...vm.cart[productIndex] }
+        tempProduct.qty += qty
+        const total = parseInt((product.origin_price * tempProduct.qty), 10)
+        tempProduct.total = total
+        vm.cart.splice(productIndex, 1)
+        vm.cart.push(tempProduct)
+      }
+      localStorage.setItem('cart', JSON.stringify(vm.cart))
+      vm.getCart()
+    },
+removeCart (id) {
+      const vm = this
+      let removingIndex = -1
+      if (vm.cart.length > 0) {
+        vm.cart.forEach((item, index) => {
+          if (item.id === id) {
+            removingIndex = index
+          }
+        })
+      }
+      vm.cart.splice(removingIndex, 1)
+      localStorage.setItem('cart', JSON.stringify(vm.cart))
+      vm.getCart()
+    },
+
+    // removeCart(id) {
+    //   this.$store.dispatch('cartsModules/removeCart', id)
+    // },
     addCouponCode() {
       const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/coupon`
