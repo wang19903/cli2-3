@@ -60,7 +60,7 @@
                     v-if="carData.length > 0"
                     class="badge badge-light"
                   >
-                    {{ sum }}
+                    {{ carData.length }}
                   </div></i
                 ><span class="">購物車</span>
               </div>
@@ -171,25 +171,16 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'Navbar',
-  //
-  //props: ['sum'],
-  //
   data() {
     return {
-      carData: JSON.parse(localStorage.getItem('carData')) || [],
-      //
-       sum: 0,
-      //
+      carData:  [],
     }
   },
   methods: {
-    // getCart () {
-    //   const vm = this
-    //   vm.carData = JSON.parse(localStorage.getItem('carData')) || []
-    //   //
-    //   vm.length = vm.cart.length;
-    //   //
-    // },
+    getCart () {
+      const vm = this
+      vm.carData = JSON.parse(localStorage.getItem('carData')) || []
+    },
     onPlus(item) {
       const vm = this
       if (item.qty === 10) {
@@ -219,7 +210,7 @@ export default {
       vm.carData.filter((item, key) => {
         if (item.product_id === cart.product_id) {
           vm.carData.splice(key, 1)
-          localStorage.setItem('carData', JSON.stringify(vm.carData))
+          localStorage.setItem('carData', JSON.stringify(this.$store.state.carData))
         vm.getCart()
         }
       })
@@ -297,16 +288,9 @@ export default {
       }
       return this.carData[0].origin_price * this.carData[0].qty
     },
-    getCart(){
-      const vm =this
-vm.sum = vm.carData.length
-},
   },
 created () {
-//this.$bus.$on('cart:get', () => this.getCart())
-//
-this.getCart();
-//
+this.$bus.$on('getCart', () => this.getCart())
   },
 }
 </script>

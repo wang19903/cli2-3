@@ -135,22 +135,15 @@ export default {
       status: {
         loadingItem: '',
       },
-      carData: JSON.parse(localStorage.getItem('carData')) || [], 
-      //
-      sum:0,
-      //
+      carData: [], 
     }
   },
   methods: {
-    //
-        updateSum(length) {
-      this.sum = length;
-    },
-    //
-     addTocart (data) {
-      const vm = this     
+     addTocart (data) { 
+      //const vm = this
+      this.getCart()
       const cacheCarID = []; 
-      vm.carData.forEach((item) => {
+      this.carData.forEach((item) => {
         cacheCarID.push(item.product_id);
       });
       if (cacheCarID.indexOf(data.id) === -1) {
@@ -161,13 +154,13 @@ export default {
           origin_price: data.origin_price, 
           price: data.price, 
         };
-        vm.carData.push(cartContent);
-        localStorage.setItem('carData', JSON.stringify(vm.carData));
-        vm.getCart()
-        //vm.$bus.$emit('cart:get')
+        this.$store.state.carData.push(cartContent);
+        localStorage.setItem('carData', JSON.stringify(this.$store.state.carData));
+        this.getCart()
+        this.$bus.$emit('getCart')
       } else {
         let cache = {}; 
-        vm.carData.forEach((item, keys) => {
+        this.carData.forEach((item, keys) => {
           if (item.product_id === data.id) {
             let { qty } = item; 
             cache = {
@@ -177,24 +170,18 @@ export default {
               origin_price: data.origin_price, 
               price: data.price, 
             };
-            vm.carData.splice(keys, 1);
+            this.carData.splice(keys, 1);
           }
         });
-        vm.carData.push(cache); 
-        localStorage.setItem('carData', JSON.stringify(vm.carData));
-        vm.getCart()
-        //vm.$bus.$emit('cart:get')
+        this.carData.push(cache); 
+        localStorage.setItem('carData', JSON.stringify(this.carData));
+        this.getCart()
+        this.$bus.$emit('getCart')
       }
-      //
-      vm.getCart()
-      //
+
     },
     getCart () {
-const vm = this
-//
-vm.sum = vm.cart.length;
-//
-      vm.carData = JSON.parse(localStorage.getItem('carData')) || []
+      this.carData = JSON.parse(localStorage.getItem('carData')) || []
     },
     // addtoCart(id, qty = 1) {
     //   this.$store.dispatch('cartsModules/addtoCart', { id, qty })

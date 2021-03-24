@@ -11,6 +11,7 @@ export default {
       addCartLoading: '',
     },
     messages: [],
+    carData: JSON.parse(localStorage.getItem('carData')) || [], 
   },
   actions: {
     getCart(context) {
