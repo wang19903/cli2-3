@@ -135,61 +135,66 @@ export default {
       status: {
         loadingItem: '',
       },
-      //data: [], // 產品列表資料放置處
-
-      carData: JSON.parse(localStorage.getItem('carData')) || [], // localStorage 資料
+      carData: JSON.parse(localStorage.getItem('carData')) || [], 
+      //
+      sum:0,
+      //
     }
   },
   methods: {
+    //
+        updateSum(length) {
+      this.sum = length;
+    },
+    //
      addTocart (data) {
-     const cacheCarID = []; // 暫存 ID 放置處
-      // 一開始先將 carData 中的 ID 全部撈出來
-      this.carData.forEach((item) => {
+      const vm = this     
+      const cacheCarID = []; 
+      vm.carData.forEach((item) => {
         cacheCarID.push(item.product_id);
       });
-      // 接下來使用 indexOf 尋找傳進來的參數 ID 是否有在該陣列中
-      // 若不存在則會回傳 -1 並加入到陣列儲存在 localStorage
-      // 若存在則會回傳 0 並改走 else
       if (cacheCarID.indexOf(data.id) === -1) {
         const cartContent = {
-          product_id: data.id, // 產品 ID
-          qty: 1, // 產品數量，預設一筆
-          name: data.title, // 產品標題
-          origin_price: data.origin_price, // 產品原始金額
-          price: data.price, // 產品銷售金額
+          product_id: data.id, 
+          qty: 1, 
+          name: data.title, 
+          origin_price: data.origin_price, 
+          price: data.price, 
         };
-        // 將數量推回陣列中
-        this.carData.push(cartContent);
-        // 重新寫入 localStorage
-        localStorage.setItem('carData', JSON.stringify(this.carData));
+        vm.carData.push(cartContent);
+        localStorage.setItem('carData', JSON.stringify(vm.carData));
+        vm.getCart()
+        //vm.$bus.$emit('cart:get')
       } else {
-        let cache = {}; // 產品暫存處
-        this.carData.forEach((item, keys) => {
-          // 只找相同的產品內容
+        let cache = {}; 
+        vm.carData.forEach((item, keys) => {
           if (item.product_id === data.id) {
-            let { qty } = item; // 取出已存在 localStorage 購物車的資料並加數量增加
+            let { qty } = item; 
             cache = {
-              product_id: data.id, // 產品 ID
-              qty: qty += 1, // 產品當前數量，針對數量增加數量
-              name: data.title, // 產品標題
-              origin_price: data.origin_price, // 產品原始金額
-              price: data.price, // 產品銷售金額
+              product_id: data.id, 
+              qty: qty += 1, 
+              name: data.title,
+              origin_price: data.origin_price, 
+              price: data.price, 
             };
-            // 移除現有 localStorage 購物車的資料，否則 localStorage 會重複加入
-            this.carData.splice(keys, 1);
+            vm.carData.splice(keys, 1);
           }
         });
-        // 將數量已經增加的資料推回陣列中
-        this.carData.push(cache); // 不建議放在 forEach 內，否則迴圈會重複執行導致變成加二
-        // 重新寫入 localStorage
-        localStorage.setItem('carData', JSON.stringify(this.carData));
-        //carData.length
+        vm.carData.push(cache); 
+        localStorage.setItem('carData', JSON.stringify(vm.carData));
+        vm.getCart()
+        //vm.$bus.$emit('cart:get')
       }
-      this.getCart()
-      //this.getLocalStorage()
+      //
+      vm.getCart()
+      //
     },
     getCart () {
-      this.cart = JSON.parse(localStorage.getItem('carData')) || []
+const vm = this
+//
+vm.sum = vm.cart.length;
+//
+      vm.carData = JSON.parse(localStorage.getItem('carData')) || []
     },
     // addtoCart(id, qty = 1) {
     //   this.$store.dispatch('cartsModules/addtoCart', { id, qty })
@@ -243,6 +248,7 @@ export default {
     },
     ...mapGetters('productModules', ['categories', 'products']),
     ...mapGetters(['isLoading']),
+
   },
   created() {
     this.getProducts()

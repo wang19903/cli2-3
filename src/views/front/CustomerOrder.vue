@@ -274,24 +274,24 @@ export default {
       localStorage.setItem('cart', JSON.stringify(vm.cart))
       vm.getCart()
     },
-removeCart (id) {
-      const vm = this
-      let removingIndex = -1
-      if (vm.cart.length > 0) {
-        vm.cart.forEach((item, index) => {
-          if (item.id === id) {
-            removingIndex = index
-          }
-        })
-      }
-      vm.cart.splice(removingIndex, 1)
-      localStorage.setItem('cart', JSON.stringify(vm.cart))
-      vm.getCart()
-    },
+// removeCart (id) {
+//       const vm = this
+//       let removingIndex = -1
+//       if (vm.cart.length > 0) {
+//         vm.cart.forEach((item, index) => {
+//           if (item.id === id) {
+//             removingIndex = index
+//           }
+//         })
+//       }
+//       vm.cart.splice(removingIndex, 1)
+//       localStorage.setItem('cart', JSON.stringify(vm.cart))
+//       vm.getCart()
+//     },
 
-    // removeCart(id) {
-    //   this.$store.dispatch('cartsModules/removeCart', id)
-    // },
+    removeCart(id) {
+      this.$store.dispatch('cartsModules/removeCart', id)
+    },
     addCouponCode() {
       const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/coupon`

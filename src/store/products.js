@@ -8,7 +8,6 @@ export default {
   },
   actions: {
     getProducts(context) {
-      const vm = this
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`
       context.commit('LOADING', true, { root: true })
       axios.get(url).then(response => {

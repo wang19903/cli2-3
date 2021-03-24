@@ -63,7 +63,7 @@ library.add(
   faFacebookSquare,
   faInstagram
 )
-
+//import './bus'
 import VueClipboard from 'vue-clipboard2'
 
 Vue.use(VueClipboard)
