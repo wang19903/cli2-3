@@ -1,5 +1,10 @@
 <template>
   <div>
+     <div class="bgImg2">
+      <p class="slogan">
+        鼎中美食 鮮香味美
+      </p>
+    </div>
     <div class="wrapper">
       <div class="search pt-2">
         <div class="my-3 my-lg-0 ListProducts-img">
@@ -154,8 +159,8 @@ export default {
           origin_price: data.origin_price, 
           price: data.price, 
         };
-        this.$store.state.carData.push(cartContent);
-        localStorage.setItem('carData', JSON.stringify(this.$store.state.carData));
+        this.carData.push(cartContent);
+        localStorage.setItem('carData', JSON.stringify(this.carData));
         this.getCart()
         this.$bus.$emit('getCart')
       } else {

@@ -5,6 +5,7 @@
       <div class="container front-order-container">
         <div class="row justify-content-md-center">
           <div class="col col-md-8">
+            <span class="direct"> 確認產品明細 </span>
             <table class="table table-striped mt-4" v-if="cart.carts.length">
               <thead>
                 <th></th>
@@ -23,7 +24,7 @@
                       <i class="fas fa-trash-alt"></i>
                     </button>
                   </td>
-                  <td class="align-middle">
+                  <td class="align-middle img">
                     <div
                       style="
                         height: 50px;
@@ -85,6 +86,7 @@
             >
               購物車尚未有商品唷!!
             </div>
+            <span class="direct"> 填寫表單 </span>
             <ValidationObserver
               v-slot="{ invalid }"
               class="col-md-6"
@@ -99,7 +101,7 @@
                   v-slot="{ errors, classes, passed }"
                 >
                   <!-- 輸入框 -->
-                  <label for="email">Email</label>
+                  <label class="text-left" for="email">Email</label>
                   <input
                     id="email"
                     type="email"
@@ -190,20 +192,22 @@
                   <textarea
                     name=""
                     id="comment"
+                    placeholder="少辣少醬等等需求註明"
                     class="form-control front-order-input"
                     cols="30"
                     rows="10"
                     v-model="form.message"
                   ></textarea>
                 </div>
-
-                <button
-                  type="submit"
-                  class="btn btn-primary"
-                  :disabled="invalid"
-                >
-                  送出表單
-                </button>
+                <div class="d-flex justify-content-center">
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    :disabled="invalid"
+                  >
+                    送出表單
+                  </button>
+                </div>
               </form>
             </ValidationObserver>
           </div>
@@ -233,21 +237,21 @@ export default {
       },
     }
   },
-      components: {
+  components: {
     Alert,
   },
   methods: {
-    getCart () {
+    getCart() {
       const vm = this
       vm.cart = JSON.parse(localStorage.getItem('cart')) || []
       vm.total = 0
       vm.cartLength = 0
-      vm.cart.forEach((item) => {
+      vm.cart.forEach(item => {
         vm.total += item.total
         vm.cartLength += item.qty
       })
     },
-    addTocart (product, qty = 1) {
+    addTocart(product, qty = 1) {
       const vm = this
       let productIndex = -1
       vm.getCart()
@@ -259,14 +263,14 @@ export default {
         })
       }
       if (productIndex === -1) {
-        const total = parseInt((product.origin_price * qty), 10)
+        const total = parseInt(product.origin_price * qty, 10)
         vm.$set(product, 'qty', qty)
         vm.$set(product, 'total', total)
         vm.cart.push(product)
       } else {
         const tempProduct = { ...vm.cart[productIndex] }
         tempProduct.qty += qty
-        const total = parseInt((product.origin_price * tempProduct.qty), 10)
+        const total = parseInt(product.origin_price * tempProduct.qty, 10)
         tempProduct.total = total
         vm.cart.splice(productIndex, 1)
         vm.cart.push(tempProduct)
@@ -274,20 +278,20 @@ export default {
       localStorage.setItem('cart', JSON.stringify(vm.cart))
       vm.getCart()
     },
-// removeCart (id) {
-//       const vm = this
-//       let removingIndex = -1
-//       if (vm.cart.length > 0) {
-//         vm.cart.forEach((item, index) => {
-//           if (item.id === id) {
-//             removingIndex = index
-//           }
-//         })
-//       }
-//       vm.cart.splice(removingIndex, 1)
-//       localStorage.setItem('cart', JSON.stringify(vm.cart))
-//       vm.getCart()
-//     },
+    // removeCart (id) {
+    //       const vm = this
+    //       let removingIndex = -1
+    //       if (vm.cart.length > 0) {
+    //         vm.cart.forEach((item, index) => {
+    //           if (item.id === id) {
+    //             removingIndex = index
+    //           }
+    //         })
+    //       }
+    //       vm.cart.splice(removingIndex, 1)
+    //       localStorage.setItem('cart', JSON.stringify(vm.cart))
+    //       vm.getCart()
+    //     },
 
     removeCart(id) {
       this.$store.dispatch('cartsModules/removeCart', id)
@@ -306,12 +310,12 @@ export default {
             status: 'success',
           })
           vm.getCart()
-          }else {
+        } else {
           vm.$store.dispatch('updateMessage', {
             message: response.data.message,
             status: 'danger',
           })
-        }        
+        }
         vm.$store.dispatch('updataLoading', false)
       })
     },
@@ -345,14 +349,39 @@ table {
   background-color: #e7dbc1;
 }
 
+.btn {
+  cursor: not-allowed;
+}
+
+.direct {
+  font-size: 2em;
+  border-bottom: 3px solid gray;
+}
+
 .noItem {
   margin: 10px;
   font-size: 28px;
   color: red;
 }
 
-form .form-control {
-  min-width: 100%;
-  margin: auto;
+form {
+  text-align: left;
+  max-width: 95%;
+
+  .form-control {
+    min-width: 100%;
+    margin: auto;
+  }
+
+  input {
+    height: 23px;
+  }
+}
+
+@media (max-width: 486px) {
+  .img {
+    padding: 0;
+    width: 50px;
+  }
 }
 </style>

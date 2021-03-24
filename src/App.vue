@@ -9,6 +9,7 @@
 
 body{
   overflow-x:hidden ;
+  user-select: none;
 }
 
 #app {

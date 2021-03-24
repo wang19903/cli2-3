@@ -14,6 +14,30 @@
 $color: rgb(197, 7, 7);
 $bold: 600;
 
+.bgImg2 {
+  width: 100%;
+  height: 500px;
+  background-image: url('~@/assets/img/nav.jpg');
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+  position: relative;
+  z-index: 1;
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #fff;
+    z-index: -1;
+    opacity: 0.1;
+  }
+}
+
+
 .wrapper{
   max-width: 1400px;
   margin: 0 auto;
@@ -162,6 +186,11 @@ max-width:300px;
 }
 
 @media (max-width: 576px) {
+
+  // .slogan {
+  //   width: 100%;
+  //   font-size: 25px;
+  // }
 
   .ListProducts-sidebar {
     padding: 0px 0px 0px 5px;

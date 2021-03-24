@@ -1,5 +1,11 @@
 <template>
   <div class="container-fluid p-0 home-container">
+    <div class="bgImg">
+      <p class="slogan">鼎中美食 鮮香味美<br /></p>
+      <div class="linkDiv">
+        <router-link to="/products">前往賣場</router-link>
+      </div>
+    </div>
     <Alert />
     <div
       data-aos="fade-down"
@@ -42,23 +48,53 @@
     <span class="about">關於我們</span>
 
     <div class="home-content d-flex">
-      <img src="@/assets/img/content.jpg" alt="說明範例圖" />
+      <div
+        data-aos="fade-up-right"
+        data-aos-easing="linear"
+        data-aos-duration="1500"
+      >
+        <img src="@/assets/img/content.jpg" alt="說明範例圖" />
+      </div>
       <div class="text-left">
-        <p>
-          從路邊攤滷味起家，在沒有宣傳下憑著手藝及堅持，慢慢累積顧客，並且在與客戶的交流下，慢慢改良產品，
-          經過多年的努力，在老客戶的累積下開出了店面，增加產品轉為中式創意料理店，中式番茄肉醬加上新鮮食材，健康美味；
-          純手工餛飩以及獨家醬料，在其他地方吃不到的味道。每到過年，老客戶都會來下訂滷味作為年菜，買餛飩或醬料來送禮。
-          如今要邁入二十個年頭，對於顧客的回饋，鼎鮮飯麵會繼續保持品質，並努力回應顧客的需求。
-        </p>
-        <br />
-        <div class="d-flex justify-content-md-between flex-wrap home-content-ulwrap">
-          <ul class="pt-2">
-            <li class="h2">我們的堅持</li>
-            <li>絕不使用人工添加物</li>
-            <li>每日採購新鮮食材，現點現做</li>
-            <li>食品來源:牛:澳洲 豬:台灣</li>
-          </ul>
-          <img src="@/assets/img/id.jpg" alt="來源規定標章" class="home-content-img"/>
+        <div
+          data-aos="fade-up-left"
+          data-aos-easing="linear"
+          data-aos-duration="1500"
+        >
+          <p>
+            從路邊攤滷味起家，在沒有宣傳下憑著手藝及堅持，慢慢累積顧客，並且在與客戶的交流下，慢慢改良產品，
+            經過多年的努力，在老客戶的累積下開出了店面，增加產品轉為中式創意料理店，中式番茄肉醬加上新鮮食材，健康美味；
+            純手工餛飩以及獨家醬料，在其他地方吃不到的味道。每到過年，老客戶都會來下訂滷味作為年菜，買餛飩或醬料來送禮。
+            如今要邁入二十個年頭，對於顧客的回饋，鼎鮮飯麵會繼續保持品質，並努力回應顧客的需求。
+          </p>
+          <br />
+        </div>
+        <div
+          class="d-flex justify-content-md-between flex-wrap home-content-ulwrap"
+        >
+          <div
+            data-aos="fade-up-left"
+            data-aos-easing="linear"
+            data-aos-duration="750"
+          >
+            <ul class="pt-2">
+              <li class="h2">我們的堅持</li>
+              <li>絕不使用人工添加物</li>
+              <li>每日採購新鮮食材，現點現做</li>
+              <li>食品來源:牛:澳洲 豬:台灣</li>
+            </ul>
+          </div>
+          <div
+            data-aos="zoom-out"
+            data-aos-easing="linear"
+            data-aos-duration="750"
+          >
+            <img
+              src="@/assets/img/id.jpg"
+              alt="來源規定標章"
+              class="home-content-img"
+            />
+          </div>
         </div>
       </div>
     </div>

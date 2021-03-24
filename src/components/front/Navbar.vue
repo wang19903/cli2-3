@@ -1,6 +1,5 @@
 <template>
-  <div class="bgImg">
-    <div><p class="slogan">鼎中美食 鮮香味美</p></div>
+  <div>
     <loading :active.sync="isLoading"></loading>
 
     <nav class="navbar navbar-expand-md navbar-light border-bottom border-dark">
@@ -210,7 +209,7 @@ export default {
       vm.carData.filter((item, key) => {
         if (item.product_id === cart.product_id) {
           vm.carData.splice(key, 1)
-          localStorage.setItem('carData', JSON.stringify(this.$store.state.carData))
+          localStorage.setItem('carData', JSON.stringify(this.carData))
         vm.getCart()
         }
       })
@@ -252,10 +251,10 @@ export default {
               .then(() => {
                 this.carData = []
                 localStorage.removeItem('carData')
+                this.$router.push('/order')
               })
           })
         })
-      this.$router.push('/order')
     },
   },
   computed: {
