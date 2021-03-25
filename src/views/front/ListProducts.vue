@@ -134,7 +134,6 @@ export default {
       sortType: 'price',
       isReverse: false,
       tempData: [],
-      product: {},
       newData: [],
       searchText: '',
       status: {
@@ -183,7 +182,6 @@ export default {
         this.getCart()
         this.$bus.$emit('getCart')
       }
-
     },
     getCart () {
       this.carData = JSON.parse(localStorage.getItem('carData')) || []
@@ -232,7 +230,7 @@ export default {
         else return a[type] - b[type]
       })
       vm.newData = []
-      sortdata.forEach((item, i) => {
+      sortdata.forEach((item) => {
         vm.newData.push(item)
       })
       vm.$store.dispatch('updataLoading', false)

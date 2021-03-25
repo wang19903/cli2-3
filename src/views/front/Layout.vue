@@ -14,7 +14,7 @@ import Footer from '@/components/front/Footer.vue'
 import Opening from '@/components/front/Opening.vue'
 
 export default {
-  name: 'ListProducts',
+  name: 'Layout',
   components: {
     Navbar,
     Footer,

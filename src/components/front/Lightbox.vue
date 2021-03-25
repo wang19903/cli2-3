@@ -3,7 +3,7 @@
     <swiper class="swiper" :options="swiperOption">
       <swiper-slide>
         <router-link to="/product/-MQLq88vyZuiaLnRve9i">
-          <img src="@/assets/img/aos2.jpg" alt="推薦商品導引"/>
+          <img src="@/assets/img/UL1.jpg" alt="推薦商品導引"/>
         </router-link>
       </swiper-slide>
 

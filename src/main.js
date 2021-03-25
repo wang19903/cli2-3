@@ -8,6 +8,8 @@ import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.css'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+import 'swiper/swiper-bundle.css'
 import {
   ValidationObserver,
   ValidationProvider,
@@ -66,16 +68,10 @@ library.add(
 import './bus'
 import VueClipboard from 'vue-clipboard2'
 
-Vue.use(VueClipboard)
 
-dom.watch()
-
-Object.keys(rules).forEach(rule => {
-  extend(rule, rules[rule])
-})
-
-localize('zh_TW', TW)
 AOS.init()
+axios.defaults.withCredentials = true
+dom.watch()
 
 Vue.config.productionTip = false
 Vue.component('font-awesome-icon', FontAwesomeIcon)
@@ -84,23 +80,13 @@ Vue.component('ValidationProvider', ValidationProvider)
 Vue.component('Loading', Loading)
 Vue.use(Vuex)
 Vue.use(VueAxios, axios)
+Vue.use(VueClipboard)
+Vue.use(VueAwesomeSwiper, /* { default options with global component } */)
 Vue.filter('currency', currencyFilter)
 Vue.filter('date', dateFilter)
 
-configure({
-  classes: {
-    valid: 'is-valid',
-    invalid: 'is-invalid',
-  },
-})
-
-axios.defaults.withCredentials = true
-
-configure({
-  classes: {
-    valid: 'is-valid',
-    invalid: 'is-invalid',
-  },
+Object.keys(rules).forEach(rule => {
+  extend(rule, rules[rule])
 })
 
 new Vue({
@@ -108,6 +94,21 @@ new Vue({
   store,
   render: h => h(App),
 }).$mount('#app')
+
+localize('zh_TW', TW)
+configure({
+  classes: {
+    valid: 'is-valid',
+    invalid: 'is-invalid',
+  },
+})
+
+configure({
+  classes: {
+    valid: 'is-valid',
+    invalid: 'is-invalid',
+  },
+})
 
 router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth) {
