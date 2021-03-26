@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container-fluid my-5 row justify-content-center">
-      <form class="col-md-6" @submit.prevent="payOrder">
+      <form class="col-md-6" @click.prevent="payOrder">
         <table class="table">
           <thead>
             <th>品名</th>
@@ -58,7 +58,7 @@
           </tbody>
         </table>
         <div class="text-right" v-if="order.is_paid === false">
-          <button class="btn btn-danger" type="button">確認付款去</button>
+          <button class="btn btn-danger" type="button" >確認付款去</button>
         </div>
       </form>
     </div>
@@ -94,8 +94,10 @@ export default {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/pay/${vm.orderId}`
       vm.$store.dispatch('updataLoading', true)
       vm.$http.post(api).then(response => {
+          console.log(response.data)
         vm.$store.dispatch('updataLoading', false)
         if (response.data.success) {
+          console.log(response.data)
           vm.getOrder()
         }
       })

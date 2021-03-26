@@ -17,7 +17,8 @@
             <td>{{ item.create_at | date }}</td>
             <td>{{ item.user.name }}</td>
             <td class="product_id">
-              <button type="button"
+              <button
+                type="button"
                 class="btn btn-outline-primary"
                 @click="openModal(item.id)"
               >
@@ -38,7 +39,7 @@
       <pagination
         v-if="orders.length"
         :pagination="pagination"
-        @emitPage="getProducts($event)"
+        @emitPage="getOrder($event)"
       ></pagination>
     </div>
 
@@ -53,13 +54,16 @@
     >
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">
+          <div class="modal-header d-flex">
+            <h5 class="modal-title mr-auto" id="exampleModalLabel">
               訂單編號: {{ order.id }}
             </h5>
+            <button type="button" class="btn btn-primary" @click="Edit(order)">
+              編輯
+            </button>
             <button
               type="button"
-              class="close"
+              class="close ml-0 p-2"
               data-dismiss="modal"
               aria-label="Close"
             >
@@ -106,18 +110,146 @@
         </div>
       </div>
     </div>
+
+    <div
+      class="modal fade"
+      id="EditModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="EditModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content border-0">
+          <div class="modal-header bg-dark text-white">
+            <h5 class="modal-title" id="EditModalLabel">
+              <span>修改訂單</span>
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-sm">
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="name">客戶名稱</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="name"
+                      v-model="tempData.user.name"
+                      placeholder="請輸入名稱"
+                    />
+                  </div>
+
+                  <div class="form-group col-md-6">
+                    <label for="tel">電話</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="tel"
+                      v-model="tempData.user.tel"
+                      placeholder="請輸入電話"
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="email">信箱</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="email"
+                    v-model="tempData.user.email"
+                    placeholder="請輸入信箱"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="address">地址</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="address"
+                    v-model="tempData.user.address"
+                    placeholder="請輸入地址"
+                  />
+                </div>
+
+                <hr />
+                <div class="form-group">
+                  <label for="message">內容</label>
+                  <textarea
+                    type="text"
+                    class="form-control"
+                    id="message"
+                    v-model="tempData.message"
+                    placeholder="請輸入內容"
+                  ></textarea>
+                </div>
+                <div class="form-group">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      v-model="tempData.is_paid"
+                      :value="tempData.is_paid"
+                      v-on:input="tempData.is_paid = $event.target.value"
+                      id="is_paid"
+                    />
+                    <label class="form-check-label" for="is_paid">
+                      是否啟用
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-outline-secondary"
+              data-dismiss="modal"
+            >
+              取消
+            </button>
+            <button type="button" class="btn btn-primary" @click="EditConfirm">
+              確認
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import $ from 'jquery'
 import pagination from '@/components/Pagination.vue'
+import { mapGetters } from 'vuex'
+
 
 export default {
   name: 'Orders',
   data() {
     return {
       orders: [],
+      tempData: {
+        products: {},
+        user: {
+          address: '',
+          email: '',
+          name: '',
+          tel: '',
+        },
+      },
       pagination: {},
       order: {
         products: {},
@@ -126,19 +258,18 @@ export default {
           tel: '',
         },
       },
-      isLoading: false,
     }
   },
   components: {
     pagination,
   },
   methods: {
-    getProducts(page = 1) {
+    getOrder(page = 1) {
       const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/orders?page=${page}`
-      vm.isLoading = true //
+      vm.$store.dispatch('updataLoading', true)
       vm.$http.get(api).then(response => {
-        vm.isLoading = false //
+        vm.$store.dispatch('updataLoading', false)
         vm.orders = response.data.orders
         vm.pagination = response.data.pagination
       })
@@ -146,9 +277,38 @@ export default {
     openModal(id) {
       const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order/${id}`
+      vm.$store.dispatch('updataLoading', true)
       vm.$http.get(api).then(res => {
+      vm.$store.dispatch('updataLoading', false)
         $('#exampleModal').modal('show')
         vm.order = res.data.order
+      })
+    },
+    Edit(order) {
+      this.tempData = Object.assign({}, order)
+      $('#EditModal').modal('show')
+    },
+    EditConfirm() {
+      const vm = this
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/order/${vm.tempData.id}`
+      vm.$http.put(api ,{ data: vm.tempData }).then(response => {
+        vm.$store.dispatch('updataLoading', true)
+        if (response.data.success) {
+          $('#EditModal').modal('hide')
+          vm.getOrder()
+          vm.$store.dispatch('updateMessage', {
+            message: response.data.message,
+            status: 'success',
+          })
+        } else {
+          $('#EditModal').modal('hide')
+          vm.getOrder()
+          vm.$store.dispatch('updateMessage', {
+            message: response.data.message,
+            status: 'danger',
+          })
+        }
+        vm.$store.dispatch('updataLoading', false)
       })
     },
   },
@@ -165,9 +325,10 @@ export default {
       }
       return newOrder
     },
+        ...mapGetters(['isLoading']),
   },
   created() {
-    this.getProducts()
+    this.getOrder()
   },
 }
 </script>
@@ -186,6 +347,10 @@ export default {
 
 .RWDdisplay {
   display: none;
+}
+
+.modal-content {
+  text-align: left;
 }
 
 @media (max-width: 576px) {

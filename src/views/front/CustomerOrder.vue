@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="bgImg3" v-if="cart.carts.length">
+    <div class="bgImg3">
       <p class="slogan">跟隨步驟完成訂單</p>
     </div>
     <Alert />
@@ -11,7 +11,10 @@
             <span class="direct" v-if="cart.carts.length">
               請確認產品明細
             </span>
-            <table class="table table-striped mt-4" v-if="cart.carts.length">
+            <table
+              class="table table-striped mt-4 front-order-table"
+              v-if="cart.carts.length"
+            >
               <thead>
                 <th></th>
                 <th></th>
@@ -66,9 +69,12 @@
               </tfoot>
             </table>
             <div
-              class="input-group mb-3 input-group-sm"
-              v-if="cart.carts.length"
+              class="d-flex flex-column align-items-center noItem"
+              v-if="cart.carts.length === 0"
             >
+              購物車尚未有商品唷!!
+            </div>
+            <div class="input-group mb-3 input-group-sm">
               <input
                 type="text"
                 class="form-control front-order-input"
@@ -85,35 +91,8 @@
                 </button>
               </div>
             </div>
-            <div
-              class="d-flex flex-column align-items-center noItem"
-              v-if="cart.carts.length === 0"
-            >
-              購物車尚未有商品唷!!
-               <!-- <div class="row">
-            <div class="col">
-              <swiper class="swiper" :options="swiperOption">
-                <swiper-slide v-for="(item) in products" :key="item.id">
-                  <div class="card ">
-                    <img :src="item.imageUrl" class="card-img-top" alt="本月熱銷商品">
-                    <div class="card-body">
-                      <h5 class="card-title  text-center">{{ item.title }}</h5>
-                    </div>
-                  </div>
-                </swiper-slide>
-              </swiper>
-            </div>
-          </div> -->
-              <div class="linkDiv">
-                <router-link to="/products">前往賣場</router-link>
-              </div>
-            </div>
             <span class="direct" v-if="cart.carts.length"> 請填完表單 </span>
-            <ValidationObserver
-              v-slot="{ invalid }"
-              class="col-md-6"
-              v-if="cart.carts.length"
-            >
+            <ValidationObserver v-slot="{ invalid }" class="col-md-6 validDiv">
               <form @submit.prevent="createOrder">
                 <ValidationProvider
                   rules="required|email"
@@ -226,9 +205,13 @@
                     type="submit"
                     class="btn btn-primary"
                     :disabled="invalid"
+                    v-if="cart.carts.length"
                   >
                     送出訂單
                   </button>
+                  <div class="linkDiv" v-if="!cart.carts.length">
+                    <router-link to="/products">前往賣場</router-link>
+                  </div>
                 </div>
               </form>
             </ValidationObserver>
@@ -257,26 +240,6 @@ export default {
         },
         message: '',
       },
-      //  swiperOption: {
-      //   slidesPerView: 1,
-      //   loop: true,
-      //   spaceBetween: 30,
-      //   grabCursor: true,
-      //   autoplay: {
-      //     delay: 1500,
-      //     disableOnInteraction: false
-      //   },
-      //   breakpoints: {
-      //     480: {
-      //       slidesPerView: 2,
-      //       spaceBetween: 20
-      //     },
-      //     800: {
-      //       slidesPerView: 3,
-      //       spaceBetween: 20
-      //     }
-      //   }
-      // },
     }
   },
   components: {
@@ -325,6 +288,7 @@ export default {
     removeCart(id) {
       this.$store.dispatch('cartsModules/removeCart', id)
     },
+
     addCouponCode() {
       const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/coupon`
@@ -348,6 +312,7 @@ export default {
         vm.$store.dispatch('updataLoading', false)
       })
     },
+
     createOrder() {
       const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order`
@@ -361,99 +326,13 @@ export default {
       })
     },
     ...mapActions('cartsModules', ['getCart']),
-  //  ...mapActions('productModules', ['getProducts']),
   },
   computed: {
     ...mapGetters('cartsModules', ['cart']),
     ...mapGetters(['isLoading']),
- //   ...mapGetters('productModules', ['products']),
   },
   created() {
     this.getCart()
-  //  this.getProducts()
   },
 }
 </script>
-
-<style lang="scss" scoped>
-table {
-  background-color: #e7dbc1;
-}
-
-.bgImg3 {
-  width: 100%;
-  height: 200px;
-  background-image: url('~@/assets/img/bg3.jpg');
-  background-repeat: no-repeat;
-  background-position: top center;
-  background-size: cover;
-  position: relative;
-  z-index: 1;
-
-  &:before {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    background-color: #fff;
-    z-index: -1;
-    opacity: 0.2;
-  }
-}
-
-.btn {
-  cursor: not-allowed;
-}
-
-.direct {
-  font-size: 2em;
-  border-bottom: 3px solid gray;
-}
-
-.linkDiv {
-  a {
-    color: #000;
-    position: absolute;
-    top: 200px;
-    left: 50%;
-    font-weight: 600;
-    transform: translate(-50%, -50%);
-    animation: BGmove 0.75s infinite;
-    padding: 8px;
-    font-size: 28px;
-    &:hover {
-      padding: 8px;
-      transition: 0.15s;
-    }
-  }
-}
-
-.noItem {
-  margin: 10px;
-  font-size: 28px;
-  color: red;
-}
-
-.form-group {
-  text-align: left;
-  width: 95%;
-
-  .form-control {
-    min-width: 100%;
-    margin: auto;
-  }
-
-  input {
-    height: 23px;
-  }
-}
-
-@media (max-width: 486px) {
-  .img {
-    padding: 0;
-    width: 50px;
-  }
-}
-</style>
