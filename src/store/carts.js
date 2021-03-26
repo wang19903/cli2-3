@@ -5,16 +5,16 @@ export default {
   namespaced: true,
   state: {
     cart: {
-      carts: [],
+      carts: []
     },
     cartLoading: {
-      addCartLoading: '',
+      addCartLoading: ''
     },
-    messages: [],
-    carData: JSON.parse(localStorage.getItem('carData')) || [], 
+    messages: []
+    // carData: JSON.parse(localStorage.getItem('carData')) || []
   },
   actions: {
-    getCart(context) {
+    getCart (context) {
       context.commit('LOADING', true, { root: true })
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
       axios.get(url).then(response => {
@@ -24,7 +24,7 @@ export default {
         context.commit('LOADING', false, { root: true })
       })
     },
-    removeCart(context, id) {
+    removeCart (context, id) {
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`
       context.commit('LOADING', true, { root: true })
 
@@ -33,17 +33,17 @@ export default {
         context.commit('LOADING', false, { root: true })
         context.dispatch('updateMessage', {
           message: '商品刪除成功',
-          status: 'danger',
+          status: 'danger'
         })
       })
     },
-    addtoCart(context, { id, qty }) {
+    addtoCart (context, { id, qty }) {
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
       context.commit('LOADING', true, { root: true })
       context.commit('CARTLOADING', id)
       const item = {
         product_id: id,
-        qty,
+        qty
       }
       axios.post(url, { data: item }).then(() => {
         context.dispatch('getCart')
@@ -51,50 +51,50 @@ export default {
         context.commit('CARTLOADING', '')
         context.dispatch('updateMessage', {
           message: '購物車新增成功',
-          status: 'success',
+          status: 'success'
         })
       })
     },
-    updateMessage(context, { message, status }) {
+    updateMessage (context, { message, status }) {
       const timestamp = Math.floor(new Date() / 1000)
       context.commit('MESSAGES', { message, status, timestamp })
       context.dispatch('removeMessageWithTiming', timestamp)
     },
-    removeMessageWithTiming(context, timestamp) {
+    removeMessageWithTiming (context, timestamp) {
       setTimeout(() => {
         context.commit('REMOVEMESSAGEWITHTIMING', timestamp)
       }, 5000)
     },
-    removeMessage(context, num) {
+    removeMessage (context, num) {
       context.commit('REMOVEMESSAGE', num)
-    },
+    }
   },
   mutations: {
-    CART(state, payload) {
+    CART (state, payload) {
       state.cart = payload
     },
-    CARTLOADING(state, payload) {
+    CARTLOADING (state, payload) {
       state.cartLoading.addCartLoading = payload
     },
-    MESSAGES(state, { message, status, timestamp }) {
+    MESSAGES (state, { message, status, timestamp }) {
       state.messages.push({
         message,
         status,
-        timestamp,
+        timestamp
       })
     },
-    REMOVEMESSAGEWITHTIMING(state, timestamp) {
+    REMOVEMESSAGEWITHTIMING (state, timestamp) {
       state.messages.forEach((item, i) => {
         if (item.timestamp === timestamp) {
           state.messages.splice(i, 1)
         }
       })
     },
-    REMOVEMESSAGE(state, num) {
+    REMOVEMESSAGE (state, num) {
       state.messages.splice(num, 1)
-    },
+    }
   },
   getters: {
-    cart: state => state.cart,
-  },
+    cart: state => state.cart
+  }
 }

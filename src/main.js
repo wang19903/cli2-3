@@ -8,6 +8,8 @@ import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.css'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+import './bus'
+import VueClipboard from 'vue-clipboard2'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/swiper-bundle.css'
 import {
@@ -15,7 +17,7 @@ import {
   ValidationProvider,
   extend,
   localize,
-  configure,
+  configure
 } from 'vee-validate'
 import * as rules from 'vee-validate/dist/rules'
 import TW from 'vee-validate/dist/locale/zh_TW.json'
@@ -24,7 +26,7 @@ import router from './router'
 import store from './store'
 import currencyFilter from './filters/currency'
 import dateFilter from './filters/date'
-import { library } from '@fortawesome/fontawesome-svg-core'
+import { library, dom } from '@fortawesome/fontawesome-svg-core'
 import {
   faConciergeBell,
   faShoppingCart,
@@ -38,15 +40,15 @@ import {
   faAngleUp,
   faFish,
   faHeart,
-  faSpinner,
+  faSpinner
 } from '@fortawesome/free-solid-svg-icons'
 import { faListAlt } from '@fortawesome/free-regular-svg-icons'
 import {
   faFacebookSquare,
-  faInstagram,
+  faInstagram
 } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { dom } from '@fortawesome/fontawesome-svg-core'
+// import { dom } from '@fortawesome/fontawesome-svg-core'
 library.add(
   faConciergeBell,
   faShoppingCart,
@@ -65,9 +67,6 @@ library.add(
   faFacebookSquare,
   faInstagram
 )
-import './bus'
-import VueClipboard from 'vue-clipboard2'
-
 
 AOS.init()
 axios.defaults.withCredentials = true
@@ -81,7 +80,7 @@ Vue.component('Loading', Loading)
 Vue.use(Vuex)
 Vue.use(VueAxios, axios)
 Vue.use(VueClipboard)
-Vue.use(VueAwesomeSwiper, /* { default options with global component } */)
+Vue.use(VueAwesomeSwiper)
 Vue.filter('currency', currencyFilter)
 Vue.filter('date', dateFilter)
 
@@ -92,22 +91,22 @@ Object.keys(rules).forEach(rule => {
 new Vue({
   router,
   store,
-  render: h => h(App),
+  render: h => h(App)
 }).$mount('#app')
 
 localize('zh_TW', TW)
 configure({
   classes: {
     valid: 'is-valid',
-    invalid: 'is-invalid',
-  },
+    invalid: 'is-invalid'
+  }
 })
 
 configure({
   classes: {
     valid: 'is-valid',
-    invalid: 'is-invalid',
-  },
+    invalid: 'is-invalid'
+  }
 })
 
 router.beforeEach((to, from, next) => {
@@ -119,7 +118,7 @@ router.beforeEach((to, from, next) => {
         next()
       } else {
         next({
-          path: '/login',
+          path: '/login'
         })
       }
     })
