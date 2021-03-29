@@ -1,7 +1,6 @@
 <template>
   <div>
     <loading :active.sync="isLoading"></loading>
-
     <nav class="navbar navbar-expand-md navbar-light border-bottom border-dark">
       <router-link class="navbar-brand p-0" to="/">
         <img
@@ -209,24 +208,27 @@ export default {
       vm.carData.filter((item, key) => {
         if (item.product_id === cart.product_id) {
           vm.carData.splice(key, 1)
-          localStorage.setItem('carData', JSON.stringify(this.carData))
+          localStorage.setItem('carData', JSON.stringify(vm.carData))
           vm.getCart()
         }
       })
     },
     checkout () {
       const cacheID = []
+      this.$store.dispatch('updataLoading', true)
       this.axios
         .get(
           `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`
         )
         .then(res => {
+          console.log(res)
           const cacheData = res.data.data.carts
           cacheData.forEach(item => {
             cacheID.push(item.id)
           })
         })
-        .then(() => {
+        .then((res) => {
+          console.log(res)
           cacheID.forEach(item => {
             this.axios
               .delete(
@@ -237,10 +239,11 @@ export default {
               })
           })
         })
-        .then(() => {
+        .then((res) => {
+          console.log(res)
           this.carData.forEach(item => {
             const cache = {
-              product_id: item.product_id,
+              product_id: item.productId,
               qty: item.qty
             }
             this.axios
@@ -248,18 +251,19 @@ export default {
                 `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`,
                 { data: cache }
               )
-              .then(() => {
+              .then((res) => {
+                console.log(res)
                 this.carData = []
                 localStorage.removeItem('carData')
+                this.getCart()
                 this.$router.push('/order')
               })
           })
         })
+      this.$store.dispatch('updataLoading', false)
     }
   },
   computed: {
-    ...mapGetters(['isLoading']),
-
     getPrice () {
       if (this.carData.length === 0) {
         return 0
@@ -286,7 +290,8 @@ export default {
         return cacheOriginPrice
       }
       return this.carData[0].origin_price * this.carData[0].qty
-    }
+    },
+    ...mapGetters(['isLoading'])
   },
   created () {
     this.$bus.$on('getCart', () => this.getCart())

@@ -257,7 +257,6 @@ export default {
   created () {
     this.getProducts()
     this.getCart()
-    this.filterData()
   }
 }
 </script>

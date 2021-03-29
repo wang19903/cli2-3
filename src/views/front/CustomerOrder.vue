@@ -69,12 +69,25 @@
               </tfoot>
             </table>
             <div
-              class="d-flex flex-column align-items-center noItem"
+              class="d-flex flex-column align-items-center no-Item"
               v-if="cart.carts.length === 0"
             >
-              購物車尚未有商品唷!!
+              購物車尚未有商品唷!!<br/>
+              點擊賣場去看看吧
+              <img src="@/assets/img/empty.jpg" alt="空的購物車" class="pt-3 pb-3">
+              <div class="linkDiv pb-5" v-if="!cart.carts.length">
+                <router-link to="/products">前往賣場</router-link>
+              </div>
+              <p class="h2">輸入優惠碼可享九折優惠喔</p>
+              <div v-clipboard:copy="message"
+              v-clipboard:success="onCopy"
+              v-clipboard:error="onError"
+              class="copyDiv mt-3">
+              <span>order999</span>
+              <p>點擊此處即可複製</p>
+              </div>
             </div>
-            <div class="input-group mb-3 input-group-sm">
+            <div class="input-group mb-3 input-group-sm d-flex justify-content-md-center" v-if="cart.carts.length !== 0">
               <input
                 type="text"
                 class="form-control front-order-input"
@@ -95,6 +108,7 @@
             <ValidationObserver
               v-slot="{ invalid }"
               class="row justify-content-md-center pt-2 validDiv"
+              v-if="cart.carts.length !== 0"
             >
               <form @submit.prevent="createOrder">
                 <ValidationProvider
@@ -105,7 +119,7 @@
                   v-slot="{ errors, classes, passed }"
                 >
                   <!-- 輸入框 -->
-                  <label class="col-md-6text-left" for="email"
+                  <label class="text-left" for="email"
                     >Email(必填)</label
                   >
                   <input
@@ -215,9 +229,6 @@
                   >
                     送出訂單
                   </button>
-                  <div class="linkDiv" v-if="!cart.carts.length">
-                    <router-link to="/products">前往賣場</router-link>
-                  </div>
                 </div>
               </form>
             </ValidationObserver>
@@ -245,7 +256,9 @@ export default {
           address: ''
         },
         message: ''
-      }
+      },
+      message: 'order999',
+      on: ''
     }
   },
   components: {
@@ -331,6 +344,33 @@ export default {
         vm.$store.dispatch('updataLoading', false)
       })
     },
+
+    onCopy () {
+      const vm = this
+      vm.on = 1
+      vm.alert()
+    },
+
+    onError () {
+      const vm = this
+      vm.on = 0
+      vm.alert()
+    },
+
+    alert () {
+      const vm = this
+      if (vm.on === 1) {
+        vm.$store.dispatch('updateMessage', {
+          message: '複製成功',
+          status: 'success'
+        })
+      } else {
+        vm.$store.dispatch('updateMessage', {
+          message: '複製失敗',
+          status: 'success'
+        })
+      }
+    },
     ...mapActions('cartsModules', ['getCart'])
   },
   computed: {
@@ -338,7 +378,11 @@ export default {
     ...mapGetters(['isLoading'])
   },
   created () {
-    this.getCart()
+    const vm = this
+    vm.getCart()
+    // vm.$bus.$on('checkout', () => {
+    //   vm.getCart()
+    // })
   }
 }
 </script>
