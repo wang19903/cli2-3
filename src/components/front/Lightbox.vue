@@ -3,13 +3,13 @@
     <swiper class="swiper" :options="swiperOption">
       <swiper-slide>
         <router-link to="/product/-MQLq88vyZuiaLnRve9i">
-          <img src="@/assets/img/UL1.jpg" alt="推薦商品導引"/>
+          <img src="@/assets/img/UL1.jpg" alt="推薦商品導引" />
         </router-link>
       </swiper-slide>
 
       <swiper-slide>
         <router-link to="/product/-MU7jaUl3bMSvBesWTsI">
-          <img src="@/assets/img/aos2.jpg" alt="推薦商品導引"/>
+          <img src="@/assets/img/aos2.jpg" alt="推薦商品導引" />
         </router-link>
       </swiper-slide>
 
@@ -25,29 +25,28 @@ export default {
   name: 'SwiperExampleSpaceBetween',
   components: {
     Swiper,
-    SwiperSlide,
+    SwiperSlide
   },
-  data() {
+  data () {
     return {
       swiperOption: {
         speed: 3500,
         loop: true,
         autoplay: {
-          delay: 4000,
+          delay: 4000
         },
         pagination: {
           el: '.swiper-pagination',
-          clickable: true,
-        },
-      },
+          clickable: true
+        }
+      }
     }
-  },
+  }
 }
 </script>
 
 <style scoped lang="scss">
 .container {
-  
   position: relative;
   z-index: 0;
 }

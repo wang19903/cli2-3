@@ -5,10 +5,10 @@
 </template>
 
 <style lang="scss">
-@import "@/assets/scss/all.scss";
+@import '@/assets/scss/all.scss';
 
-body{
-  overflow-x:hidden ;
+body {
+  overflow-x: hidden;
   user-select: none;
 }
 

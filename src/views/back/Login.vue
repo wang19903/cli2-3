@@ -47,28 +47,28 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'Login',
-  data() {
+  data () {
     return {
       user: {
         username: '',
-        password: '',
-      },
+        password: ''
+      }
     }
   },
   components: {
-    Alert,
+    Alert
   },
   methods: {
-    signin() {
+    signin () {
       const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/admin/signin`
-        vm.$store.dispatch('updataLoading', true)
+      vm.$store.dispatch('updataLoading', true)
       vm.$http.post(api, vm.user).then(response => {
         vm.$store.dispatch('updataLoading', false)
         if (response.data.success) {
           vm.$store.dispatch('updateMessage', {
             message: response.data.message,
-            status: 'success',
+            status: 'success'
           })
           const token = response.data.token
           const expired = response.data.expired
@@ -77,15 +77,15 @@ export default {
         } else {
           vm.$store.dispatch('updateMessage', {
             message: response.data.message,
-            status: 'danger',
+            status: 'danger'
           })
         }
       })
-    },
+    }
   },
   computed: {
-    ...mapGetters(['isLoading']),
-  },
+    ...mapGetters(['isLoading'])
+  }
 }
 </script>
 

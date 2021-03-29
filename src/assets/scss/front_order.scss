@@ -3,10 +3,6 @@
   z-index: 0;
 }
 
-.front-order-input {
-  min-width: 600px;
-}
-
 .front-order-table {
   background-color: #e7dbc1;
 }
@@ -65,14 +61,8 @@
   padding: 10px 0px 10px 0px;
 }
 
-.validDiv .form-group {
+.validDiv .form-group {  
   text-align: left;
-  width: 95%;
-
-  .form-control {
-    min-width: 100%;
-    margin: auto;
-  }
 
   input {
     height: 23px;

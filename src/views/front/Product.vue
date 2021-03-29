@@ -70,16 +70,18 @@
         </div>
         <span class="h3">同類別產品</span>
       </div>
-      <div
-        class="row-cols container otherwrap d-flex flex-md-row flex-wrap"
-      >
+      <div class="row-cols container otherwrap d-flex flex-md-row flex-wrap">
         <div
           class="col-md-6 col-lg-4 col-sm-12"
           v-for="(item, key) in filterSameData"
           :key="key"
         >
-          <div data-aos="fade-up" data-aos-duration="1000" class="d-flex justify-content-center">
-            <div class="sizing ">
+          <div
+            data-aos="fade-up"
+            data-aos-duration="1000"
+            class="d-flex justify-content-center"
+          >
+            <div class="sizing">
               <div class="card mb-1 ListProducts-card ListProducts-cardBG">
                 <router-link :to="`/product/${item.id}`">
                   <div
@@ -135,7 +137,7 @@
               </div>
 
         </swiper-slide>
-        
+
       <div class="swiper-pagination" slot="pagination"></div>
       </swiper> -->
     </div>
@@ -147,20 +149,20 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'Product',
-  data() {
+  data () {
     return {
       product: {},
       status: {
-        loadingItem: '',
+        loadingItem: ''
       },
       cart: [],
       newarray: [],
-      temp: [],
+      temp: []
     }
   },
 
   methods: {
-    getProduct() {
+    getProduct () {
       const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${vm.productId}`
       vm.$http.get(api).then(response => {
@@ -173,7 +175,7 @@ export default {
     // addtoCart(id, qty = 1) {
     //   this.$store.dispatch('cartsModules/addtoCart', { id, qty })
     // },
-    addTocart(data, num) {
+    addTocart (data, num) {
       this.getCart()
       const cacheCarID = []
       this.carData.forEach(item => {
@@ -185,7 +187,7 @@ export default {
           qty: num,
           name: data.title,
           origin_price: data.origin_price,
-          price: data.price,
+          price: data.price
         }
         this.carData.push(cartContent)
         localStorage.setItem('carData', JSON.stringify(this.carData))
@@ -195,13 +197,13 @@ export default {
         let cache = {}
         this.carData.forEach((item, keys) => {
           if (item.product_id === data.id) {
-            let { qty } = item
+            const { qty } = item
             cache = {
               product_id: data.id,
               qty: qty + num,
               name: data.title,
               origin_price: data.origin_price,
-              price: data.price,
+              price: data.price
             }
             this.carData.splice(keys, 1)
           }
@@ -212,48 +214,48 @@ export default {
         this.$bus.$emit('getCart')
       }
     },
-    getCart() {
+    getCart () {
       this.carData = JSON.parse(localStorage.getItem('carData')) || []
     },
-    toProduct() {
-      this.$router.push(`/product/${id}`)
-    },
-    ...mapActions('productModules', ['getProducts']),
+    // toProduct () {
+    //   this.$router.push(`/product/${id}`)
+    // },
+    ...mapActions('productModules', ['getProducts'])
   },
   computed: {
-    filterSameData() {
+    filterSameData () {
       const vm = this
       return vm.products.filter(
         item =>
           item.id !== vm.productId && item.category === vm.product.category
       )
+    },
+    lightbox () {
+      const vm = this
+      const temp = []
+      const newarray = []
+      vm.products.filter(item => {
+        if (vm.product.id !== item.id) {
+          vm.temp.push(item)
+        }
+      })
 
-      // const vm = this
-      // let temp = []
-      // let newarray = []
-      // vm.products.filter(item => {
-      //   if (vm.product.id !== item.id) {
-      //     vm.temp.push(item)
-      //   }
-      // })
-
-      // for (let i = 0; i < 3; i++) {
-      //   let n = Math.floor(Math.random() * temp.length)
-      //   newarray.push(temp[n])
-      //   temp.splice(n, 1)
-      // }
-      // return temp
-      // return newarray
+      for (let i = 0; i < 3; i++) {
+        const n = Math.floor(Math.random() * temp.length)
+        newarray.push(temp[n])
+        temp.splice(n, 1)
+      }
+      return temp
     },
     ...mapGetters('productModules', ['products']),
-    ...mapGetters(['isLoading']),
+    ...mapGetters(['isLoading'])
   },
-  created() {
+  created () {
     this.productId = this.$route.params.productId
     this.getProduct()
     this.getProducts()
     this.getCart()
-  },
+  }
 }
 </script>
 

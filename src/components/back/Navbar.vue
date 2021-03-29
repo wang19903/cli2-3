@@ -3,7 +3,7 @@
     <nav
       class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow"
     >
-      <router-link class="navbar-brand text-logo  pr-3" to="/">
+      <router-link class="navbar-brand text-logo pr-3" to="/">
         回首頁
       </router-link>
       <button
@@ -32,7 +32,7 @@
 export default {
   name: 'navbar',
   methods: {
-    signout() {
+    signout () {
       const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/logout`
       vm.$http.post(api).then(response => {
@@ -40,8 +40,8 @@ export default {
           vm.$router.push('/login')
         }
       })
-    },
-  },
+    }
+  }
 }
 </script>
 

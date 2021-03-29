@@ -34,7 +34,8 @@
               <span v-else class="text-danger">X</span>
             </td>
             <td>
-              <button type="button"
+              <button
+                type="button"
                 class="btn btn-outline-primary btn-sm"
                 @click="openModal(false, item)"
               >
@@ -42,7 +43,8 @@
               </button>
             </td>
             <td>
-              <button type="button"
+              <button
+                type="button"
                 class="btn btn-outline-danger btn-sm"
                 @click="openDeleteModal(item)"
               >
@@ -289,20 +291,20 @@ import pagination from '@/components/Pagination.vue'
 import { mapGetters } from 'vuex'
 
 export default {
-  data() {
+  data () {
     return {
       products: [],
       pagination: {},
       tempProduct: {},
       isNew: false,
-      fileUploading: false,
+      fileUploading: false
     }
   },
   components: {
-    pagination,
+    pagination
   },
   methods: {
-    getProducts(page = 1) {
+    getProducts (page = 1) {
       const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/products?page=${page}`
       vm.$store.dispatch('updataLoading', true)
@@ -312,7 +314,7 @@ export default {
         vm.$store.dispatch('updataLoading', false)
       })
     },
-    openModal(isNew, item) {
+    openModal (isNew, item) {
       if (isNew) {
         this.tempProduct = {}
         this.isNew = true
@@ -322,7 +324,7 @@ export default {
       }
       $('#productModal').modal('show')
     },
-    updataProduct() {
+    updataProduct () {
       const vm = this
       let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product`
       let httpMethod = 'post'
@@ -336,47 +338,47 @@ export default {
           vm.getProducts()
           vm.$store.dispatch('updateMessage', {
             message: response.data.message,
-            status: 'success',
+            status: 'success'
           })
         } else {
           $('#productModal').modal('hide')
           vm.getProducts()
           vm.$store.dispatch('updateMessage', {
             message: response.data.message,
-            status: 'danger',
+            status: 'danger'
           })
         }
       })
     },
-    openDeleteModal(item) {
+    openDeleteModal (item) {
       const vm = this
       $('#delProductModal').modal('show')
       vm.tempProduct = Object.assign({}, item)
     },
-    deleteProduct() {
+    deleteProduct () {
       const vm = this
-      let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${vm.tempProduct.id}`
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${vm.tempProduct.id}`
       vm.$http.delete(api).then(response => {
         if (response.data.success) {
-          $('#delProductModal').modal('hide') 
-          vm.getProducts() 
+          $('#delProductModal').modal('hide')
+          vm.getProducts()
           vm.$store.dispatch('updateMessage', {
             message: '刪除商品成功',
-            status: 'success',
+            status: 'success'
           })
         } else {
-          $('#delProductModal').modal('hide') 
-          vm.getProducts() 
+          $('#delProductModal').modal('hide')
+          vm.getProducts()
           vm.$store.dispatch('updateMessage', {
             message: '刪除商品成功失敗',
-            status: 'danger',
+            status: 'danger'
           })
         }
       })
     },
-    uploadFile() {
+    uploadFile () {
       const vm = this
-      const uploadedFile = this.$refs.files.files[0]     
+      const uploadedFile = this.$refs.files.files[0]
       const formData = new FormData()
       formData.append('file-to-upload', uploadedFile)
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/upload`
@@ -384,8 +386,8 @@ export default {
       vm.$http
         .post(url, formData, {
           headers: {
-            'Content-Type': 'multipart/form-data',
-          },
+            'Content-Type': 'multipart/form-data'
+          }
         })
         .then(response => {
           vm.fileUploading = false
@@ -393,23 +395,23 @@ export default {
             vm.$set(vm.tempProduct, 'imageUrl', response.data.imageUrl)
             vm.$store.dispatch('updateMessage', {
               message: '上傳圖片成功',
-              status: 'success',
+              status: 'success'
             })
           } else {
             vm.$store.dispatch('updateMessage', {
               message: '上傳圖片失敗',
-              status: 'danger',
+              status: 'danger'
             })
           }
         })
-    },
+    }
   },
   computed: {
-    ...mapGetters(['isLoading']),
+    ...mapGetters(['isLoading'])
   },
-  created() {
+  created () {
     this.getProducts()
-  },
+  }
 }
 </script>
 

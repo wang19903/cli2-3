@@ -22,14 +22,14 @@ export default {
   components: {
     Sidebar,
     Navbar,
-    Alert,
+    Alert
   },
-  created() {
+  created () {
     const mycookie = document.cookie.replace(
       /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
       '$1'
     )
     this.$http.defaults.headers.common.Authorization = mycookie
-  },
+  }
 }
 </script>

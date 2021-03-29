@@ -40,12 +40,12 @@
 </template>
 
 <style lang="scss" scoped>
-.nav-link{
+.nav-link {
   color: #fff;
 }
 
-@media(max-width:767px){
-  .svg-inline--fa{
+@media (max-width: 767px) {
+  .svg-inline--fa {
     width: 10%;
   }
 }

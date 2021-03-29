@@ -166,13 +166,13 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Navbar',
-  data() {
+  data () {
     return {
-      carData:  [],
+      carData: []
     }
   },
   methods: {
@@ -180,7 +180,7 @@ export default {
       const vm = this
       vm.carData = JSON.parse(localStorage.getItem('carData')) || []
     },
-    onPlus(item) {
+    onPlus (item) {
       const vm = this
       if (item.qty === 10) {
         return
@@ -192,7 +192,7 @@ export default {
         localStorage.setItem('carData', JSON.stringify(vm.carData))
       })
     },
-    onMinus(item) {
+    onMinus (item) {
       const vm = this
       if (item.qty <= 1) {
         return
@@ -204,17 +204,17 @@ export default {
         localStorage.setItem('carData', JSON.stringify(vm.carData))
       })
     },
-    removeCart(cart) {
+    removeCart (cart) {
       const vm = this
       vm.carData.filter((item, key) => {
         if (item.product_id === cart.product_id) {
           vm.carData.splice(key, 1)
           localStorage.setItem('carData', JSON.stringify(this.carData))
-        vm.getCart()
+          vm.getCart()
         }
       })
     },
-    checkout() {
+    checkout () {
       const cacheID = []
       this.axios
         .get(
@@ -241,7 +241,7 @@ export default {
           this.carData.forEach(item => {
             const cache = {
               product_id: item.product_id,
-              qty: item.qty,
+              qty: item.qty
             }
             this.axios
               .post(
@@ -255,12 +255,12 @@ export default {
               })
           })
         })
-    },
+    }
   },
   computed: {
     ...mapGetters(['isLoading']),
 
-    getPrice() {
+    getPrice () {
       if (this.carData.length === 0) {
         return 0
       }
@@ -274,22 +274,22 @@ export default {
       return this.carData[0].price * this.carData[0].qty
     },
 
-    getOrigin_Price() {
+    getOrigin_Price () {
       if (this.carData.length === 0) {
         return 0
       }
       if (this.carData.length > 1) {
-        let cacheOrigin_Price = 0
+        let cacheOriginPrice = 0
         this.carData.forEach(item => {
-          cacheOrigin_Price += Number(item.origin_price * item.qty)
+          cacheOriginPrice += Number(item.origin_price * item.qty)
         })
-        return cacheOrigin_Price
+        return cacheOriginPrice
       }
       return this.carData[0].origin_price * this.carData[0].qty
-    },
+    }
   },
-created () {
-this.$bus.$on('getCart', () => this.getCart())
-  },
+  created () {
+    this.$bus.$on('getCart', () => this.getCart())
+  }
 }
 </script>

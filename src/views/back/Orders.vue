@@ -235,10 +235,9 @@ import $ from 'jquery'
 import pagination from '@/components/Pagination.vue'
 import { mapGetters } from 'vuex'
 
-
 export default {
   name: 'Orders',
-  data() {
+  data () {
     return {
       orders: [],
       tempData: {
@@ -247,24 +246,25 @@ export default {
           address: '',
           email: '',
           name: '',
-          tel: '',
-        },
+          tel: ''
+        }
       },
       pagination: {},
       order: {
         products: {},
         user: {
           email: '',
-          tel: '',
-        },
+          tel: ''
+        }
       },
+      newOrder: []
     }
   },
   components: {
-    pagination,
+    pagination
   },
   methods: {
-    getOrder(page = 1) {
+    getOrder (page = 1) {
       const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/orders?page=${page}`
       vm.$store.dispatch('updataLoading', true)
@@ -274,62 +274,66 @@ export default {
         vm.pagination = response.data.pagination
       })
     },
-    openModal(id) {
+    openModal (id) {
       const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order/${id}`
       vm.$store.dispatch('updataLoading', true)
       vm.$http.get(api).then(res => {
-      vm.$store.dispatch('updataLoading', false)
+        vm.$store.dispatch('updataLoading', false)
         $('#exampleModal').modal('show')
         vm.order = res.data.order
       })
     },
-    Edit(order) {
+    Edit (order) {
       this.tempData = Object.assign({}, order)
       $('#EditModal').modal('show')
     },
-    EditConfirm() {
+    EditConfirm () {
       const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/order/${vm.tempData.id}`
-      vm.$http.put(api ,{ data: vm.tempData }).then(response => {
+      vm.$http.put(api, { data: vm.tempData }).then(response => {
         vm.$store.dispatch('updataLoading', true)
         if (response.data.success) {
           $('#EditModal').modal('hide')
           vm.getOrder()
           vm.$store.dispatch('updateMessage', {
             message: response.data.message,
-            status: 'success',
+            status: 'success'
           })
         } else {
           $('#EditModal').modal('hide')
           vm.getOrder()
           vm.$store.dispatch('updateMessage', {
             message: response.data.message,
-            status: 'danger',
+            status: 'danger'
           })
         }
         vm.$store.dispatch('updataLoading', false)
       })
     },
-  },
-  computed: {
-    sortOrder() {
+    sort () {
       const vm = this
-      let newOrder = []
       if (vm.orders.length) {
-        newOrder = vm.orders.sort((a, b) => {
+        vm.newOrder = vm.orders.sort((a, b) => {
           const aIsPaid = a.is_paid ? 1 : 0
           const bIsPaid = b.is_paid ? 1 : 0
           return bIsPaid - aIsPaid
         })
       }
-      return newOrder
+      return vm.newOrder
+    }
+  },
+  computed: {
+    sortOrder () {
+      const vm = this
+      vm.sort()
+      return vm.newOrder
     },
-        ...mapGetters(['isLoading']),
+    ...mapGetters(['isLoading'])
   },
-  created() {
+  created () {
     this.getOrder()
-  },
+  }
 }
 </script>
 

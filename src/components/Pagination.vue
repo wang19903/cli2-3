@@ -42,9 +42,9 @@ export default {
   name: 'pagination',
   props: ['pagination'],
   methods: {
-    changePage(page) {
+    changePage (page) {
       this.$emit('emitPage', page)
-    },
-  },
+    }
+  }
 }
 </script>

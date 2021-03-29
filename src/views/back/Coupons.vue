@@ -25,7 +25,8 @@
               <div class="RWDnone">
                 {{ item.title }}
               </div>
-              <button type="button"
+              <button
+                type="button"
                 class="RWDon btn btn-outline-primary btn-sm"
                 @click="openModal(false, item)"
               >
@@ -40,7 +41,8 @@
               <span v-else>X</span>
             </td>
             <td class="RWDnone">
-              <button type="button"
+              <button
+                type="button"
                 class="btn btn-outline-primary btn-sm"
                 @click="openModal(false, item)"
               >
@@ -48,7 +50,8 @@
               </button>
             </td>
             <td class="RWDnone">
-              <button type="button"
+              <button
+                type="button"
                 class="btn btn-outline-danger btn-sm"
                 @click="openDeleteModal(item)"
               >
@@ -186,7 +189,11 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger RWDon" @click="openDeleteModal(item)">
+            <button
+              type="button"
+              class="btn btn-danger RWDon"
+              @click="openDeleteModal(item)"
+            >
               刪除
             </button>
             <button
@@ -256,20 +263,20 @@ import pagination from '@/components/Pagination.vue'
 
 export default {
   name: 'Coupons',
-  data() {
+  data () {
     return {
       coupons: [],
       pagination: {},
       tempCoupon: {},
       isNew: false,
-      isLoading: false,
+      isLoading: false
     }
   },
   components: {
-    pagination,
+    pagination
   },
   methods: {
-    getCoupons(page = 1) {
+    getCoupons (page = 1) {
       const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupons?page=${page}`
       vm.isLoading = true
@@ -279,17 +286,17 @@ export default {
         vm.pagination = response.data.pagination
       })
     },
-    openModal(isNew, item) {
+    openModal (isNew, item) {
       if (isNew) {
         this.tempCoupon = {}
         this.isNew = true
       } else {
-        this.tempCoupon = {...item};
+        this.tempCoupon = { ...item }
         this.isNew = false
       }
       $('#couponModal').modal('show')
     },
-    updateCoupon() {
+    updateCoupon () {
       const vm = this
       let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon`
       let httpMethod = 'post'
@@ -308,23 +315,23 @@ export default {
         }
       })
     },
-    openDeleteModal(item) {
+    openDeleteModal (item) {
       const vm = this
       $('#delCouponModal').modal('show')
-      vm.tempCoupon = {...item}
+      vm.tempCoupon = { ...item }
     },
-    deleteCoupon() {
+    deleteCoupon () {
       const vm = this
-      let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${vm.tempCoupon.id}`
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${vm.tempCoupon.id}`
       vm.$http.delete(api).then(() => {
         $('#delCouponModal').modal('hide')
         vm.getCoupons()
       })
-    },
+    }
   },
-  created() {
+  created () {
     this.getCoupons()
-  },
+  }
 }
 </script>
 

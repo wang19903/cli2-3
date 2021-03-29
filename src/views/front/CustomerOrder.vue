@@ -7,7 +7,7 @@
     <div class="wrapper">
       <div class="container front-order-container">
         <div class="row justify-content-md-center">
-          <div class="col col-md-8">
+          <div class="col col-md-8 container">
             <span class="direct" v-if="cart.carts.length">
               請確認產品明細
             </span>
@@ -92,7 +92,10 @@
               </div>
             </div>
             <span class="direct" v-if="cart.carts.length"> 請填完表單 </span>
-            <ValidationObserver v-slot="{ invalid }" class="col-md-6 validDiv">
+            <ValidationObserver
+              v-slot="{ invalid }"
+              class="row justify-content-md-center pt-2 validDiv"
+            >
               <form @submit.prevent="createOrder">
                 <ValidationProvider
                   rules="required|email"
@@ -102,12 +105,15 @@
                   v-slot="{ errors, classes, passed }"
                 >
                   <!-- 輸入框 -->
-                  <label class="text-left" for="email">Email</label>
+                  <label class="col-md-6text-left" for="email"
+                    >Email(必填)</label
+                  >
                   <input
                     id="email"
                     type="email"
                     name="email"
                     v-model="form.user.email"
+                    size="10"
                     class="form-control front-order-input"
                     :class="classes"
                   />
@@ -124,7 +130,7 @@
                   v-slot="{ errors, classes, passed }"
                 >
                   <!-- 輸入框 -->
-                  <label for="name">訂購者名稱</label>
+                  <label for="name">訂購者名稱(必填)</label>
                   <input
                     id="name"
                     type="name"
@@ -148,7 +154,7 @@
                   v-slot="{ errors, classes, passed }"
                 >
                   <!-- 輸入框 -->
-                  <label for="tel">電話</label>
+                  <label for="tel">電話(必填)</label>
                   <input
                     id="tel"
                     type="tel"
@@ -172,7 +178,7 @@
                   v-slot="{ errors, classes, passed }"
                 >
                   <!-- 輸入框 -->
-                  <label for="address">地址</label>
+                  <label for="address">地址(必填)</label>
                   <input
                     id="address"
                     type="address"
@@ -193,7 +199,7 @@
                   <textarea
                     name=""
                     id="comment"
-                    placeholder="特別需求需求註明，如無只需填完上面內容"
+                    placeholder="有客製化需求請填寫，非必填"
                     class="form-control front-order-input"
                     cols="30"
                     rows="10"
@@ -228,7 +234,7 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'CustomerOrder',
-  data() {
+  data () {
     return {
       coupon_code: '',
       form: {
@@ -236,17 +242,17 @@ export default {
           name: '',
           email: '',
           tel: '',
-          address: '',
+          address: ''
         },
-        message: '',
-      },
+        message: ''
+      }
     }
   },
   components: {
-    Alert,
+    Alert
   },
   methods: {
-    getCart() {
+    getCart () {
       const vm = this
       vm.cart = JSON.parse(localStorage.getItem('cart')) || []
       vm.total = 0
@@ -257,7 +263,7 @@ export default {
       })
     },
 
-    addTocart(product, qty = 1) {
+    addTocart (product, qty = 1) {
       const vm = this
       let productIndex = -1
       vm.getCart()
@@ -285,35 +291,35 @@ export default {
       vm.getCart()
     },
 
-    removeCart(id) {
+    removeCart (id) {
       this.$store.dispatch('cartsModules/removeCart', id)
     },
 
-    addCouponCode() {
+    addCouponCode () {
       const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/coupon`
       vm.$store.dispatch('updataLoading', true)
       const coupon = {
-        code: vm.coupon_code,
+        code: vm.coupon_code
       }
       vm.$http.post(api, { data: coupon }).then(response => {
         if (response.data.success) {
           vm.$store.dispatch('updateMessage', {
             message: response.data.message,
-            status: 'success',
+            status: 'success'
           })
           vm.getCart()
         } else {
           vm.$store.dispatch('updateMessage', {
             message: response.data.message,
-            status: 'danger',
+            status: 'danger'
           })
         }
         vm.$store.dispatch('updataLoading', false)
       })
     },
 
-    createOrder() {
+    createOrder () {
       const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order`
       const order = vm.form
@@ -325,14 +331,14 @@ export default {
         vm.$store.dispatch('updataLoading', false)
       })
     },
-    ...mapActions('cartsModules', ['getCart']),
+    ...mapActions('cartsModules', ['getCart'])
   },
   computed: {
     ...mapGetters('cartsModules', ['cart']),
-    ...mapGetters(['isLoading']),
+    ...mapGetters(['isLoading'])
   },
-  created() {
+  created () {
     this.getCart()
-  },
+  }
 }
 </script>

@@ -111,40 +111,39 @@ export default {
   name: 'home',
   components: {
     Alert,
-    GoTop,
+    GoTop
   },
-  data() {
+  data () {
     return {
       message: 'order999',
-      on: '',
+      on: ''
     }
   },
   methods: {
-    onCopy() {
+    onCopy () {
       const vm = this
       vm.on = 1
       vm.alert()
     },
-    onError() {
+    onError () {
       const vm = this
       vm.on = 0
       vm.alert()
     },
-    alert() {
+    alert () {
       const vm = this
-      if ((vm.on = 1)) {
+      if (vm.on === 1) {
         vm.$store.dispatch('updateMessage', {
           message: '複製成功',
-          status: 'success',
+          status: 'success'
         })
       } else {
         vm.$store.dispatch('updateMessage', {
           message: '複製失敗',
-          status: 'success',
+          status: 'success'
         })
       }
-    },
-  },
+    }
+  }
 }
 </script>
-

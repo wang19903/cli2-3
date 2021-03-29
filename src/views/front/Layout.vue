@@ -18,7 +18,7 @@ export default {
   components: {
     Navbar,
     Footer,
-    Opening,
-  },
+    Opening
+  }
 }
 </script>

@@ -22,13 +22,13 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       scTimer: 0,
-      scY: 0,
+      scY: 0
     }
   },
-  mounted() {
+  mounted () {
     window.addEventListener('scroll', this.handleScroll)
   },
   methods: {
@@ -43,10 +43,10 @@ export default {
     toTop: function () {
       window.scrollTo({
         top: 0,
-        behavior: 'smooth',
+        behavior: 'smooth'
       })
-    },
-  },
+    }
+  }
 }
 </script>
 

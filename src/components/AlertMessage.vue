@@ -24,20 +24,20 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'Navbar',
   computed: {
-    ...mapGetters(['messages']),
+    ...mapGetters(['messages'])
   },
-  created() {},
+  created () {},
   methods: {
-    updateMessage(message, status) {
+    updateMessage (message, status) {
       this.$store.dispatch('updateMessage', { message, status })
     },
-    removeMessage(num) {
+    removeMessage (num) {
       this.$store.dispatch('removeMessage', num)
     },
-    removeMessageWithTiming(timestamp) {
+    removeMessageWithTiming (timestamp) {
       this.$store.dispatch('removeMessageWithTiming', timestamp)
-    },
-  },
+    }
+  }
 }
 </script>
 

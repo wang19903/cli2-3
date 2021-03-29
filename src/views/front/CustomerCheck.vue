@@ -49,8 +49,11 @@
                 <span v-if="!order.is_paid">尚未付款</span>
                 <div v-else>
                   <div class="text-success mb-2">付款完成</div>
-                  <router-link to="/" class="text-light border border-danger bg-danger rounded">
-                    返回首頁                    
+                  <router-link
+                    to="/"
+                    class="text-light border border-danger bg-danger rounded"
+                  >
+                    返回首頁
                   </router-link>
                 </div>
               </td>
@@ -58,7 +61,7 @@
           </tbody>
         </table>
         <div class="text-right" v-if="order.is_paid === false">
-          <button class="btn btn-danger" type="button" >確認付款去</button>
+          <button class="btn btn-danger" type="button">確認付款去</button>
         </div>
       </form>
     </div>
@@ -70,16 +73,16 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'CustomerCheck',
-  data() {
+  data () {
     return {
       order: {
-        user: {},
+        user: {}
       },
-      orderId: '',
+      orderId: ''
     }
   },
   methods: {
-    getOrder() {
+    getOrder () {
       const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order/${vm.orderId}`
       vm.$store.dispatch('updataLoading', true)
@@ -89,27 +92,27 @@ export default {
       })
     },
 
-    payOrder() {
+    payOrder () {
       const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/pay/${vm.orderId}`
       vm.$store.dispatch('updataLoading', true)
       vm.$http.post(api).then(response => {
-          console.log(response.data)
+        console.log(response.data)
         vm.$store.dispatch('updataLoading', false)
         if (response.data.success) {
           console.log(response.data)
           vm.getOrder()
         }
       })
-    },
+    }
   },
-  created() {
+  created () {
     this.orderId = this.$route.params.orderId
     this.getOrder()
   },
   computed: {
-    ...mapGetters(['isLoading']),
-  },
+    ...mapGetters(['isLoading'])
+  }
 }
 </script>
 
