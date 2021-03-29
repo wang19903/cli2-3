@@ -1,5 +1,6 @@
 <template>
   <div class="wrap wrapper">
+    <Alert />
     <div
       tabindex="-1"
       role="dialog"
@@ -145,6 +146,7 @@
 </template>
 
 <script>
+import Alert from '@/components/AlertMessage.vue'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
@@ -160,7 +162,9 @@ export default {
       temp: []
     }
   },
-
+  components: {
+    Alert
+  },
   methods: {
     getProduct () {
       const vm = this
@@ -176,9 +180,10 @@ export default {
     //   this.$store.dispatch('cartsModules/addtoCart', { id, qty })
     // },
     addTocart (data, num) {
-      this.getCart()
+      const vm = this
+      vm.getCart()
       const cacheCarID = []
-      this.carData.forEach(item => {
+      vm.carData.forEach(item => {
         cacheCarID.push(item.product_id)
       })
       if (cacheCarID.indexOf(data.id) === -1) {
@@ -189,13 +194,17 @@ export default {
           origin_price: data.origin_price,
           price: data.price
         }
-        this.carData.push(cartContent)
-        localStorage.setItem('carData', JSON.stringify(this.carData))
-        this.getCart()
-        this.$bus.$emit('getCart')
+        vm.carData.push(cartContent)
+        localStorage.setItem('carData', JSON.stringify(vm.carData))
+        vm.getCart()
+        vm.$bus.$emit('getCart')
+        vm.$store.dispatch('updateMessage', {
+          message: '已加入購物車',
+          status: 'success'
+        })
       } else {
         let cache = {}
-        this.carData.forEach((item, keys) => {
+        vm.carData.forEach((item, keys) => {
           if (item.product_id === data.id) {
             const { qty } = item
             cache = {
@@ -205,13 +214,17 @@ export default {
               origin_price: data.origin_price,
               price: data.price
             }
-            this.carData.splice(keys, 1)
+            vm.carData.splice(keys, 1)
           }
         })
-        this.carData.push(cache)
-        localStorage.setItem('carData', JSON.stringify(this.carData))
-        this.getCart()
-        this.$bus.$emit('getCart')
+        vm.carData.push(cache)
+        localStorage.setItem('carData', JSON.stringify(vm.carData))
+        vm.getCart()
+        vm.$bus.$emit('getCart')
+        vm.$store.dispatch('updateMessage', {
+          message: '已加入購物車',
+          status: 'success'
+        })
       }
     },
     getCart () {
