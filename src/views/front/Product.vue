@@ -69,78 +69,44 @@
             </button>
           </div>
         </div>
-        <span class="h3">同類別產品</span>
       </div>
-      <div class="row-cols container otherwrap d-flex flex-md-row flex-wrap">
-        <div
-          class="col-md-6 col-lg-4 col-sm-12"
-          v-for="(item, key) in filterSameData"
-          :key="key"
-        >
-          <div
-            data-aos="fade-up"
-            data-aos-duration="1000"
-            class="d-flex justify-content-center"
-          >
-            <div class="sizing">
-              <div class="card mb-1 ListProducts-card ListProducts-cardBG">
-                <router-link :to="`/product/${item.id}`">
-                  <div
-                    style="
-                      height: 150px;
-                      background-size: cover;
-                      background-position: center;
-                    "
-                    :style="{ backgroundImage: `url(${item.imageUrl})` }"
-                  ></div>
-                </router-link>
-                <div class="card-body">
-                  <router-link :to="`/product/${item.id}`">
-                    <span class="ListProducts-badge float-right ml-2">{{
-                      item.category
-                    }}</span>
-                    <h5 class="card-title text-left">
-                      <a href="/" class="text-dark">{{ item.title }}</a>
-                    </h5></router-link
-                  >
-                  <p class="ListProducts-card-text text-left">
-                    {{ item.content }}
-                  </p>
-                  <div
-                    class="d-flex justify-content-between align-items-baseline"
-                  >
-                    <del class="h6">{{ item.origin_price }}</del>
-                    <div class="h5">{{ item.price }}</div>
-                  </div>
+      <div class="text-left pl-2"><span class="h3">你可能有興趣...</span></div>
+      <swiper
+        class="swiper mb-3 mt-3"
+        :options="swiperOption"
+      >
+        <swiper-slide v-for="item in lightbox"
+        :key="item.id">
+          <div class="card h-100 mt-3">
+            <div @click="$router.push(`/product/${item.id}`)"
+              class="lightbox-img">
+              <div
+                :style="{ backgroundImage: `url(${item.imageUrl})` }"
+              ></div>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title text-center">
+                {{ item.title }}
+              </h5>
+              <div class="text-truncate pb-2">
+                {{ item.description }}
+              </div>
+              <div class="d-flex justify-content-end">
+                <div v-if="!item.price">
+                  NT {{ item.origin_price | currency }}
+                </div>
+                <del class="text-muted mr-auto" v-if="item.price"
+                  >NT {{ item.origin_price | currency }}</del
+                >
+                <div class="text-danger" v-if="item.price">
+                  NT {{ item.price | currency }}
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <!-- <swiper ref="mySwiper" :options="swiperOptions">
-        <swiper-slide v-for="item in filterSameData" :key="item.id">
-        <div class="card product__card h-100 mt-3">
-                <div class="card__img">
-                  <img :src="item.imageUrl" class="card-img-top detail__img" alt="產品">
-                </div>
-                <div class="card-body">
-                  <h5 class="card-title text-center detail__text">{{ item.title }}</h5>
-                  <div class="text-truncate pb-2">
-                    {{ item.description }}
-                  </div>
-                  <div class="d-flex justify-content-end detail__price">
-                    <div  v-if="!item.price">NT {{ item.origin_price | currency }}</div>
-                    <del class="text-muted mr-3" v-if="item.price">NT {{ item.origin_price | currency }}</del>
-                    <div class="text-danger" v-if="item.price">NT {{ item.price | currency }}</div>
-                  </div>
-                </div>
-              </div>
-
         </swiper-slide>
-
-      <div class="swiper-pagination" slot="pagination"></div>
-      </swiper> -->
+        <div class="swiper-pagination" slot="pagination"></div>
+      </swiper>
     </div>
   </div>
 </template>
@@ -148,6 +114,7 @@
 <script>
 import Alert from '@/components/AlertMessage.vue'
 import { mapGetters, mapActions } from 'vuex'
+import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 
 export default {
   name: 'Product',
@@ -159,10 +126,19 @@ export default {
       },
       cart: [],
       newarray: [],
-      temp: []
+      swiperOption: {
+        slidesPerView: 3,
+        spaceBetween: 30,
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true
+        }
+      }
     }
   },
   components: {
+    Swiper,
+    SwiperSlide,
     Alert
   },
   methods: {
@@ -176,9 +152,6 @@ export default {
         vm.$store.dispatch('updataLoading', false)
       })
     },
-    // addtoCart(id, qty = 1) {
-    //   this.$store.dispatch('cartsModules/addtoCart', { id, qty })
-    // },
     addTocart (data, num) {
       const vm = this
       vm.getCart()
@@ -230,35 +203,31 @@ export default {
     getCart () {
       this.carData = JSON.parse(localStorage.getItem('carData')) || []
     },
+    lightBoxData () {
+      const vm = this
+      const Temp = []
+      vm.products.filter(item => {
+        if (this.productId !== item.id) {
+          Temp.push(item)
+        }
+      })
+
+      for (let i = 0; i < 7; i++) {
+        const n = Math.floor(Math.random() * Temp.length)
+        vm.newarray.push(Temp[n])
+        Temp.splice(n, 1)
+      }
+    },
+
     // toProduct () {
     //   this.$router.push(`/product/${id}`)
     // },
     ...mapActions('productModules', ['getProducts'])
   },
   computed: {
-    filterSameData () {
-      const vm = this
-      return vm.products.filter(
-        item =>
-          item.id !== vm.productId && item.category === vm.product.category
-      )
-    },
     lightbox () {
       const vm = this
-      const temp = []
-      const newarray = []
-      vm.products.filter(item => {
-        if (vm.product.id !== item.id) {
-          vm.temp.push(item)
-        }
-      })
-
-      for (let i = 0; i < 3; i++) {
-        const n = Math.floor(Math.random() * temp.length)
-        newarray.push(temp[n])
-        temp.splice(n, 1)
-      }
-      return temp
+      return vm.newarray
     },
     ...mapGetters('productModules', ['products']),
     ...mapGetters(['isLoading'])
@@ -268,6 +237,7 @@ export default {
     this.getProduct()
     this.getProducts()
     this.getCart()
+    this.lightBoxData()
   }
 }
 </script>
@@ -289,12 +259,18 @@ select {
   width: 50%;
 }
 
-.otherwrap {
-  padding-right: 10px;
-}
-
-.otherdiv {
-  padding: 0px;
+.lightbox-img{
+  overflow: hidden;
+  div{
+  height: 150px;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  transition: .4s;
+    &:hover{
+    transform: scale(1.05);
+  }
+  }
 }
 
 @media (max-width: 550px) {
