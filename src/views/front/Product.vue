@@ -26,10 +26,10 @@
           </blockquote>
           <div class="d-flex justify-content-between align-items-baseline">
             <div class="h5" v-if="!product.price">
-              {{ product.origin_price }} 元
+              {{ product.originPrice }} 元
             </div>
             <del class="h6" v-if="product.price"
-              >原價 {{ product.origin_price }} 元</del
+              >原價 {{ product.originPrice }} 元</del
             >
             <div class="h5" v-if="product.price">
               現在只要 {{ product.price }} 元
@@ -93,10 +93,10 @@
               </div>
               <div class="d-flex justify-content-end">
                 <div v-if="!item.price">
-                  NT {{ item.origin_price | currency }}
+                  NT {{ item.originPrice | currency }}
                 </div>
                 <del class="text-muted mr-auto" v-if="item.price"
-                  >NT {{ item.origin_price | currency }}</del
+                  >NT {{ item.originPrice | currency }}</del
                 >
                 <div class="text-danger" v-if="item.price">
                   NT {{ item.price | currency }}
@@ -157,14 +157,14 @@ export default {
       vm.getCart()
       const cacheCarID = []
       vm.carData.forEach(item => {
-        cacheCarID.push(item.product_id)
+        cacheCarID.push(item.productId)
       })
       if (cacheCarID.indexOf(data.id) === -1) {
         const cartContent = {
-          product_id: data.id,
+          productId: data.id,
           qty: num,
           name: data.title,
-          origin_price: data.origin_price,
+          originPrice: data.originPrice,
           price: data.price
         }
         vm.carData.push(cartContent)
@@ -178,13 +178,13 @@ export default {
       } else {
         let cache = {}
         vm.carData.forEach((item, keys) => {
-          if (item.product_id === data.id) {
+          if (item.productId === data.id) {
             const { qty } = item
             cache = {
-              product_id: data.id,
+              productId: data.id,
               qty: qty + num,
               name: data.title,
-              origin_price: data.origin_price,
+              originPrice: data.originPrice,
               price: data.price
             }
             vm.carData.splice(keys, 1)
@@ -207,7 +207,7 @@ export default {
       const vm = this
       const Temp = []
       vm.products.filter(item => {
-        if (this.productId !== item.id) {
+        if (vm.productId !== item.id) {
           Temp.push(item)
         }
       })
@@ -217,6 +217,7 @@ export default {
         vm.newarray.push(Temp[n])
         Temp.splice(n, 1)
       }
+      return vm.newarray
     },
 
     // toProduct () {
@@ -233,11 +234,12 @@ export default {
     ...mapGetters(['isLoading'])
   },
   created () {
-    this.productId = this.$route.params.productId
-    this.getProduct()
-    this.getProducts()
-    this.getCart()
-    this.lightBoxData()
+    const vm = this
+    vm.productId = vm.$route.params.productId
+    vm.getProduct()
+    vm.getProducts()
+    vm.getCart()
+    vm.lightBoxData()
   }
 }
 </script>
