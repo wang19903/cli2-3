@@ -209,6 +209,8 @@ export default {
       vm.products.filter(item => {
         if (vm.productId !== item.id) {
           Temp.push(item)
+        } else {
+          Temp.push(item)
         }
       })
 
@@ -217,9 +219,16 @@ export default {
         vm.newarray.push(Temp[n])
         Temp.splice(n, 1)
       }
-      return vm.newarray
     },
 
+    checkdat () {
+      const vm = this
+      for (let j = 0; j < vm.newarray.length; j++) {
+        if (vm.newarray[j] === undefined) {
+          vm.newarray.splice(j, 2)
+        }
+      }
+    },
     // toProduct () {
     //   this.$router.push(`/product/${id}`)
     // },
@@ -228,6 +237,8 @@ export default {
   computed: {
     lightbox () {
       const vm = this
+      vm.lightBoxData()
+      vm.checkdat()
       return vm.newarray
     },
     ...mapGetters('productModules', ['products']),
@@ -239,7 +250,7 @@ export default {
     vm.getProduct()
     vm.getProducts()
     vm.getCart()
-    vm.lightBoxData()
+    vm.checkdat()
   }
 }
 </script>
