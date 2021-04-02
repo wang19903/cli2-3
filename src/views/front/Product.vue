@@ -78,9 +78,9 @@
         <swiper-slide v-for="item in lightbox"
         :key="item.id">
           <div class="card h-100 mt-3">
-            <div @click="$router.push(`/product/${item.id}`)"
+            <div
               class="lightbox-img">
-              <div
+              <div @click.prevent="toProduct(item.id)"
                 :style="{ backgroundImage: `url(${item.imageUrl})` }"
               ></div>
             </div>
@@ -96,7 +96,7 @@
                   NT {{ item.originPrice | currency }}
                 </div>
                 <del class="text-muted mr-auto" v-if="item.price"
-                  >NT {{ item.originPrice | currency }}</del
+                  >NT {{ item.origin_price | currency }}</del
                 >
                 <div class="text-danger" v-if="item.price">
                   NT {{ item.price | currency }}
@@ -126,6 +126,7 @@ export default {
       },
       cart: [],
       newarray: [],
+      pageId: '',
       swiperOption: {
         slidesPerView: 3,
         spaceBetween: 30,
@@ -149,6 +150,8 @@ export default {
         vm.$store.dispatch('updataLoading', true)
         vm.product = response.data.product
         vm.product.num = 1
+        vm.pageId = vm.product.id
+        vm.lightBoxData(vm.product.id)
         vm.$store.dispatch('updataLoading', false)
       })
     },
@@ -203,11 +206,13 @@ export default {
     getCart () {
       this.carData = JSON.parse(localStorage.getItem('carData')) || []
     },
-    lightBoxData () {
+    lightBoxData (data) {
       const vm = this
       const Temp = []
+      vm.newarray = []
+      console.log(data)
       vm.products.filter(item => {
-        if (vm.productId !== item.id) {
+        if (vm.product !== item) {
           Temp.push(item)
         } else {
           Temp.push(item)
@@ -220,25 +225,15 @@ export default {
         Temp.splice(n, 1)
       }
     },
-
-    checkdat () {
-      const vm = this
-      for (let j = 0; j < vm.newarray.length; j++) {
-        if (vm.newarray[j] === undefined) {
-          vm.newarray.splice(j, 2)
-        }
-      }
+    toProduct (id) {
+      this.$router.push(`/product/${id}`)
+      window.location.reload()
     },
-    // toProduct () {
-    //   this.$router.push(`/product/${id}`)
-    // },
     ...mapActions('productModules', ['getProducts'])
   },
   computed: {
     lightbox () {
       const vm = this
-      vm.lightBoxData()
-      vm.checkdat()
       return vm.newarray
     },
     ...mapGetters('productModules', ['products']),
@@ -250,7 +245,6 @@ export default {
     vm.getProduct()
     vm.getProducts()
     vm.getCart()
-    vm.checkdat()
   }
 }
 </script>
