@@ -212,7 +212,7 @@ export default {
       vm.newarray = []
       console.log(data)
       vm.products.filter(item => {
-        if (vm.product !== item) {
+        if (data !== item.id) {
           Temp.push(item)
         } else {
           Temp.push(item)

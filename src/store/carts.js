@@ -10,8 +10,8 @@ export default {
     cartLoading: {
       addCartLoading: ''
     },
-    messages: []
-    // carData: JSON.parse(localStorage.getItem('carData')) || []
+    localCarData: []
+    // LocalCarData: JSON.parse(localStorage.getItem('carData')) || []
   },
   actions: {
     getCart (context) {
@@ -55,18 +55,14 @@ export default {
         })
       })
     },
-    updateMessage (context, { message, status }) {
-      const timestamp = Math.floor(new Date() / 1000)
-      context.commit('MESSAGES', { message, status, timestamp })
-      context.dispatch('removeMessageWithTiming', timestamp)
+    updatelocalCarData (context, data = []) {
+      console.log(data, '外面資料')
+      context.commit('UPDATELOCALCARDATA', data)
+      // context.commit('UPDATELOCALCARDATA', JSON.parse(localStorage.getItem('carData')) || [])
     },
-    removeMessageWithTiming (context, timestamp) {
-      setTimeout(() => {
-        context.commit('REMOVEMESSAGEWITHTIMING', timestamp)
-      }, 5000)
-    },
-    removeMessage (context, num) {
-      context.commit('REMOVEMESSAGE', num)
+    getlocalCarData (context, data) {
+      data = JSON.parse(localStorage.getItem('carData')) || []
+      context.commit('GETLOCALCARDATA', data)
     }
   },
   mutations: {
@@ -76,25 +72,17 @@ export default {
     CARTLOADING (state, payload) {
       state.cartLoading.addCartLoading = payload
     },
-    MESSAGES (state, { message, status, timestamp }) {
-      state.messages.push({
-        message,
-        status,
-        timestamp
-      })
+    UPDATELOCALCARDATA (state, payload) {
+      state.localCarData.push(JSON.parse(JSON.stringify(payload)))// i dont know why but it works
+      console.log(payload, 'data更新state')
     },
-    REMOVEMESSAGEWITHTIMING (state, timestamp) {
-      state.messages.forEach((item, i) => {
-        if (item.timestamp === timestamp) {
-          state.messages.splice(i, 1)
-        }
-      })
-    },
-    REMOVEMESSAGE (state, num) {
-      state.messages.splice(num, 1)
+    GETLOCALCARDATA (state, payload) {
+      console.log('localCarData狀態', state.localCarData, '收到的資料', payload, '讀取state')
+      state.localCarData = JSON.parse(JSON.stringify(payload))
     }
   },
   getters: {
-    cart: state => state.cart
+    cart: state => state.cart,
+    localCarData: state => state.localCarData
   }
 }

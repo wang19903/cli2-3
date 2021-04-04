@@ -165,7 +165,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'Navbar',
@@ -175,12 +175,14 @@ export default {
     }
   },
   methods: {
-    getCart () {
-      const vm = this
-      vm.carData = JSON.parse(localStorage.getItem('carData')) || []
-    },
+    // getCart () {
+    //   const vm = this
+    //   vm.carData = JSON.parse(localStorage.getItem('carData')) || []
+    // },
     onPlus (item) {
       const vm = this
+      // vm.$store.dispatch('cartsModules/getlocalCarData')// vm.getCart()
+      // vm.carData = vm.localCarData
       if (item.qty === 10) {
         return
       }
@@ -188,11 +190,15 @@ export default {
         if (data.product_id === item.product_id) {
           data.qty = data.qty + 1
         }
+        vm.$store.dispatch('cartsModules/updatelocalCarData', vm.carData)
         localStorage.setItem('carData', JSON.stringify(vm.carData))
+      // vm.$store.dispatch('cartsModules/getlocalCarData', vm.carData)// vm.getCart()
       })
     },
     onMinus (item) {
       const vm = this
+      // vm.$store.dispatch('cartsModules/getlocalCarData')// vm.getCart()
+      // vm.carData = vm.localCarData
       if (item.qty <= 1) {
         return
       }
@@ -200,16 +206,23 @@ export default {
         if (data.product_id === item.product_id) {
           data.qty = data.qty - 1
         }
-        localStorage.setItem('carData', JSON.stringify(vm.carData))
+        // vm.$store.dispatch('cartsModules/updatelocalCarData', vm.carData)
+        // localStorage.setItem('carData', JSON.stringify(vm.carData))
+        // vm.$store.dispatch('cartsModules/getlocalCarData', vm.carData)// vm.getCart()
       })
     },
     removeCart (cart) {
       const vm = this
+      // vm.$store.dispatch('cartsModules/getlocalCarData')// vm.getCart()
+      // vm.carData = vm.localCarData
       vm.carData.filter((item, key) => {
         if (item.product_id === cart.product_id) {
           vm.carData.splice(key, 1)
           localStorage.setItem('carData', JSON.stringify(vm.carData))
-          vm.getCart()
+          // vm.getCart()
+          vm.$store.dispatch('cartsModules/updatelocalCarData', vm.carData)
+          // localStorage.setItem('carData', JSON.stringify(vm.carData))
+          // vm.$store.dispatch('cartsModules/getlocalCarData', vm.carData)// vm.getCart()
         }
       })
     },
@@ -253,17 +266,30 @@ export default {
               )
               .then((res) => {
                 console.log(res)
-                this.carData = []
+                this.carData = [] // so does vuex
                 localStorage.removeItem('carData')
+                this.$store.dispatch('cartsModules/updatelocalCarData', this.carData)
+                localStorage.setItem('carData', JSON.stringify(this.carData))
+                this.$store.dispatch('cartsModules/getlocalCarData', this.carData)// vm.getCart()
                 this.getCart()
                 this.$router.push('/order')
               })
           })
         })
       this.$store.dispatch('updataLoading', false)
-    }
+    },
+    getCarData () {
+      const vm = this
+      vm.carData = vm.localCarData
+    },
+    ...mapActions('cartsModules', ['updatelocalCarData', 'getlocalCarData'])
   },
   computed: {
+    render () {
+      const vm = this
+      vm.getCarData()
+      return vm.carData
+    },
     getPrice () {
       if (this.carData.length === 0) {
         return 0
@@ -291,10 +317,12 @@ export default {
       }
       return this.carData[0].origin_price * this.carData[0].qty
     },
-    ...mapGetters(['isLoading'])
+    ...mapGetters(['isLoading']),
+    ...mapGetters('cartsModules', ['localCarData'])
   },
   created () {
-    this.$bus.$on('getCart', () => this.getCart())
+    this.getlocalCarData()
+  // this.$bus.$on('getCart', () => this.getCart())
   }
 }
 </script>
