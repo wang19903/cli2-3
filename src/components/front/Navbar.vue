@@ -181,8 +181,8 @@ export default {
     // },
     onPlus (item) {
       const vm = this
-      // vm.$store.dispatch('cartsModules/getlocalCarData')// vm.getCart()
-      // vm.carData = vm.localCarData
+      vm.$store.dispatch('cartsModules/getlocalCarData')// vm.getCart()
+      vm.carData = vm.localCarData
       if (item.qty === 10) {
         return
       }
@@ -190,14 +190,14 @@ export default {
         if (data.product_id === item.product_id) {
           data.qty = data.qty + 1
         }
-        vm.$store.dispatch('cartsModules/updatelocalCarData', vm.carData)
+        // vm.$store.dispatch('cartsModules/updatelocalCarData', vm.carData)
         localStorage.setItem('carData', JSON.stringify(vm.carData))
       // vm.$store.dispatch('cartsModules/getlocalCarData', vm.carData)// vm.getCart()
       })
     },
     onMinus (item) {
       const vm = this
-      // vm.$store.dispatch('cartsModules/getlocalCarData')// vm.getCart()
+      vm.$store.dispatch('cartsModules/getlocalCarData')// vm.getCart()
       // vm.carData = vm.localCarData
       if (item.qty <= 1) {
         return
@@ -207,20 +207,20 @@ export default {
           data.qty = data.qty - 1
         }
         // vm.$store.dispatch('cartsModules/updatelocalCarData', vm.carData)
-        // localStorage.setItem('carData', JSON.stringify(vm.carData))
+        localStorage.setItem('carData', JSON.stringify(vm.carData))
         // vm.$store.dispatch('cartsModules/getlocalCarData', vm.carData)// vm.getCart()
       })
     },
     removeCart (cart) {
       const vm = this
-      // vm.$store.dispatch('cartsModules/getlocalCarData')// vm.getCart()
-      // vm.carData = vm.localCarData
+      vm.$store.dispatch('cartsModules/getlocalCarData')// vm.getCart()
+      vm.carData = vm.localCarData
       vm.carData.filter((item, key) => {
         if (item.product_id === cart.product_id) {
           vm.carData.splice(key, 1)
           localStorage.setItem('carData', JSON.stringify(vm.carData))
           // vm.getCart()
-          vm.$store.dispatch('cartsModules/updatelocalCarData', vm.carData)
+          // vm.$store.dispatch('cartsModules/updatelocalCarData', vm.carData)
           // localStorage.setItem('carData', JSON.stringify(vm.carData))
           // vm.$store.dispatch('cartsModules/getlocalCarData', vm.carData)// vm.getCart()
         }
@@ -228,6 +228,8 @@ export default {
     },
     checkout () {
       const cacheID = []
+      this.$store.dispatch('cartsModules/getlocalCarData')// vm.getCart()
+      this.carData = this.localCarData
       this.$store.dispatch('updataLoading', true)
       this.axios
         .get(
@@ -266,30 +268,27 @@ export default {
               )
               .then((res) => {
                 console.log(res)
-                this.carData = [] // so does vuex
+                this.carData = []
                 localStorage.removeItem('carData')
                 this.$store.dispatch('cartsModules/updatelocalCarData', this.carData)
                 localStorage.setItem('carData', JSON.stringify(this.carData))
-                this.$store.dispatch('cartsModules/getlocalCarData', this.carData)// vm.getCart()
-                this.getCart()
+                // this.$store.dispatch('cartsModules/getlocalCarData', this.carData)// vm.getCart()
+                // this.getCart()
                 this.$router.push('/order')
               })
           })
         })
       this.$store.dispatch('updataLoading', false)
     },
-    getCarData () {
+    render () {
       const vm = this
+      console.log('run!!')
       vm.carData = vm.localCarData
+      return vm.carData
     },
     ...mapActions('cartsModules', ['updatelocalCarData', 'getlocalCarData'])
   },
   computed: {
-    render () {
-      const vm = this
-      vm.getCarData()
-      return vm.carData
-    },
     getPrice () {
       if (this.carData.length === 0) {
         return 0
@@ -322,6 +321,7 @@ export default {
   },
   created () {
     this.getlocalCarData()
+    this.render()
   // this.$bus.$on('getCart', () => this.getCart())
   }
 }

@@ -164,14 +164,10 @@ export default {
           price: data.price
         }
         vm.carData.push(cartContent)
-        vm.$store.dispatch('cartsModules/updatelocalCarData', vm.carData)
-        localStorage.setItem('carData', JSON.stringify(vm.carData))
+        vm.$store.dispatch('cartsModules/updatelocalCarData', vm.cartContent)
+        localStorage.setItem('carData', JSON.stringify(vm.cartContent))
         // vm.$store.dispatch('cartsModules/getlocalCarData', vm.carData)// vm.getCart()
         // vm.$bus.$emit('getCart')
-        vm.$store.dispatch('updateMessage', {
-          message: '已加入購物車',
-          status: 'success'
-        })
       } else {
         let cache = {}
         vm.carData.forEach((item, keys) => {
@@ -187,17 +183,17 @@ export default {
             vm.carData.splice(keys, 1)
           }
           vm.carData.push(cache)
-          vm.$store.dispatch('cartsModules/updatelocalCarData', vm.carData)
-          localStorage.setItem('carData', JSON.stringify(vm.carData))
+          vm.$store.dispatch('cartsModules/updatelocalCarData', vm.cache)
+          localStorage.setItem('carData', JSON.stringify(vm.cache))
           // vm.$store.dispatch('cartsModules/getlocalCarData', vm.carData)// vm.getCart()
         })
         // vm.getCart()
         // vm.$bus.$emit('getCart')
-        vm.$store.dispatch('updateMessage', {
-          message: '已加入購物車',
-          status: 'success'
-        })
       }
+      vm.$store.dispatch('updateMessage', {
+        message: '已加入購物車',
+        status: 'success'
+      })
     },
     // getCart () {
     //   this.carData = JSON.parse(localStorage.getItem('carData')) || []
