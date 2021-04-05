@@ -118,10 +118,10 @@
                   <tr>
                     <td colspan="3" class="text-right">總計</td>
                     <td class="text-right text-black-50">
-                      {{ getOrigin_Price | currency }}
+                      {{ getOriginPrice | currency }}
                     </td>
                   </tr>
-                  <tr v-if="getPrice !== getOrigin_Price">
+                  <tr v-if="getPrice !== getOriginPrice">
                     <td colspan="3" class="text-right text-success">折扣價</td>
                     <td class="text-right text-success">
                       {{ getPrice | currency }}
@@ -282,13 +282,17 @@ export default {
     },
     render () {
       const vm = this
-      console.log('run!!')
       vm.carData = vm.localCarData
-      return vm.carData
     },
     ...mapActions('cartsModules', ['updatelocalCarData', 'getlocalCarData'])
   },
   computed: {
+    runrender () {
+      const vm = this
+      vm.render()
+      console.log('run!!')
+      return vm.carData
+    },
     getPrice () {
       if (this.carData.length === 0) {
         return 0
@@ -302,19 +306,18 @@ export default {
       }
       return this.carData[0].price * this.carData[0].qty
     },
-
-    getOrigin_Price () {
+    getOriginPrice () {
       if (this.carData.length === 0) {
         return 0
       }
       if (this.carData.length > 1) {
         let cacheOriginPrice = 0
         this.carData.forEach(item => {
-          cacheOriginPrice += Number(item.origin_price * item.qty)
+          cacheOriginPrice += Number(item.originPrice * item.qty)
         })
         return cacheOriginPrice
       }
-      return this.carData[0].origin_price * this.carData[0].qty
+      return this.carData[0].originPrice * this.carData[0].qty
     },
     ...mapGetters(['isLoading']),
     ...mapGetters('cartsModules', ['localCarData'])

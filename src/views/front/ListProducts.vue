@@ -149,10 +149,10 @@ export default {
   methods: {
     addTocart (data) {
       const vm = this
-      vm.$store.dispatch('cartsModules/getlocalCarData')// vm.getCart()
-      vm.carData = vm.localCarData
+      // vm.$store.dispatch('cartsModules/getlocalCarData')// vm.getCart()
+      // vm.carData = vm.localCarData
       const cacheCarID = []
-      vm.carData.forEach(item => {
+      vm.localCarData.forEach(item => {
         cacheCarID.push(item.productId)
       })
       if (cacheCarID.indexOf(data.id) === -1) {
@@ -163,14 +163,15 @@ export default {
           originPrice: data.origin_price,
           price: data.price
         }
+        console.log('new')
         vm.carData.push(cartContent)
-        vm.$store.dispatch('cartsModules/updatelocalCarData', vm.cartContent)
-        localStorage.setItem('carData', JSON.stringify(vm.cartContent))
+        vm.$store.dispatch('cartsModules/updatelocalCarData', cartContent)
+        localStorage.setItem('carData', JSON.stringify(vm.carData))
         // vm.$store.dispatch('cartsModules/getlocalCarData', vm.carData)// vm.getCart()
         // vm.$bus.$emit('getCart')
       } else {
         let cache = {}
-        vm.carData.forEach((item, keys) => {
+        vm.localCarData.forEach((item, keys) => {
           if (item.productId === data.id) {
             let { qty } = item
             cache = {
@@ -182,9 +183,10 @@ export default {
             }
             vm.carData.splice(keys, 1)
           }
+          console.log('oid')
           vm.carData.push(cache)
-          vm.$store.dispatch('cartsModules/updatelocalCarData', vm.cache)
-          localStorage.setItem('carData', JSON.stringify(vm.cache))
+          vm.$store.dispatch('cartsModules/updatelocalCarData', cache)
+          localStorage.setItem('carData', JSON.stringify(vm.carData))
           // vm.$store.dispatch('cartsModules/getlocalCarData', vm.carData)// vm.getCart()
         })
         // vm.getCart()
@@ -264,7 +266,7 @@ export default {
   },
   created () {
     this.getProducts()
-  // this.getlocalCarData()
+    this.getlocalCarData()
   }
 }
 </script>

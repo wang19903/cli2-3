@@ -125,6 +125,7 @@ export default {
         loadingItem: ''
       },
       cart: [],
+      carData: [],
       newarray: [],
       pageId: '',
       swiperOption: {
@@ -157,9 +158,9 @@ export default {
     },
     addTocart (data, num) {
       const vm = this
-      vm.getCart()
+      // vm.getCart()
       const cacheCarID = []
-      vm.carData.forEach(item => {
+      vm.localCarData.forEach(item => {
         cacheCarID.push(item.productId)
       })
       if (cacheCarID.indexOf(data.id) === -1) {
@@ -167,45 +168,45 @@ export default {
           productId: data.id,
           qty: num,
           name: data.title,
-          originPrice: data.originPrice,
+          originPrice: data.origin_price,
           price: data.price
         }
+        console.log('newnum')
         vm.carData.push(cartContent)
+        vm.$store.dispatch('cartsModules/updatelocalCarData', cartContent)
         localStorage.setItem('carData', JSON.stringify(vm.carData))
-        vm.getCart()
-        vm.$bus.$emit('getCart')
-        vm.$store.dispatch('updateMessage', {
-          message: '已加入購物車',
-          status: 'success'
-        })
+        // vm.getCart()
+        // vm.$bus.$emit('getCart')
       } else {
         let cache = {}
-        vm.carData.forEach((item, keys) => {
+        vm.localCarData.forEach((item, keys) => {
           if (item.productId === data.id) {
             const { qty } = item
             cache = {
               productId: data.id,
               qty: qty + num,
               name: data.title,
-              originPrice: data.originPrice,
+              originPrice: data.origin_price,
               price: data.price
             }
             vm.carData.splice(keys, 1)
+            console.log('oidnum')
           }
         })
         vm.carData.push(cache)
+        vm.$store.dispatch('cartsModules/updatelocalCarData', cache)
         localStorage.setItem('carData', JSON.stringify(vm.carData))
-        vm.getCart()
-        vm.$bus.$emit('getCart')
-        vm.$store.dispatch('updateMessage', {
-          message: '已加入購物車',
-          status: 'success'
-        })
+        // vm.getCart()
+        // vm.$bus.$emit('getCart')
       }
+      vm.$store.dispatch('updateMessage', {
+        message: '已加入購物車',
+        status: 'success'
+      })
     },
-    getCart () {
-      this.carData = JSON.parse(localStorage.getItem('carData')) || []
-    },
+    // getCart () {
+    //   this.carData = JSON.parse(localStorage.getItem('carData')) || []
+    // },
     lightBoxData (data) {
       const vm = this
       const Temp = []
@@ -229,7 +230,8 @@ export default {
       this.$router.push(`/product/${id}`)
       window.location.reload()
     },
-    ...mapActions('productModules', ['getProducts'])
+    ...mapActions('productModules', ['getProducts']),
+    ...mapActions('cartsModules', ['updatelocalCarData', 'getlocalCarData'])
   },
   computed: {
     lightbox () {
@@ -237,14 +239,15 @@ export default {
       return vm.newarray
     },
     ...mapGetters('productModules', ['products']),
-    ...mapGetters(['isLoading'])
+    ...mapGetters(['isLoading']),
+    ...mapGetters('cartsModules', ['localCarData'])
   },
   created () {
     const vm = this
     vm.productId = vm.$route.params.productId
     vm.getProduct()
     vm.getProducts()
-    vm.getCart()
+    this.getlocalCarData()
   }
 }
 </script>

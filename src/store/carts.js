@@ -62,6 +62,7 @@ export default {
     },
     getlocalCarData (context, data) {
       data = JSON.parse(localStorage.getItem('carData')) || []
+      console.log(data, 'localStorage資料')
       context.commit('GETLOCALCARDATA', data)
     }
   },
@@ -73,12 +74,12 @@ export default {
       state.cartLoading.addCartLoading = payload
     },
     UPDATELOCALCARDATA (state, payload) {
-      state.localCarData.push(JSON.parse(JSON.stringify(payload)))// i dont know why but it works
+      state.localCarData.push(payload)
       console.log(payload, 'data更新state')
     },
     GETLOCALCARDATA (state, payload) {
+      state.localCarData = payload
       console.log('localCarData狀態', state.localCarData, '收到的資料', payload, '讀取state')
-      state.localCarData = JSON.parse(JSON.stringify(payload))
     }
   },
   getters: {
