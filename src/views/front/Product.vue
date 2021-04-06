@@ -1,5 +1,6 @@
 <template>
   <div class="wrap wrapper">
+    <loading :active.sync="isLoading"></loading>
     <Alert />
     <div
       tabindex="-1"
@@ -29,7 +30,7 @@
               {{ product.originPrice }} 元
             </div>
             <del class="h6" v-if="product.price"
-              >原價 {{ product.originPrice }} 元</del
+              >原價 {{ product.origin_price }} 元</del
             >
             <div class="h5" v-if="product.price">
               現在只要 {{ product.price }} 元
@@ -127,7 +128,6 @@ export default {
       cart: [],
       carData: [],
       newarray: [],
-      pageId: '',
       swiperOption: {
         slidesPerView: 3,
         spaceBetween: 30,
@@ -144,21 +144,19 @@ export default {
     Alert
   },
   methods: {
-    getProduct () {
+    getProduct (productId) {
       const vm = this
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${vm.productId}`
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${productId}`
       vm.$http.get(api).then(response => {
         vm.$store.dispatch('updataLoading', true)
         vm.product = response.data.product
         vm.product.num = 1
-        vm.pageId = vm.product.id
         vm.lightBoxData(vm.product.id)
         vm.$store.dispatch('updataLoading', false)
       })
     },
     addTocart (data, num) {
       const vm = this
-      // vm.getCart()
       const cacheCarID = []
       vm.localCarData.forEach(item => {
         cacheCarID.push(item.productId)
@@ -171,12 +169,9 @@ export default {
           originPrice: data.origin_price,
           price: data.price
         }
-        console.log('newnum')
         vm.carData.push(cartContent)
         vm.$store.dispatch('cartsModules/updatelocalCarData', cartContent)
         localStorage.setItem('carData', JSON.stringify(vm.carData))
-        // vm.getCart()
-        // vm.$bus.$emit('getCart')
       } else {
         let cache = {}
         vm.localCarData.forEach((item, keys) => {
@@ -190,28 +185,21 @@ export default {
               price: data.price
             }
             vm.carData.splice(keys, 1)
-            console.log('oidnum')
           }
         })
         vm.carData.push(cache)
         vm.$store.dispatch('cartsModules/updatelocalCarData', cache)
         localStorage.setItem('carData', JSON.stringify(vm.carData))
-        // vm.getCart()
-        // vm.$bus.$emit('getCart')
       }
       vm.$store.dispatch('updateMessage', {
         message: '已加入購物車',
         status: 'success'
       })
     },
-    // getCart () {
-    //   this.carData = JSON.parse(localStorage.getItem('carData')) || []
-    // },
     lightBoxData (data) {
       const vm = this
       const Temp = []
       vm.newarray = []
-      console.log(data)
       vm.products.filter(item => {
         if (data !== item.id) {
           Temp.push(item)
@@ -227,8 +215,12 @@ export default {
       }
     },
     toProduct (id) {
-      this.$router.push(`/product/${id}`)
-      window.location.reload()
+      const vm = this
+      vm.$store.dispatch('updataLoading', true)
+      vm.$router.push(`/product/${id}`)
+      this.getProduct(id)
+      vm.$route.params.productId = id
+      vm.$store.dispatch('updataLoading', false)
     },
     ...mapActions('productModules', ['getProducts']),
     ...mapActions('cartsModules', ['updatelocalCarData', 'getlocalCarData'])
@@ -244,10 +236,9 @@ export default {
   },
   created () {
     const vm = this
-    vm.productId = vm.$route.params.productId
-    vm.getProduct()
+    vm.getProduct(vm.$route.params.productId)
     vm.getProducts()
-    this.getlocalCarData()
+    vm.getlocalCarData()
   }
 }
 </script>

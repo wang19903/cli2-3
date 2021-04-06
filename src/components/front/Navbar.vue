@@ -1,6 +1,6 @@
 <template>
   <div>
-    <loading :active.sync="isLoading"></loading>
+    <!-- <loading :active.sync="isLoading"></loading> -->
     <nav class="navbar navbar-expand-md navbar-light border-bottom border-dark">
       <router-link class="navbar-brand p-0" to="/">
         <img
@@ -55,10 +55,10 @@
                 <i class="cartIcon"
                   ><div
                     variant=""
-                    v-if="carData.length > 0"
+                    v-if="localCarData.length > 0"
                     class="badge badge-light"
                   >
-                    {{ carData.length }}
+                    {{ localCarData.length }}
                   </div></i
                 ><span class="">購物車</span>
               </div>
@@ -175,13 +175,9 @@ export default {
     }
   },
   methods: {
-    // getCart () {
-    //   const vm = this
-    //   vm.carData = JSON.parse(localStorage.getItem('carData')) || []
-    // },
     onPlus (item) {
       const vm = this
-      vm.$store.dispatch('cartsModules/getlocalCarData')// vm.getCart()
+      vm.$store.dispatch('cartsModules/getlocalCarData')
       vm.carData = vm.localCarData
       if (item.qty === 10) {
         return
@@ -190,15 +186,12 @@ export default {
         if (data.product_id === item.product_id) {
           data.qty = data.qty + 1
         }
-        // vm.$store.dispatch('cartsModules/updatelocalCarData', vm.carData)
         localStorage.setItem('carData', JSON.stringify(vm.carData))
-      // vm.$store.dispatch('cartsModules/getlocalCarData', vm.carData)// vm.getCart()
       })
     },
     onMinus (item) {
       const vm = this
-      vm.$store.dispatch('cartsModules/getlocalCarData')// vm.getCart()
-      // vm.carData = vm.localCarData
+      vm.$store.dispatch('cartsModules/getlocalCarData')
       if (item.qty <= 1) {
         return
       }
@@ -206,29 +199,23 @@ export default {
         if (data.product_id === item.product_id) {
           data.qty = data.qty - 1
         }
-        // vm.$store.dispatch('cartsModules/updatelocalCarData', vm.carData)
         localStorage.setItem('carData', JSON.stringify(vm.carData))
-        // vm.$store.dispatch('cartsModules/getlocalCarData', vm.carData)// vm.getCart()
       })
     },
     removeCart (cart) {
       const vm = this
-      vm.$store.dispatch('cartsModules/getlocalCarData')// vm.getCart()
+      vm.$store.dispatch('cartsModules/getlocalCarData')
       vm.carData = vm.localCarData
       vm.carData.filter((item, key) => {
         if (item.product_id === cart.product_id) {
           vm.carData.splice(key, 1)
           localStorage.setItem('carData', JSON.stringify(vm.carData))
-          // vm.getCart()
-          // vm.$store.dispatch('cartsModules/updatelocalCarData', vm.carData)
-          // localStorage.setItem('carData', JSON.stringify(vm.carData))
-          // vm.$store.dispatch('cartsModules/getlocalCarData', vm.carData)// vm.getCart()
         }
       })
     },
     checkout () {
       const cacheID = []
-      this.$store.dispatch('cartsModules/getlocalCarData')// vm.getCart()
+      this.$store.dispatch('cartsModules/getlocalCarData')
       this.carData = this.localCarData
       this.$store.dispatch('updataLoading', true)
       this.axios
@@ -272,8 +259,6 @@ export default {
                 localStorage.removeItem('carData')
                 this.$store.dispatch('cartsModules/updatelocalCarData', this.carData)
                 localStorage.setItem('carData', JSON.stringify(this.carData))
-                // this.$store.dispatch('cartsModules/getlocalCarData', this.carData)// vm.getCart()
-                // this.getCart()
                 this.$router.push('/order')
               })
           })
@@ -325,7 +310,6 @@ export default {
   created () {
     this.getlocalCarData()
     this.render()
-  // this.$bus.$on('getCart', () => this.getCart())
   }
 }
 </script>

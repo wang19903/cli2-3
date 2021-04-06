@@ -149,8 +149,6 @@ export default {
   methods: {
     addTocart (data) {
       const vm = this
-      // vm.$store.dispatch('cartsModules/getlocalCarData')// vm.getCart()
-      // vm.carData = vm.localCarData
       const cacheCarID = []
       vm.localCarData.forEach(item => {
         cacheCarID.push(item.productId)
@@ -167,8 +165,6 @@ export default {
         vm.carData.push(cartContent)
         vm.$store.dispatch('cartsModules/updatelocalCarData', cartContent)
         localStorage.setItem('carData', JSON.stringify(vm.carData))
-        // vm.$store.dispatch('cartsModules/getlocalCarData', vm.carData)// vm.getCart()
-        // vm.$bus.$emit('getCart')
       } else {
         let cache = {}
         vm.localCarData.forEach((item, keys) => {
@@ -178,7 +174,7 @@ export default {
               productId: data.id,
               qty: (qty += 1),
               name: data.title,
-              originPrice: data.originPrice,
+              originPrice: data.origin_price,
               price: data.price
             }
             vm.carData.splice(keys, 1)
@@ -187,19 +183,13 @@ export default {
           vm.carData.push(cache)
           vm.$store.dispatch('cartsModules/updatelocalCarData', cache)
           localStorage.setItem('carData', JSON.stringify(vm.carData))
-          // vm.$store.dispatch('cartsModules/getlocalCarData', vm.carData)// vm.getCart()
         })
-        // vm.getCart()
-        // vm.$bus.$emit('getCart')
       }
       vm.$store.dispatch('updateMessage', {
         message: '已加入購物車',
         status: 'success'
       })
     },
-    // getCart () {
-    //   this.carData = JSON.parse(localStorage.getItem('carData')) || []
-    // },
     // addtoCart(id, qty = 1) {
     //   this.$store.dispatch('cartsModules/addtoCart', { id, qty })
     // },
@@ -245,12 +235,6 @@ export default {
       vm.$store.dispatch('updataLoading', false)
       return vm.newData
     },
-    // test () {
-    //   const vm = this
-    //   vm.$store.dispatch('updatelocalCarData', localStorage.setItem('data', JSON.stringify(vm.tes)))
-    //   console.log(this.updatelocalCarData())
-    //   localStorage.setItem('1234', JSON.stringify(vm.testarr))
-    // },
     ...mapActions('productModules', ['getProducts']),
     ...mapActions('cartsModules', ['updatelocalCarData', 'getlocalCarData'])
   },
