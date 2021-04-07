@@ -11,7 +11,6 @@ export default {
       addCartLoading: ''
     },
     localCarData: []
-    // LocalCarData: JSON.parse(localStorage.getItem('carData')) || []
   },
   actions: {
     getCart (context) {
@@ -79,7 +78,6 @@ export default {
     },
     GETLOCALCARDATA (state, payload) {
       state.localCarData = payload
-      console.log('localCarData狀態', state.localCarData, '收到的資料', payload, '讀取state')
     }
   },
   getters: {

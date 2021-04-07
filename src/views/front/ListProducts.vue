@@ -149,22 +149,23 @@ export default {
   methods: {
     addTocart (data) {
       const vm = this
-      const cacheCarID = []
+      vm.checkdata()
+      let cacheCarID = []
       vm.localCarData.forEach(item => {
         cacheCarID.push(item.productId)
       })
-      if (cacheCarID.indexOf(data.id) === -1) {
-        const cartContent = {
+      if (cacheCarID.indexOf(data.id) === -1) { // 上面推進來後的id，找不到自己裡面有一樣的data.id就建立新資料
+        let cartContent = {
           productId: data.id,
           qty: 1,
           name: data.title,
           originPrice: data.origin_price,
           price: data.price
         }
-        console.log('new')
         vm.carData.push(cartContent)
-        vm.$store.dispatch('cartsModules/updatelocalCarData', cartContent)
+        // vm.$store.dispatch('cartsModules/updatelocalCarData', cartContent)
         localStorage.setItem('carData', JSON.stringify(vm.carData))
+        cartContent = {}
       } else {
         let cache = {}
         vm.localCarData.forEach((item, keys) => {
@@ -178,21 +179,29 @@ export default {
               price: data.price
             }
             vm.carData.splice(keys, 1)
+            console.log('old')
+            vm.carData.push(cache)
+            cache = {}
           }
-          console.log('oid')
-          vm.carData.push(cache)
-          vm.$store.dispatch('cartsModules/updatelocalCarData', cache)
+          // vm.$store.dispatch('cartsModules/updatelocalCarData', cache)
           localStorage.setItem('carData', JSON.stringify(vm.carData))
         })
       }
+      cacheCarID = []
+      vm.checkdata()
       vm.$store.dispatch('updateMessage', {
         message: '已加入購物車',
         status: 'success'
       })
     },
-    // addtoCart(id, qty = 1) {
-    //   this.$store.dispatch('cartsModules/addtoCart', { id, qty })
-    // },
+    checkdata () {
+      const vm = this
+      vm.$store.dispatch('cartsModules/getlocalCarData')
+      vm.carData = []
+      vm.localCarData.forEach(item => {
+        vm.carData.push(item)
+      })
+    },
     checkDetail (id) {
       this.$router.push(`/product/${id}`)
     },
@@ -251,6 +260,7 @@ export default {
   created () {
     this.getProducts()
     this.getlocalCarData()
+    this.checkdata()
   }
 }
 </script>

@@ -132,6 +132,10 @@ max-width:300px;
   @include hover;
 }
 
+.list-group-item.active{
+  border-color: #6d4b0d
+}
+
 .active,
 .ListProducts-badge {
   @include active;

@@ -65,7 +65,7 @@
             </a>
 
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <table class="table nav-table" v-if="carData.length">
+              <table class="table nav-table" v-if="localCarData.length">
                 <thead>
                   <th></th>
                   <th>品名</th>
@@ -73,12 +73,12 @@
                   <th class="text-right">單價</th>
                 </thead>
                 <tbody>
-                  <tr v-for="item in carData" :key="item.id">
+                  <tr v-for="item in localCarData" :key="item.id">
                     <td class="align-middle">
                       <button
                         type="button"
                         class="btn btn-outline-dark btn-sm nav-btn"
-                        @click.prevent="removeCart(item)"
+                        @click.prevent="removeCart(item.productId)"
                       >
                         <i class="fas fa-trash-alt"></i>
                       </button>
@@ -132,7 +132,7 @@
 
               <div
                 class="d-flex flex-column align-items-center"
-                v-if="carData.length === 0"
+                v-if="localCarData.length === 0"
               >
                 購物車尚未有商品唷!!
               </div>
@@ -140,7 +140,7 @@
                 type="button"
                 class="btn btn-block mt-3 nav-btn btn-outline-dark"
                 @click.prevent="checkout"
-                v-if="carData.length"
+                v-if="localCarData.length"
               >
                 前往結帳
               </button>
@@ -177,40 +177,49 @@ export default {
   methods: {
     onPlus (item) {
       const vm = this
-      vm.$store.dispatch('cartsModules/getlocalCarData')
-      vm.carData = vm.localCarData
+      vm.checkdata()
       if (item.qty === 10) {
         return
       }
       vm.carData.filter(data => {
-        if (data.product_id === item.product_id) {
+        if (data.productId === item.productId) {
           data.qty = data.qty + 1
         }
         localStorage.setItem('carData', JSON.stringify(vm.carData))
       })
+      vm.checkdata()
     },
     onMinus (item) {
       const vm = this
-      vm.$store.dispatch('cartsModules/getlocalCarData')
+      vm.checkdata()
       if (item.qty <= 1) {
         return
       }
       vm.carData.filter(data => {
-        if (data.product_id === item.product_id) {
+        if (data.productId === item.productId) {
           data.qty = data.qty - 1
         }
         localStorage.setItem('carData', JSON.stringify(vm.carData))
       })
+      vm.checkdata()
     },
-    removeCart (cart) {
+    removeCart (data) {
       const vm = this
-      vm.$store.dispatch('cartsModules/getlocalCarData')
-      vm.carData = vm.localCarData
+      vm.checkdata()
       vm.carData.filter((item, key) => {
-        if (item.product_id === cart.product_id) {
+        if (item.productId === data) {
           vm.carData.splice(key, 1)
           localStorage.setItem('carData', JSON.stringify(vm.carData))
         }
+        vm.checkdata()
+      })
+    },
+    checkdata () {
+      const vm = this
+      vm.$store.dispatch('cartsModules/getlocalCarData')
+      vm.carData = []
+      vm.localCarData.forEach(item => {
+        vm.carData.push(item)
       })
     },
     checkout () {
@@ -265,51 +274,44 @@ export default {
         })
       this.$store.dispatch('updataLoading', false)
     },
-    render () {
-      const vm = this
-      vm.carData = vm.localCarData
-    },
     ...mapActions('cartsModules', ['updatelocalCarData', 'getlocalCarData'])
   },
   computed: {
-    runrender () {
-      const vm = this
-      vm.render()
-      console.log('run!!')
-      return vm.carData
-    },
     getPrice () {
-      if (this.carData.length === 0) {
+      if (this.localCarData.length === 0) {
         return 0
       }
-      if (this.carData.length > 1) {
+      if (this.localCarData.length > 1) {
         let cachePrice = 0
-        this.carData.forEach(item => {
+        this.localCarData.forEach(item => {
           cachePrice += Number(item.price * item.qty)
         })
         return cachePrice
       }
-      return this.carData[0].price * this.carData[0].qty
+      return this.localCarData[0].price * this.localCarData[0].qty
     },
     getOriginPrice () {
-      if (this.carData.length === 0) {
+      if (this.localCarData.length === 0) {
         return 0
       }
-      if (this.carData.length > 1) {
+      if (this.localCarData.length > 1) {
         let cacheOriginPrice = 0
-        this.carData.forEach(item => {
+        this.localCarData.forEach(item => {
           cacheOriginPrice += Number(item.originPrice * item.qty)
         })
         return cacheOriginPrice
       }
-      return this.carData[0].originPrice * this.carData[0].qty
+      return this.localCarData[0].originPrice * this.localCarData[0].qty
     },
     ...mapGetters(['isLoading']),
     ...mapGetters('cartsModules', ['localCarData'])
   },
+  wtach: {
+
+  },
   created () {
     this.getlocalCarData()
-    this.render()
+    this.checkdata()
   }
 }
 </script>
