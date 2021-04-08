@@ -47,19 +47,33 @@
               <th>付款狀態</th>
               <td>
                 <span v-if="!order.is_paid">尚未付款</span>
-                <div v-else>
-                  <div class="text-success mb-2">付款完成</div>
-                  <router-link
-                    to="/"
-                    class="text-light border border-danger bg-danger rounded"
-                  >
-                    返回首頁
-                  </router-link>
-                </div>
+                <span v-else class="text-success mb-2">付款完成</span>
               </td>
             </tr>
           </tbody>
         </table>
+        <div v-if="order.is_paid" class="guild pt-5">
+          <p class="text-left">{{order.user.name}} <span>先生/女士</span><br>
+          結帳流程完成了，非常感謝您購買我們店鋪的產品，如果有任何問題，歡迎您致電給我們。<br>
+          <span>電話:+886-2929-15311</span><br>
+          <span>信箱:thisaddress@isfake.com.tw</span><br>
+          期待您的再次光臨!<br>
+          <br>
+          <br>
+          提醒您!<br>
+          <br>
+          本公司不會主動打電話給您要求操作ATM，如有問題請撥打165查詢<br>
+          因衛生關係，除食品本身問題外，恕難退貨退款，還請多多見諒。
+          </p>
+          <div class="sign d-flex justify-content-between">
+            <img src="@/assets/img/logo.png" alt="logo">
+            <div>
+              <router-link to="/" class="text-light border border-info bg-info rounded">
+                返回首頁
+              </router-link>
+            </div>
+          </div>
+        </div>
         <div class="text-right" v-if="order.is_paid === false">
           <button class="btn btn-danger" type="button">確認付款去</button>
         </div>
@@ -119,5 +133,22 @@ export default {
 <style lang="scss" scoped>
 ul {
   margin-top: 0px;
+}
+.guild{
+  span{
+    font-size: 15px;
+  }
+  p{
+    font-size: 21px;
+  }
+  a{
+    font-size: 25px;
+  }
+}
+.sign img{
+
+  border: red solid 2px;
+  box-shadow: 1px 1px red;
+  background-color: rgba(128, 128, 128, 0.199);
 }
 </style>

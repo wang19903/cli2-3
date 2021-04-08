@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- <loading :active.sync="isLoading"></loading> -->
+    <loading :active.sync="isLoading"></loading>
     <nav class="navbar navbar-expand-md navbar-light border-bottom border-dark">
       <router-link class="navbar-brand p-0" to="/">
         <img
@@ -266,7 +266,7 @@ export default {
                 console.log(res)
                 this.carData = []
                 localStorage.removeItem('carData')
-                this.$store.dispatch('cartsModules/updatelocalCarData', this.carData)
+                this.checkdata()
                 localStorage.setItem('carData', JSON.stringify(this.carData))
                 this.$router.push('/order')
               })

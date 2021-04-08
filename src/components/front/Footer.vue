@@ -31,9 +31,9 @@
           <p>
             <font-awesome-icon icon="phone" size="1x" class="fas" />+886
             2992915311
-            <br />
+            <!-- <br />
             <font-awesome-icon icon="map-marker-alt" size="1x" class="fas" />
-            地址:新北市中和區安樂路x1號
+            地址:新北市中和區安樂路x1號 -->
             <br />
             營業時間:AM11:30-PM2:30，PM5:00-PM9:00<br />
             最後點餐時間:結束前30分鐘，依現場為準。

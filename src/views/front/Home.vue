@@ -6,7 +6,7 @@
         <router-link to="/products">前往賣場</router-link>
       </div>
     </div>
-    <div class="container-fluid p-0 home-container">
+    <div class="container-fluid p-0 home-container mt-5">
       <Alert />
       <div
         data-aos="fade-down"
@@ -33,7 +33,7 @@
         data-aos="fade-right"
         data-aos-easing="linear"
         data-aos-duration="1500"
-        class="home-promote d-flex"
+        class="home-promote d-flex mt-5"
       >
         <div>
           <h3>新產品<br />冷凍餛飩</h3>
@@ -50,17 +50,10 @@
 
       <span class="about">關於我們</span>
 
-      <div class="home-content d-flex">
-        <div
-          data-aos="fade-up-right"
-          data-aos-easing="linear"
-          data-aos-duration="1500"
-        >
-          <img src="@/assets/img/content.jpg" alt="說明範例圖" />
-        </div>
-        <div class="text-left">
+      <div class="home-content mt-5 mb-5">
+        <div class="text-left content">
           <div
-            data-aos="fade-up-left"
+            data-aos="fade-down-right"
             data-aos-easing="linear"
             data-aos-duration="1500"
           >
@@ -72,19 +65,32 @@
             </p>
             <br />
           </div>
-          <div
-            class="d-flex justify-content-md-between flex-wrap home-content-ulwrap"
+        </div>
+      </div>
+
+      <span class="about">店鋪資訊</span>
+      <div class="mt-5 p-0 d-flex home-map container-fluid justify-content-between flex-wrap">
+        <div class="row col-md-6">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1807.9691171860352!2d121.51363435855448!3d25.002214653186215!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a9de7abb70a7%3A0xbdcb8c32df0f7b7!2z5ZyL56uL6Ie654Gj5ZyW5pu46aSo!5e0!3m2!1szh-TW!2stw!4v1617855188076!5m2!1szh-TW!2stw" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+        <div class="transport row col-md-6 m-0 p-0 text-left">
+          <font-awesome-icon icon="map-marker-alt" size="1x"/>
+          店鋪地址:新北市中和區安樂路x1號<br>
+          <p>位於國立圖書館旁，靠近捷運永安市場站，步行約5分鐘或搭乘免費接駁車。<br>
+          開車親臨，附近有圖書館停車場、國小停車場。
+          </p>
+          <div class="d-flex justify-content-start align-items-end"
           >
             <div
-              data-aos="fade-up-left"
+              data-aos="fade-down-right"
               data-aos-easing="linear"
               data-aos-duration="750"
             >
-              <ul class="pt-2">
+              <ul class="pt-2 pl-0">
                 <li class="h2">我們的堅持</li>
-                <li>絕不使用人工添加物</li>
-                <li>每日採購新鮮食材，現點現做</li>
-                <li>食品來源:牛:澳洲 豬:台灣</li>
+                <li>不使用人工添加物</li>
+                <li>每日採購新鮮食材製作</li>
+                <li>食品來源:牛:澳洲 豬、雞:台灣</li>
               </ul>
             </div>
             <div

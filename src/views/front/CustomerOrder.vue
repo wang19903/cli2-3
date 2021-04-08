@@ -1,5 +1,6 @@
 <template>
   <div>
+    <loading :active.sync="isLoading"></loading>
     <div class="bgImg3">
       <p class="slogan">跟隨步驟完成訂單</p>
     </div>

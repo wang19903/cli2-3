@@ -174,7 +174,7 @@ $fsize: 1.2rem;
 
 .home-promote {
   margin-bottom: $space * 2;
-  height: 300px;
+  height: 400px;
   overflow: hidden;
 
   div {
@@ -208,25 +208,54 @@ $fsize: 1.2rem;
 }
 
 .home-content {
-  margin: $space;
+  width: 100%;
+  height: 530px;
+  background-image: url('~@/assets/img/content.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
   position: relative;
+  z-index: 1;
+  object-fit: cover;
 
-  img {
-    max-width: 500px;
-    object-fit: cover;
-  }
+  .content{
+    position: absolute;
+    right: 0;
+    width: 50%;
+  }  
 
   p {
+    color:#FFF;
+    background-color: rgba(255, 255, 255, 0.1);
     text-indent: $fsize * 2;
     padding: $space;
+    font-size: $fsize;
+    line-height: $fsize * 2;
   }
 }
 
 .home-content-img {
-  max-width: 7rem;
-  max-height: 7rem;
+  max-width: 10rem;
+  max-height: 10rem;
   object-fit: cover;
   padding-left: 1.5rem;
+}
+
+.home-map {
+  margin-bottom: $space * 2;
+  height: 100%;
+
+  iframe {
+    border: #000 1px solid;
+    height: 400px;
+    width: 100%;
+  }
+  .transport{
+    font-size: $fsize;
+    svg{
+      font-size: $fsize * 1.3;
+    }
+    
+  }
 }
 
 @media (max-width: 768px) {
@@ -245,10 +274,13 @@ $fsize: 1.2rem;
     margin-bottom: $space;
     position: relative;
 
-    p {
-      text-indent: $fsize * 1.4;
+    p{
+      color:#fff;
+      background-color: rgba(0, 0, 0, 0.185);
+      text-indent: $fsize * 2;
+      padding: $space;
+      font-weight: 400;
     }
-
     img {
       max-width: 250px;
     }
@@ -268,6 +300,13 @@ $fsize: 1.2rem;
     }
     p {
       font-size: calc(1rem + ((100vw - 512px) / (1024 - 512)));
+    }
+  }
+
+  .home-map{
+    .row{
+      padding: 0;
+      margin: 0;
     }
   }
 }
@@ -297,8 +336,16 @@ $fsize: 1.2rem;
     font-size: 2rem;
   }
 
-  .home-content-ulwrap {
-    justify-content: center;
+  .home-content{ 
+    background-position: center right;
+    p{
+    text-indent: 38px;
+    font-size: $fsize;
+
+    }
+    .content{
+      width: 100%;
+    }
   }
 
   .copy-div {
@@ -316,5 +363,11 @@ $fsize: 1.2rem;
   .slogan {
     font-size: 25px;
     font-weight: 600;
+  }
+
+  .home-content p{
+    text-indent: 30px;
+    font-size: $fsize *.7;
+    line-height: 20px;
   }
 }
