@@ -1,6 +1,7 @@
 <template>
   <div>
     <Alert />
+    <loading :active.sync="isLoading"></loading>
     <div class="bgImg2">
       <p class="slogan">
         鼎中美食 鮮香味美
@@ -23,7 +24,7 @@
           <div class="click box-sizing" @click="changeType('price')">
             價格排序
             <span
-              :class="{ inverse: isReverse }"
+              :class="{ 'rotate': isReverse }"
               v-if="sortType == 'price'"
             >
               <i class="fas fa-angle-up"></i>
@@ -244,6 +245,10 @@ export default {
       vm.$store.dispatch('updataLoading', false)
       return vm.newData
     },
+    rotateicon () {
+      const vm = this
+      vm.isReverse = !vm.isReverse
+    },
     ...mapActions('productModules', ['getProducts']),
     ...mapActions('cartsModules', ['updatelocalCarData', 'getlocalCarData'])
   },
@@ -264,3 +269,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.rotate{
+  transform: rotate( 180deg);
+}
+</style>
