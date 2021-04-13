@@ -1,6 +1,11 @@
 .foot-container {
-  background-color: #ddc18e;
+  background-color: #e7dbc1;
   position: relative;
+}
+
+.max-width{
+  max-width: 1440px;
+  margin: auto;
 }
 
 .foot-txt {
@@ -18,7 +23,7 @@ li {
 }
 
 .fa-instagram {
-  color: saddlebrown;
+  color: rgb(148, 85, 43);
   margin-top: 7px;
   font-size: 28px;
 }

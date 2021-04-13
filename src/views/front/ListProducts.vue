@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Alert />
     <loading :active.sync="isLoading"></loading>
     <div class="bgImg2">
       <p class="slogan">
@@ -99,7 +98,7 @@
                           <button
                           type="button"
                           class="btn btn-sm ml-auto"
-                          @click.prevent="addTocart(item)"
+                          @click="addTocart(item)"
                           >
                           <i
                           class="fas fa-spinner fa-pulse"
@@ -123,15 +122,13 @@
 </template>
 
 <script>
-import Alert from '@/components/AlertMessage.vue'
 import { mapGetters, mapActions } from 'vuex'
 import GoTop from '@/components/front/GoTop.vue'
 
 export default {
   name: 'ListProducts',
   components: {
-    GoTop,
-    Alert
+    GoTop
   },
   data () {
     return {
@@ -164,7 +161,6 @@ export default {
           price: data.price
         }
         vm.carData.push(cartContent)
-        // vm.$store.dispatch('cartsModules/updatelocalCarData', cartContent)
         localStorage.setItem('carData', JSON.stringify(vm.carData))
         cartContent = {}
       } else {
@@ -184,7 +180,6 @@ export default {
             vm.carData.push(cache)
             cache = {}
           }
-          // vm.$store.dispatch('cartsModules/updatelocalCarData', cache)
           localStorage.setItem('carData', JSON.stringify(vm.carData))
         })
       }
@@ -206,7 +201,7 @@ export default {
     checkDetail (id) {
       this.$router.push(`/product/${id}`)
     },
-    changeType: function (type) {
+    changeType (type) {
       var vm = this
       if (vm.sortType === type) {
         vm.isReverse = !vm.isReverse
@@ -234,7 +229,7 @@ export default {
         }
       })
       const type = vm.sortType
-      vm.sortdata = vm.tempData.sort(function (a, b) {
+      vm.sortdata = vm.tempData.sort((a, b) => {
         if (vm.isReverse) return b[type] - a[type]
         else return a[type] - b[type]
       })
@@ -269,9 +264,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.rotate{
-  transform: rotate( 180deg);
-}
-</style>

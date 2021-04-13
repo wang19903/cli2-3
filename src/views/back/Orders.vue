@@ -36,26 +36,26 @@
         </tbody>
       </table>
       <!-- pagination -->
-      <pagination
+      <Pagination
         v-if="orders.length"
         :pagination="pagination"
         @emitPage="getOrder($event)"
-      ></pagination>
+      ></Pagination>
     </div>
 
     <!-- Modal -->
     <div
       class="modal fade"
-      id="exampleModal"
+      id="ordersModal"
       tabindex="-1"
       role="dialog"
-      aria-labelledby="exampleModalLabel"
+      aria-labelledby="ordersModalLabel"
       aria-hidden="true"
     >
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header d-flex">
-            <h5 class="modal-title mr-auto" id="exampleModalLabel">
+            <h5 class="modal-title mr-auto" id="ordersModalLabel">
               訂單編號: {{ order.id }}
             </h5>
             <button type="button" class="btn btn-primary" @click="Edit(order)">
@@ -232,7 +232,7 @@
 
 <script>
 import $ from 'jquery'
-import pagination from '@/components/Pagination.vue'
+import Pagination from '@/components/Pagination.vue'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -261,7 +261,7 @@ export default {
     }
   },
   components: {
-    pagination
+    Pagination
   },
   methods: {
     getOrder (page = 1) {
@@ -279,13 +279,13 @@ export default {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order/${id}`
       vm.$store.dispatch('updataLoading', true)
       vm.$http.get(api).then(res => {
+        $('#ordersModal').modal('show')
         vm.$store.dispatch('updataLoading', false)
-        $('#exampleModal').modal('show')
         vm.order = res.data.order
       })
     },
     Edit (order) {
-      this.tempData = Object.assign({}, order)
+      this.tempData = { ...order }
       $('#EditModal').modal('show')
     },
     EditConfirm () {
@@ -314,11 +314,7 @@ export default {
     sort () {
       const vm = this
       if (vm.orders.length) {
-        vm.newOrder = vm.orders.sort((a, b) => {
-          const aIsPaid = a.is_paid ? 1 : 0
-          const bIsPaid = b.is_paid ? 1 : 0
-          return bIsPaid - aIsPaid
-        })
+        vm.newOrder = vm.orders.sort((a, b) => a.is_paid ? 1 : 0 - b.is_paid ? 1 : 0)
       }
       return vm.newOrder
     }

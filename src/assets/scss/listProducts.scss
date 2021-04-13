@@ -1,17 +1,16 @@
 @mixin active {
   background-color: #e7dbc1;
   color: black;
-  border-color: #e7dbc1;
+  border: 0px;
 }
 
 @mixin hover {
-  background-color: rgb(235, 201, 139);
+  background-color: #e7dbc1;
   font-weight: $bold;
   color: white;
-  box-shadow: 1px 1px rgb(109, 75, 13);
 }
 
-$color: rgb(197, 7, 7);
+$color: #e7dbc1;
 $bold: 600;
 
 .bgImg2 {
@@ -66,6 +65,9 @@ $bold: 600;
     font-weight: $bold;
     background-color: rgba(255, 255, 255, 0.144);
     cursor: pointer;
+    &:hover{
+      border-color: #000;
+    }
   }
 
   input {
@@ -86,7 +88,7 @@ $bold: 600;
 
 .click:hover {
   font-size: 18px;
-  color: rgb(235, 201, 139);
+  color: #e7dbc1;
   border-radius: 10%;
   background-color: rgb(148, 85, 43);
   transition: 0.2s;
@@ -95,10 +97,10 @@ $bold: 600;
     display: inline-block;
     color: $color;
   }
+}
 
-  span .inverse {
-    transform: rotate(180deg);
-  }
+.rotate{
+  transform: rotate( 180deg);
 }
 
 .ListProducts-badge{
@@ -121,6 +123,7 @@ $bold: 600;
   }
 }
 
+
 .ListProducts-cardBG{
 background-color: rgba(212, 208, 189, 0.336);
 max-width:300px;
@@ -132,24 +135,17 @@ max-width:300px;
   @include hover;
 }
 
-.list-group-item.active{
-  border-color: #6d4b0d
-}
-
 .active,
 .ListProducts-badge {
   @include active;
 }
 
 .sizing {
-  box-sizing: border-box;
   max-height: 351px;
   margin-top: 24px;
 }
 
 .ListProducts-card:hover {
-  border: 1px solid gray;
-  box-shadow: 1px 1px black;
   cursor: pointer;
   animation: goBig;
   animation-duration: 0.3s;

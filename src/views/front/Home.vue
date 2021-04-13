@@ -7,12 +7,14 @@
       </div>
     </div>
     <div class="container-fluid p-0 home-container mt-5">
-      <Alert />
       <div
         data-aos="fade-down"
         data-aos-easing="linear"
         data-aos-duration="1500"
-        class="home-head mt-5 mb-5"
+        class="home-head mt-5 mb-5 rounded"
+        v-clipboard:copy="message"
+        v-clipboard:success="onCopy"
+        v-clipboard:error="onError"
       >
         <img src="@/assets/img/home-head.jpg" alt="優惠碼" />
         <div
@@ -33,9 +35,9 @@
         data-aos="fade-right"
         data-aos-easing="linear"
         data-aos-duration="1500"
-        class="home-promote d-flex mt-5"
+        class="home-promote mt-5 d-flex"
       >
-        <div>
+        <div class="d-flex align-items-center justify-content-center flex-column">
           <h3>新產品<br />冷凍餛飩</h3>
           <p>
             輕鬆料理，可以加進麵、火鍋，也可以蒸、煎或油炸<br />更可以發會創意，做成自己喜歡的料理
@@ -46,6 +48,25 @@
           </router-link>
         </div>
         <img src="@/assets/img/promote.jpg" alt="推薦-商品餛飩" />
+      </div>
+
+      <div
+        data-aos="fade-right"
+        data-aos-easing="linear"
+        data-aos-duration="1500"
+        class="home-promote  mb-5 d-flex"
+      >
+        <div class="d-flex align-items-center justify-content-center flex-column">
+          <h3>推薦產品<br />滷豬耳</h3>
+          <p>
+            簡單加熱，配上滷汁或是喜歡的醬料即可食用<br />消夜嘴饞又怕胖，滷豬耳熱量低，不加熱也可直接食用
+          </p>
+
+          <router-link to="/product/-MU7gZKyqTwbqnDrKE1q">
+            前往賣場
+          </router-link>
+        </div>
+        <img src="@/assets/img/promote2.jpg" alt="推薦-豬耳" />
       </div>
 
       <span class="about">關於我們</span>
@@ -93,17 +114,6 @@
                 <li>食品來源:牛:澳洲 豬、雞:台灣</li>
               </ul>
             </div>
-            <div
-              data-aos="zoom-out"
-              data-aos-easing="linear"
-              data-aos-duration="750"
-            >
-              <img
-                src="@/assets/img/id.jpg"
-                alt="來源規定標章"
-                class="home-content-img"
-              />
-            </div>
           </div>
         </div>
       </div>
@@ -115,12 +125,10 @@
 
 <script>
 import GoTop from '@/components/front/GoTop.vue'
-import Alert from '@/components/AlertMessage.vue'
 
 export default {
   name: 'home',
   components: {
-    Alert,
     GoTop
   },
   data () {

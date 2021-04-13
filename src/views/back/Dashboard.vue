@@ -1,10 +1,10 @@
 <template>
   <div>
-    <Navbar></Navbar>
-    <Alert></Alert>
+    <Navbar />
+    <Alert />
     <div class="container-fluid">
       <div class="row">
-        <Sidebar></Sidebar>
+        <Sidebar />
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
           <router-view></router-view>
         </main>
@@ -14,9 +14,9 @@
 </template>
 
 <script>
-import Sidebar from '../../components/back/Sidebar.vue'
-import Navbar from '../../components/back/Navbar.vue'
-import Alert from '../../components/AlertMessage.vue'
+import Sidebar from '@/components/back/Sidebar.vue'
+import Navbar from '@/components/back/Navbar.vue'
+import Alert from '@/components/Alert.vue'
 
 export default {
   components: {

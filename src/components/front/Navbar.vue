@@ -78,7 +78,7 @@
                       <button
                         type="button"
                         class="btn btn-outline-dark btn-sm nav-btn"
-                        @click.prevent="removeCart(item.productId)"
+                        @click="removeCart(item.productId)"
                       >
                         <i class="fas fa-trash-alt"></i>
                       </button>
@@ -89,7 +89,7 @@
                     <td class="align-middle">
                       <button
                         class="btn btn-outline-dark btn-sm"
-                        @click.prevent="onMinus(item)"
+                        @click="onMinus(item)"
                       >
                         -
                       </button>
@@ -104,7 +104,7 @@
                       />
                       <button
                         class="btn btn-outline-dark btn-sm"
-                        @click.prevent="onPlus(item)"
+                        @click="onPlus(item)"
                       >
                         +
                       </button>
@@ -135,11 +135,16 @@
                 v-if="localCarData.length === 0"
               >
                 購物車尚未有商品唷!!
+                <router-link
+              to="/products"
+              class="border border-dark rounded mt-3 p-2 text-dark font-weight-bold"
+              title="商場引導"
+            >前往商場</router-link>
               </div>
               <button
                 type="button"
                 class="btn btn-block mt-3 nav-btn btn-outline-dark"
-                @click.prevent="checkout"
+                @click="checkout"
                 v-if="localCarData.length"
               >
                 前往結帳

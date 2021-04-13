@@ -111,10 +111,8 @@ export default {
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/pay/${vm.orderId}`
       vm.$store.dispatch('updataLoading', true)
       vm.$http.post(api).then(response => {
-        console.log(response.data)
         vm.$store.dispatch('updataLoading', false)
         if (response.data.success) {
-          console.log(response.data)
           vm.getOrder()
         }
       })

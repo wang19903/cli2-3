@@ -55,11 +55,11 @@
         </tbody>
       </table>
       <!-- pagination -->
-      <pagination
+      <Pagination
         v-if="products.length"
         :pagination="pagination"
         @emitPage="getProducts($event)"
-      ></pagination>
+      ></Pagination>
     </div>
 
     <div
@@ -67,13 +67,13 @@
       id="productModal"
       tabindex="-1"
       role="dialog"
-      aria-labelledby="exampleModalLabel"
+      aria-labelledby="productModalLabel"
       aria-hidden="true"
     >
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content border-0">
           <div class="modal-header bg-dark text-white">
-            <h5 class="modal-title" id="exampleModalLabel">
+            <h5 class="modal-title" id="productModalLabel">
               <span>新增產品</span>
             </h5>
             <button
@@ -244,13 +244,13 @@
       id="delProductModal"
       tabindex="-1"
       role="dialog"
-      aria-labelledby="exampleModalLabel"
+      aria-labelledby="productdeleteModalLabel"
       aria-hidden="true"
     >
       <div class="modal-dialog" role="document">
         <div class="modal-content border-0">
           <div class="modal-header bg-danger text-white">
-            <h5 class="modal-title" id="exampleModalLabel">
+            <h5 class="modal-title" id="productdeleteModalLabel">
               <span>刪除產品</span>
             </h5>
             <button
@@ -287,7 +287,7 @@
 
 <script>
 import $ from 'jquery'
-import pagination from '@/components/Pagination.vue'
+import Pagination from '@/components/Pagination.vue'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -301,7 +301,7 @@ export default {
     }
   },
   components: {
-    pagination
+    Pagination
   },
   methods: {
     getProducts (page = 1) {
@@ -315,14 +315,14 @@ export default {
       })
     },
     openModal (isNew, item) {
+      $('#productModal').modal('show')
       if (isNew) {
         this.tempProduct = {}
         this.isNew = true
       } else {
-        this.tempProduct = Object.assign({}, item)
+        this.tempProduct = { ...item }
         this.isNew = false
       }
-      $('#productModal').modal('show')
     },
     updataProduct () {
       const vm = this
@@ -353,7 +353,7 @@ export default {
     openDeleteModal (item) {
       const vm = this
       $('#delProductModal').modal('show')
-      vm.tempProduct = Object.assign({}, item)
+      vm.tempProduct = { ...item }
     },
     deleteProduct () {
       const vm = this

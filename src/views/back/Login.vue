@@ -1,6 +1,5 @@
 <template>
   <div class="wrap">
-    <Alert />
     <loading :active.sync="isLoading"></loading>
     <main
       class="form-signin pt-5"
@@ -42,7 +41,6 @@
 </template>
 
 <script>
-import Alert from '@/components/AlertMessage.vue'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -54,9 +52,6 @@ export default {
         password: ''
       }
     }
-  },
-  components: {
-    Alert
   },
   methods: {
     signin () {
@@ -122,7 +117,6 @@ body {
 }
 .form-signin .form-control {
   position: relative;
-  box-sizing: border-box;
   height: auto;
   padding: 10px;
   font-size: 16px;

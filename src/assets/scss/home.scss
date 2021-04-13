@@ -22,8 +22,6 @@ $fsize: 1.2rem;
   }
 }
 
-
-
 .home-container {
   overflow: hidden;
   max-width: 1440px;
@@ -127,8 +125,11 @@ $fsize: 1.2rem;
 .home-head {
   position: relative;
   display: flex;
-  height: 45vh;
+  height: 35vh;
   overflow: hidden;
+  &:hover img{
+    transform: scale(1.1);
+  }
 
   img {
     @include imgBIg();
@@ -176,6 +177,9 @@ $fsize: 1.2rem;
   margin-bottom: $space * 2;
   height: 400px;
   overflow: hidden;
+  &:hover img{
+    transform: scale(1.1);
+  }
 
   div {
     @include textDiv(100%);
@@ -185,13 +189,13 @@ $fsize: 1.2rem;
     }
 
     a {
-      border: solid 1px saddlebrown;
-      color: saddlebrown;
+      border: solid 1px rgb(148, 85, 43);;
+      color: rgb(148, 85, 43);;
       font-weight: 600;
       padding: $space * 0.6;
       font-size: $fsize;
       &:hover {
-        background-color: saddlebrown;
+        background-color: rgb(148, 85, 43);;
         color: #fff;
       }
     }

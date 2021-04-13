@@ -48,7 +48,6 @@ import {
   faInstagram
 } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-// import { dom } from '@fortawesome/fontawesome-svg-core'
 library.add(
   faConciergeBell,
   faShoppingCart,
@@ -95,13 +94,6 @@ new Vue({
 }).$mount('#app')
 
 localize('zh_TW', TW)
-configure({
-  classes: {
-    valid: 'is-valid',
-    invalid: 'is-invalid'
-  }
-})
-
 configure({
   classes: {
     valid: 'is-valid',

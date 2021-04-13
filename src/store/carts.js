@@ -55,13 +55,10 @@ export default {
       })
     },
     updatelocalCarData (context, data = []) {
-      console.log(data, '外面資料')
       context.commit('UPDATELOCALCARDATA', data)
-      // context.commit('UPDATELOCALCARDATA', JSON.parse(localStorage.getItem('carData')) || [])
     },
     getlocalCarData (context, data) {
       data = JSON.parse(localStorage.getItem('carData')) || []
-      console.log(data, 'localStorage資料')
       context.commit('GETLOCALCARDATA', data)
     }
   },
@@ -74,7 +71,6 @@ export default {
     },
     UPDATELOCALCARDATA (state, payload) {
       state.localCarData.push(payload)
-      console.log(payload, 'data更新state')
     },
     GETLOCALCARDATA (state, payload) {
       state.localCarData = payload

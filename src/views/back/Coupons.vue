@@ -62,11 +62,11 @@
         </tbody>
       </table>
       <!-- pagination -->
-      <pagination
+      <Pagination
         v-if="coupons.length"
         :pagination="pagination"
         @emitPage="getCoupons($event)"
-      ></pagination>
+      ></Pagination>
       <!-- Modal -->
     </div>
     <div
@@ -74,13 +74,13 @@
       id="couponModal"
       tabindex="-1"
       role="dialog"
-      aria-labelledby="exampleModalLabel"
+      aria-labelledby="couponModalLabel"
       aria-hidden="true"
     >
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content border-0">
           <div class="modal-header bg-dark text-white">
-            <h5 class="modal-title" id="exampleModalLabel">
+            <h5 class="modal-title" id="couponModalLabel">
               <span>新增優惠券</span>
             </h5>
             <button
@@ -216,13 +216,13 @@
       id="delCouponModal"
       tabindex="-1"
       role="dialog"
-      aria-labelledby="exampleModalLabel"
+      aria-labelledby="deleteModalLabel"
       aria-hidden="true"
     >
       <div class="modal-dialog" role="document">
         <div class="modal-content border-0">
           <div class="modal-header bg-danger text-white">
-            <h5 class="modal-title" id="exampleModalLabel">
+            <h5 class="modal-title" id="deleteModalLabel">
               <span>刪除折扣碼</span>
             </h5>
             <button
@@ -259,7 +259,7 @@
 
 <script>
 import $ from 'jquery'
-import pagination from '@/components/Pagination.vue'
+import Pagination from '@/components/Pagination.vue'
 
 export default {
   name: 'Coupons',
@@ -273,7 +273,7 @@ export default {
     }
   },
   components: {
-    pagination
+    Pagination
   },
   methods: {
     getCoupons (page = 1) {

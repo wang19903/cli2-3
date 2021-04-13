@@ -4,7 +4,6 @@
     <div class="bgImg3">
       <p class="slogan">跟隨步驟完成訂單</p>
     </div>
-    <Alert />
     <div class="wrapper">
       <div class="container front-order-container">
         <div class="row justify-content-md-center">
@@ -47,9 +46,9 @@
                   </td>
                   <td class="align-middle">
                     {{ item.product.title }}
-                    <!-- <div class="text-success" v-if="item.coupon">
+                    <div class="text-success" v-if="item.coupon">
                       已套用優惠券
-                    </div> -->
+                    </div>
                   </td>
                   <td class="align-middle">
                     {{ item.qty }}{{ item.product.unit }}
@@ -241,7 +240,6 @@
 </template>
 
 <script>
-import Alert from '@/components/AlertMessage.vue'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
@@ -261,9 +259,6 @@ export default {
       message: 'order999',
       on: ''
     }
-  },
-  components: {
-    Alert
   },
   methods: {
     getCart () {
@@ -381,9 +376,6 @@ export default {
   created () {
     const vm = this
     vm.getCart()
-    // vm.$bus.$on('checkout', () => {
-    //   vm.getCart()
-    // })
   }
 }
 </script>

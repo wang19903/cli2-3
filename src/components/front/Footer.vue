@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="p-0 pt-3 foot-container">
+      <div class="max-width">
       <ul
         class="row no-gutters d-flex justify-content-between flex-nowrap pl-0"
       >
@@ -31,9 +32,6 @@
           <p>
             <font-awesome-icon icon="phone" size="1x" class="fas" />+886
             2992915311
-            <!-- <br />
-            <font-awesome-icon icon="map-marker-alt" size="1x" class="fas" />
-            地址:新北市中和區安樂路x1號 -->
             <br />
             營業時間:AM11:30-PM2:30，PM5:00-PM9:00<br />
             最後點餐時間:結束前30分鐘，依現場為準。
@@ -41,6 +39,7 @@
           </p>
         </li>
       </ul>
+      </div>
     </div>
   </div>
 </template>

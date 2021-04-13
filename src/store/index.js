@@ -31,7 +31,7 @@ export default new Vuex.Store({
     removeMessageWithTiming (context, timestamp) {
       setTimeout(() => {
         context.commit('MESSAGETIMEING', timestamp)
-      }, 5000)
+      }, 900)
     }
   },
   mutations: {
@@ -39,7 +39,9 @@ export default new Vuex.Store({
       state.isLoading = status
     },
     MESSAGESPUSH (state, payload) {
-      state.messages.push(payload)
+      if (state.messages.length < 1) {
+        state.messages.push(payload)
+      }
     },
     MESSAGEREMOVE (state, payload) {
       state.messages.splice(payload, 1)

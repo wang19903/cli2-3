@@ -1,17 +1,16 @@
 <template>
   <div class="wrap wrapper">
     <loading :active.sync="isLoading"></loading>
-    <Alert />
     <div
       tabindex="-1"
       role="dialog"
-      aria-labelledby="exampleModalLabel"
+      aria-labelledby="detailModalLabel"
       aria-hidden="true"
     >
       <div class="container" role="document">
         <div class="row-col border-0">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">
+            <h5 class="modal-title" id="detailModalLabel">
               <span>{{ product.title }}</span>
             </h5>
           </div>
@@ -60,7 +59,7 @@
             <button
               type="button"
               class="btn btn-secondary"
-              @click.prevent="addTocart(product, product.num)"
+              @click="addTocart(product, product.num)"
             >
               <i
                 class="fas fa-spinner fa-pulse"
@@ -113,7 +112,6 @@
 </template>
 
 <script>
-import Alert from '@/components/AlertMessage.vue'
 import { mapGetters, mapActions } from 'vuex'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 
@@ -140,8 +138,7 @@ export default {
   },
   components: {
     Swiper,
-    SwiperSlide,
-    Alert
+    SwiperSlide
   },
   methods: {
     getProduct (productId) {
