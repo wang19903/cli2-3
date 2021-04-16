@@ -1,5 +1,6 @@
 <template>
   <div>
+    <loading :active.sync="isLoading"></loading>
     <Opening />
     <Navbar />
 
@@ -12,6 +13,7 @@
 import Navbar from '@/components/front/Navbar.vue'
 import Footer from '@/components/front/Footer.vue'
 import Opening from '@/components/front/Opening.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Layout',
@@ -19,6 +21,9 @@ export default {
     Navbar,
     Footer,
     Opening
+  },
+  computed: {
+    ...mapGetters(['isLoading'])
   }
 }
 </script>

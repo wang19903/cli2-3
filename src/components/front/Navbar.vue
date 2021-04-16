@@ -1,6 +1,5 @@
 <template>
   <div>
-    <loading :active.sync="isLoading"></loading>
     <nav class="navbar navbar-expand-md navbar-light border-bottom border-dark">
       <router-link class="navbar-brand p-0" to="/">
         <img

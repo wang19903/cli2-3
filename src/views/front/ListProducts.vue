@@ -1,10 +1,7 @@
 <template>
   <div>
-    <loading :active.sync="isLoading"></loading>
     <div class="bgImg2">
-      <p class="slogan">
-        鼎中美食 鮮香味美
-      </p>
+      <div class="slogan2"><div>結帳輸入<span>order999</span>九折優惠</div></div>
     </div>
     <div class="wrapper">
       <div class="search pt-2">
@@ -20,15 +17,7 @@
                 <i class="fa fa-search" aria-hidden="true"></i> 搜尋
               </button>
           </div>
-          <div class="click box-sizing" @click="changeType('price')">
-            價格排序
-            <span
-              :class="{ 'rotate': isReverse }"
-              v-if="sortType == 'price'"
-            >
-              <i class="fas fa-angle-up"></i>
-            </span>
-          </div>
+
         </div>
       </div>
       <div class="container">
@@ -57,7 +46,18 @@
               </a>
             </div>
           </div>
-          <div  class="row-cols col-9 container">
+            <div  class="row-cols col-9 container">
+            <div class="text-left click-wrap">
+            <div @click="changeType('price')">
+            價格排序
+            <span
+              :class="{ 'rotate': isReverse }"
+              v-if="sortType == 'price'"
+            >
+              <i class="fas fa-angle-up"></i>
+            </span>
+          </div>
+          </div>
             <div class="row no-gutters d-flex flex-wrap mb-4">
               <div
                 class="col-xl-3 col-lg-4 col-md-6 mb-3"
@@ -66,7 +66,7 @@
               >
                 <div data-aos="fade-up" data-aos-duration="1000">
                   <div class="pr-4 sizing">
-                    <div class="card mb-1 ListProducts-card ListProducts-cardBG">
+                    <div class="card mb-1 ListProducts-card">
                         <div @click="$router.push(`/product/${item.id}`)">
                           <div
                           style="

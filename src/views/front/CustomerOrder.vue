@@ -1,8 +1,7 @@
 <template>
   <div>
-    <loading :active.sync="isLoading"></loading>
     <div class="bgImg3">
-      <p class="slogan">跟隨步驟完成訂單</p>
+      <div class="slogan"><span>跟隨步驟完成訂單</span></div>
     </div>
     <div class="wrapper">
       <div class="container front-order-container">
@@ -104,10 +103,10 @@
                 </button>
               </div>
             </div>
-            <span class="direct" v-if="cart.carts.length"> 請填完表單 </span>
+            <span class="direct border-bottom border-dark" v-if="cart.carts.length"> 請填完表單 </span>
             <ValidationObserver
               v-slot="{ invalid }"
-              class="row justify-content-md-center pt-2 validDiv"
+              class="row justify-content-center pt-2 validDiv"
               v-if="cart.carts.length !== 0"
             >
               <form @submit.prevent="createOrder">
@@ -220,7 +219,8 @@
                     v-model="form.message"
                   ></textarea>
                 </div>
-                <div class="d-flex justify-content-center">
+                <div class="mb-5">
+                  <p class="text-left">※全部必填項目填寫完成後，既可點選下一步!</p>
                   <button
                     type="submit"
                     class="btn btn-primary"

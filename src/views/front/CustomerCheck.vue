@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container-fluid my-5 row justify-content-center">
+    <div class="container-fluid">
       <form class="col-md-6" @click.prevent="payOrder">
         <table class="table">
           <thead>
@@ -52,7 +52,7 @@
             </tr>
           </tbody>
         </table>
-        <div v-if="order.is_paid" class="guild pt-5">
+        <div v-if="order.is_paid" class="guild pt-5 mb-5">
           <p class="text-left">{{order.user.name}} <span>先生/女士</span><br>
           結帳流程完成了，非常感謝您購買我們店鋪的產品，如果有任何問題，歡迎您致電給我們。<br>
           <span>電話:+886-2929-15311</span><br>
@@ -65,16 +65,16 @@
           本公司不會主動打電話給您要求操作ATM，如有問題請撥打165查詢<br>
           因衛生關係，除食品本身問題外，恕難退貨退款，還請多多見諒。
           </p>
-          <div class="sign d-flex justify-content-between">
-            <img src="@/assets/img/logo.png" alt="logo">
-            <div>
+          <div class="sign">
+            <img src="@/assets/img/logo.jpg" alt="logo">
+            <div class="mt-5">
               <router-link to="/" class="text-light border border-info bg-info rounded">
                 返回首頁
               </router-link>
             </div>
           </div>
         </div>
-        <div class="text-right" v-if="order.is_paid === false">
+        <div class="text-right mb-5" v-if="order.is_paid === false">
           <button class="btn btn-danger" type="button">確認付款去</button>
         </div>
       </form>
@@ -129,6 +129,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.container-fluid {
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+
 ul {
   margin-top: 0px;
 }
@@ -143,10 +150,12 @@ ul {
     font-size: 25px;
   }
 }
-.sign img{
-
-  border: red solid 2px;
-  box-shadow: 1px 1px red;
-  background-color: rgba(128, 128, 128, 0.199);
+.sign {
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  a{
+    padding: 5px;
+  }
 }
 </style>

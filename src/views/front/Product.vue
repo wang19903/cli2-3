@@ -6,19 +6,20 @@
       role="dialog"
       aria-labelledby="detailModalLabel"
       aria-hidden="true"
+      class="container"
     >
-      <div class="container" role="document">
-        <div class="row-col border-0">
-          <div class="modal-header">
-            <h5 class="modal-title" id="detailModalLabel">
-              <span>{{ product.title }}</span>
-            </h5>
-          </div>
+      <div class="modal-header">
+        <h5 class="modal-title" id="detailModalLabel">
+          <span>{{ product.title }}</span>
+        </h5>
+      </div>
+      <div class="row" role="document">
+        <div class="col-md-6 border-0">
           <div class="modal-body">
             <img :src="product.imageUrl" class="img-fluid" alt="產品圖片" />
           </div>
         </div>
-        <div class="row-col pr-5 pl-5">
+        <div class="col-md-6 pt-5">
           <blockquote class="blockquote mt-3">
             <footer class="blockquote-footer text-left text-body">
               {{ product.description }}
@@ -42,38 +43,40 @@
             除醬料品外，其他產品保存期較短，不適用七天鑑賞期。<br />
             醬料類以及滷汁請勿把表面油層倒掉，並且擦乾器具後使用。<br />
             請勿放置在潮濕、高溫處，避免食物變成變質<br />
+             Window height: {{ windowWidth }} <br/>
           </p>
-
-          <div class="modal-footer">
-            <select class="form-control mt-3" v-model="product.num">
-              <option value="0" disabled selected>--請選擇--</option>
-              <option :value="num" v-for="num in 10" :key="num">
-                選購{{ num }} {{ product.unit }}
-              </option>
-            </select>
-            <span class="text-muted text-nowrap mr-3">
-              小計<strong v-if="product.num * product.price >= 0">
-                {{ product.num * product.price }}
-              </strong>
-            </span>
-            <button
-              type="button"
-              class="btn btn-secondary"
-              @click="addTocart(product, product.num)"
-            >
-              <i
-                class="fas fa-spinner fa-pulse"
-                v-if="product.id === status.loadingItem"
-              ></i>
-              加到購物車
-            </button>
-          </div>
         </div>
       </div>
-      <div class="text-left pl-2"><span class="h3">你可能有興趣...</span></div>
+      <div class="modal-footer mt-5 d-flex justify-content-center">
+        <select class="form-control mt-5" v-model="product.num">
+          <option value="0" disabled selected>--請選擇--</option>
+          <option :value="num" v-for="num in 10" :key="num">
+            選購{{ num }} {{ product.unit }}
+          </option>
+        </select>
+        <span class="text-muted text-nowrap mr-3 mt-5">
+          小計
+          <strong v-if="product.num * product.price >= 0">
+            {{ product.num * product.price }}
+          </strong>
+        </span>
+          <button
+            type="button"
+            class="btn btn-secondary mt-5"
+            @click="addTocart(product, product.num)"
+          >
+            <i
+              class="fas fa-spinner fa-pulse"
+              v-if="product.id === status.loadingItem"
+            ></i>
+              加到購物車
+          </button>
+      </div>
+      <div class="text-left pl-2 mt-5 mb-5"><span class="h3">你可能有興趣...</span></div>
       <swiper
         class="swiper mb-3 mt-3"
         :options="swiperOption"
+        v-if="windowWidth >= 415"
       >
         <swiper-slide v-for="item in lightbox"
         :key="item.id">
@@ -107,6 +110,38 @@
         </swiper-slide>
         <div class="swiper-pagination" slot="pagination"></div>
       </swiper>
+      <div v-if="windowWidth <= 414" class="mt-3 mb-5">
+        <div class="container d-flex" v-for="item in lightbox"
+        :key="item.id">
+          <div class="card h-100 mt-3">
+            <div
+              class="lightbox-img">
+              <div @click.prevent="toProduct(item.id)"
+                :style="{ backgroundImage: `url(${item.imageUrl})` }"
+              ></div>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title text-center">
+                {{ item.title }}
+              </h5>
+              <div class="text-truncate pb-2">
+                {{ item.description }}
+              </div>
+              <div class="d-flex justify-content-end">
+                <div v-if="!item.price">
+                  NT {{ item.originPrice | currency }}
+                </div>
+                <del class="text-muted mr-auto" v-if="item.price"
+                  >NT {{ item.origin_price | currency }}</del
+                >
+                <div class="text-danger" v-if="item.price">
+                  NT {{ item.price | currency }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -126,6 +161,7 @@ export default {
       cart: [],
       carData: [],
       newarray: [],
+      windowWidth: window.innerWidth,
       swiperOption: {
         slidesPerView: 3,
         spaceBetween: 30,
@@ -139,6 +175,11 @@ export default {
   components: {
     Swiper,
     SwiperSlide
+  },
+  mounted () {
+    this.$nextTick(() => { // 等其他資料處理完畢後才輪到這裡
+      window.addEventListener('resize', this.onResize)
+    })
   },
   methods: {
     getProduct (productId) {
@@ -218,6 +259,9 @@ export default {
       this.getProduct(id)
       vm.$route.params.productId = id
       vm.$store.dispatch('updataLoading', false)
+    },
+    onResize () {
+      this.windowWidth = window.innerWidth
     },
     ...mapActions('productModules', ['getProducts']),
     ...mapActions('cartsModules', ['updatelocalCarData', 'getlocalCarData'])
