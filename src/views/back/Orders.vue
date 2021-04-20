@@ -310,20 +310,23 @@ export default {
         }
         vm.$store.dispatch('updataLoading', false)
       })
-    },
-    sort () {
-      const vm = this
-      if (vm.orders.length) {
-        vm.newOrder = vm.orders.sort((a, b) => a.is_paid ? 1 : 0 - b.is_paid ? 1 : 0)
-      }
-      return vm.newOrder
     }
+    // sort () {
+    //   const vm = this
+    //   if (vm.orders.length) {
+    //     vm.newOrder = vm.orders.sort((a, b) => a.is_paid ? 1 : 0 - b.is_paid ? 1 : 0)
+    //   }
+    //   return vm.newOrder
+    // }
   },
   computed: {
     sortOrder () {
       const vm = this
-      vm.sort()
-      return vm.newOrder
+      const orders = vm.orders
+      if (vm.orders.length) {
+        return orders.sort((a, b) => a.is_paid ? 1 : 0 - b.is_paid ? 1 : 0)
+      }
+      return orders
     },
     ...mapGetters(['isLoading'])
   },

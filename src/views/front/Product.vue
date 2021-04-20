@@ -1,6 +1,5 @@
 <template>
   <div class="wrap wrapper">
-    <loading :active.sync="isLoading"></loading>
     <div
       tabindex="-1"
       role="dialog"

@@ -142,7 +142,7 @@
               </div>
               <button
                 type="button"
-                class="btn btn-block mt-3 nav-btn btn-outline-dark"
+                class="btn btn-block mt-3 nav-btn btn-dark"
                 @click="checkout"
                 v-if="localCarData.length"
               >
