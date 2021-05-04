@@ -1,12 +1,12 @@
 <template>
   <div>
-    <div class="p-0 pt-3 foot-container">
-      <div class="max-width">
+    <div class="p-0 pt-3 footContainer">
+      <div class="maxWidth">
       <ul
         class="row no-gutters d-flex justify-content-between flex-nowrap pl-0"
       >
         <li class="col-sm-1 p-0 d-flex">
-          <div class="foot-txt">
+          <div class="footTxt">
             <span>鼎鮮</span>
             <span>飯麵</span>
           </div>
@@ -20,8 +20,10 @@
             </li>
             <li class="ig">
               <a href="https://www.instagram.com/">
-                <span> <i class="fab fa-instagram"></i></span
-              ></a>
+                <font-awesome-icon
+                  :icon="{ prefix: 'fab', iconName: 'instagram' }"
+              />
+              </a>
             </li>
           </ul>
         </li>

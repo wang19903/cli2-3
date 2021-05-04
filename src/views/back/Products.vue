@@ -291,6 +291,7 @@ import Pagination from '@/components/Pagination.vue'
 import { mapGetters } from 'vuex'
 
 export default {
+  name: 'Products',
   data () {
     return {
       products: [],
@@ -315,7 +316,6 @@ export default {
       })
     },
     openModal (isNew, item) {
-      $('#productModal').modal('show')
       if (isNew) {
         this.tempProduct = {}
         this.isNew = true
@@ -323,6 +323,7 @@ export default {
         this.tempProduct = { ...item }
         this.isNew = false
       }
+      $('#productModal').modal('show')
     },
     updataProduct () {
       const vm = this
@@ -334,45 +335,45 @@ export default {
       }
       vm.$http[httpMethod](api, { data: vm.tempProduct }).then(response => {
         if (response.data.success) {
-          $('#productModal').modal('hide')
           vm.getProducts()
           vm.$store.dispatch('updateMessage', {
             message: response.data.message,
             status: 'success'
           })
-        } else {
           $('#productModal').modal('hide')
+        } else {
           vm.getProducts()
           vm.$store.dispatch('updateMessage', {
             message: response.data.message,
             status: 'danger'
           })
+          $('#productModal').modal('hide')
         }
       })
     },
     openDeleteModal (item) {
       const vm = this
-      $('#delProductModal').modal('show')
       vm.tempProduct = { ...item }
+      $('#delProductModal').modal('show')
     },
     deleteProduct () {
       const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${vm.tempProduct.id}`
       vm.$http.delete(api).then(response => {
         if (response.data.success) {
-          $('#delProductModal').modal('hide')
           vm.getProducts()
           vm.$store.dispatch('updateMessage', {
             message: '刪除商品成功',
             status: 'success'
           })
-        } else {
           $('#delProductModal').modal('hide')
+        } else {
           vm.getProducts()
           vm.$store.dispatch('updateMessage', {
             message: '刪除商品成功失敗',
             status: 'danger'
           })
+          $('#delProductModal').modal('hide')
         }
       })
     },

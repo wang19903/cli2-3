@@ -294,30 +294,23 @@ export default {
       vm.$http.put(api, { data: vm.tempData }).then(response => {
         vm.$store.dispatch('updataLoading', true)
         if (response.data.success) {
-          $('#EditModal').modal('hide')
           vm.getOrder()
           vm.$store.dispatch('updateMessage', {
             message: response.data.message,
             status: 'success'
           })
-        } else {
           $('#EditModal').modal('hide')
+        } else {
           vm.getOrder()
           vm.$store.dispatch('updateMessage', {
             message: response.data.message,
             status: 'danger'
           })
+          $('#EditModal').modal('hide')
         }
         vm.$store.dispatch('updataLoading', false)
       })
     }
-    // sort () {
-    //   const vm = this
-    //   if (vm.orders.length) {
-    //     vm.newOrder = vm.orders.sort((a, b) => a.is_paid ? 1 : 0 - b.is_paid ? 1 : 0)
-    //   }
-    //   return vm.newOrder
-    // }
   },
   computed: {
     sortOrder () {

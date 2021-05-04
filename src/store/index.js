@@ -39,9 +39,7 @@ export default new Vuex.Store({
       state.isLoading = status
     },
     MESSAGESPUSH (state, payload) {
-      // if (state.messages.length < 1) {
       state.messages.push(payload)
-      // }
     },
     MESSAGEREMOVE (state, payload) {
       state.messages.splice(payload, 1)

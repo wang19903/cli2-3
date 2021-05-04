@@ -1,12 +1,12 @@
 <template>
   <div>
     <nav class="navbar navbar-expand-md navbar-light border-bottom border-dark">
-      <router-link class="navbar-brand p-0" to="/">
+      <router-link class="navbarBrand p-0" to="/">
         <img
           src="@/assets/img/logo.png"
           style="height: 45px"
           alt="鼎鮮飯麵LOGO"
-          class="nav-img"
+          class="navImg"
         />
       </router-link>
 
@@ -53,7 +53,6 @@
                 <i class="fas fa-shopping-cart fa-lg" />
                 <i class="cartIcon"
                   ><div
-                    variant=""
                     v-if="localCarData.length > 0"
                     class="badge badge-light"
                   >
@@ -309,9 +308,6 @@ export default {
     },
     ...mapGetters(['isLoading']),
     ...mapGetters('cartsModules', ['localCarData'])
-  },
-  wtach: {
-
   },
   created () {
     this.getlocalCarData()

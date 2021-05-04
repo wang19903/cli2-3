@@ -22,7 +22,7 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
-  name: 'Navbar',
+  name: 'Alert',
   computed: {
     ...mapGetters(['messages'])
   },

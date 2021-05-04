@@ -14,7 +14,7 @@ cd dist
 
 git init
 git add -A
-git commit -m 'v2 update'
+git commit -m 'tiny'
 
 # if you are deploying to https://<USERNAME>.github.io
 # git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git master

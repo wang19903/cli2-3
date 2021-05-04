@@ -75,7 +75,7 @@
           </div>
         </div>
         <div class="text-right mb-5" v-if="order.is_paid === false">
-          <button class="btn btn-danger" type="button">確認付款去</button>
+          <button class="btn btn-danger" type="submit">確認付款去</button>
         </div>
       </form>
     </div>

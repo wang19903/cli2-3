@@ -1,16 +1,4 @@
-@mixin navSet {
-  border: none;
-  background-color: #e7dbc1;
-  color: black;
-}
-
-@mixin btnColor {
-  background-color: #e7dbc1;
-  font-weight: bolder;
-  box-shadow: 1px 1px rgb(109, 75, 13);
-}
-
-.navbar-brand:hover {
+.navbarBrand:hover {
   transform: scale(1.1);
   border-radius: 10%;
 }
@@ -33,17 +21,15 @@ img {
   width: auto;
 }
 
-.btn-secondary,
 .navbar,
-.nav-img {
+.navImg {
   @include navSet;
 }
 
 .dropdown-menu {
-
   min-width: 350px;
   position: absolute;
-  transform: translateX(-43%);
+  transform: translateX(-50%);
   border: #000 solid 1px;
 }
 

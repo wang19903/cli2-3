@@ -306,26 +306,26 @@ export default {
       }
       vm.$http[httpMethod](api, { data: vm.tempCoupon }).then(response => {
         if (response.data.success) {
-          $('#couponModal').modal('hide')
           vm.getCoupons()
+          $('#couponModal').modal('hide')
         } else {
-          $('#couponModal').modal('hide')
           vm.getCoupons()
+          $('#couponModal').modal('hide')
           alert('新增失敗')
         }
       })
     },
     openDeleteModal (item) {
       const vm = this
-      $('#delCouponModal').modal('show')
       vm.tempCoupon = { ...item }
+      $('#delCouponModal').modal('show')
     },
     deleteCoupon () {
       const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${vm.tempCoupon.id}`
       vm.$http.delete(api).then(() => {
-        $('#delCouponModal').modal('hide')
         vm.getCoupons()
+        $('#delCouponModal').modal('hide')
       })
     }
   },

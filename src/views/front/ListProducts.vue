@@ -5,28 +5,30 @@
     </div>
     <div class="wrapper">
       <div class="search pt-2">
-        <div class="my-3 my-lg-0 ListProducts-img">
-          <div class="ListProducts-inputwrap">
+        <div class="my-3 my-lg-0 ListProductsImg">
+          <div class="ListProductsInputwrap">
+            <div class="d-flex flex-row justify-content-center">
             <input
               type="text"
               v-model="searchText"
               placeholder="想吃什麼?"
               aria-label="Search"
             />
-              <button class="btn" type="submit" @click="filter()">
-                <i class="fa fa-search" aria-hidden="true"></i> 搜尋
+              <button class="btn" type="button" @click="filter()">
+                <font-awesome-icon icon="search" size="1x"/> 搜尋
               </button>
+            </div>
           </div>
 
         </div>
       </div>
       <div class="container">
         <div class="row">
-          <div  class="col-3 ListProducts-sidebar">
+          <div  class="col-3 ListProductsSidebar">
             <div class="list-group sticky-top pt-4">
               <a
                 class="list-group-item list-group-item-action
-                ListProducts-cardBG"
+                ListProductsCardBG"
                 href="#"
                 @click.prevent="searchText = item"
                 :class="{ active: item === searchText }"
@@ -38,7 +40,7 @@
               </a>
               <a
                 href="#"
-                class="list-group-item list-group-item-action ListProducts-cardBG"
+                class="list-group-item list-group-item-action ListProductsCardBG"
                 @click.prevent="searchText = ''"
                 :class="{ active: searchText === '' }"
               >
@@ -47,67 +49,66 @@
             </div>
           </div>
             <div  class="row-cols col-9 container">
-            <div class="text-left click-wrap">
-            <div @click="changeType('price')">
-            價格排序
-            <span
-              :class="{ 'rotate': isReverse }"
-              v-if="sortType == 'price'"
-            >
-              <i class="fas fa-angle-up"></i>
-            </span>
-          </div>
-          </div>
-            <div class="row no-gutters d-flex flex-wrap mb-4">
-              <div
-                class="col-xl-3 col-lg-4 col-md-6 mb-3"
-                v-for="(item, key) in filterData"
-                :key="key"
-              >
+              <div class="text-left clickWrap">
+                <a @click.prevent="changeType('price')">
+                  價格排序
+                  <div
+                  :class="{ 'rotate': isReverse }"
+                  v-if="sortType == 'price'"
+                  >
+                  <i class="fas fa-angle-up"></i>
+                  </div>
+                </a>
+              </div>
+              <div class="row no-gutters d-flex flex-wrap mb-4">
+                <div
+                  class="col-xl-3 col-lg-4 col-md-6 mb-3"
+                  v-for="(item, key) in filter"
+                  :key="key"
+                >
                 <div data-aos="fade-up" data-aos-duration="1000">
                   <div class="pr-4 sizing">
-                    <div class="card mb-1 ListProducts-card">
-                        <div @click="$router.push(`/product/${item.id}`)">
-                          <div
+                    <div class="card mb-1 ListProductsCard">
+                      <div @click="$router.push(`/product/${item.id}`)">
+                        <div
                           style="
                             height: 150px;
                             background-size: cover;
                             background-position: center;
                           "
                           :style="{ backgroundImage: `url(${item.imageUrl})` }"
-                          ></div>
+                        ></div>
+                      </div>
+                      <div class="card-body">
+                        <span
+                          class="ListProductsBadge float-right ml-2"
+                        >{{ item.category }}
+                        </span>
+                        <h5 class="card-title text-left">
+                          <a @click="$router.push(`/product/${item.id}`)" class="text-dark">{{ item.title }}</a>
+                        </h5>
+                        <p class="ListProductsCardText text-left">{{ item.content }}</p>
+                        <div
+                          class="d-flex justify-content-between align-items-baseline"
+                        >
+                          <del class="h6">{{ item.origin_price | currency }}</del>
+                          <div class="h5">{{ item.price | currency }}</div>
                         </div>
-                        <div class="card-body">
-                          <span
-                            class="ListProducts-badge float-right ml-2"
-                          >{{ item.category }}
-                          </span>
-                          <h5 class="card-title text-left">
-                            <div @click="$router.push(`/product/${item.id}`)" class="text-dark">{{ item.title }}</div>
-                          </h5>
-                          <p class="ListProducts-card-text text-left">{{ item.content }}</p>
-                          <div
-                            class="d-flex justify-content-between align-items-baseline"
-                          >
-                            <del class="h6">{{ item.origin_price }}</del>
-                            <div class="h5">{{ item.price }}</div>
-                          </div>
-                        </div>
-                        <div class="ListProducts-card-footer p-1 ListProducts-cardBG">
-
-                          <button
+                      </div>
+                      <div class="ListProductsCardFooter p-1 ListProductsCardBG">
+                        <button
                           type="button"
                           class="btn btn-sm ml-auto"
                           @click="addTocart(item)"
-                          >
+                        >
                           <i
-                          class="fas fa-spinner fa-pulse"
-                          v-if="status.loadingItem === item.id"
+                            class="fas fa-spinner fa-pulse"
+                            v-if="status.loadingItem === item.id"
                           />
                           <i class="fas fa-shopping-cart fa-lg" />
                           <span>放入購物車</span>
-                          </button>
-                        </div>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -134,14 +135,11 @@ export default {
     return {
       sortType: 'price',
       isReverse: false,
-      tempData: [],
-      newData: [],
       searchText: '',
       status: {
         loadingItem: ''
       },
-      carData: [],
-      sortdata: []
+      carData: []
     }
   },
   methods: {
@@ -205,15 +203,23 @@ export default {
       var vm = this
       if (vm.sortType === type) {
         vm.isReverse = !vm.isReverse
-      } else {
-        vm.isReverse = false
       }
       vm.sortType = type
     },
+    // rotateicon () {
+    //   const vm = this
+    //   vm.isReverse = !vm.isReverse
+    // },
+    ...mapActions('productModules', ['getProducts']),
+    ...mapActions('cartsModules', ['updatelocalCarData', 'getlocalCarData'])
+  },
+  computed: {
     filter () {
       const vm = this
+      let newData = vm.newData
+      let tempData = vm.tempData
       vm.$store.dispatch('updataLoading', true)
-      vm.tempData = vm.products.filter(item => {
+      tempData = vm.products.filter(item => {
         if (vm.searchText === '') {
           return vm.products
         } else if (vm.searchText === item.category) {
@@ -226,32 +232,25 @@ export default {
             .toLowerCase()
             .includes(vm.searchText.toLowerCase())
           return titleData
+        } else if (vm.searchText === item.title) {
+          const titleFullName = item.title
+            .toLowerCase()
+            .includes(vm.searchText.toLowerCase())
+          return titleFullName
         }
       })
       const type = vm.sortType
-      vm.sortdata = vm.tempData.sort((a, b) => {
+      let sortdata = vm.sortdata
+      sortdata = tempData.sort((a, b) => {
         if (vm.isReverse) return b[type] - a[type]
         else return a[type] - b[type]
       })
-      vm.newData = []
-      vm.sortdata.forEach(item => {
-        vm.newData.push(item)
+      newData = []
+      sortdata.forEach(item => {
+        newData.push(item)
       })
       vm.$store.dispatch('updataLoading', false)
-      return vm.newData
-    },
-    rotateicon () {
-      const vm = this
-      vm.isReverse = !vm.isReverse
-    },
-    ...mapActions('productModules', ['getProducts']),
-    ...mapActions('cartsModules', ['updatelocalCarData', 'getlocalCarData'])
-  },
-  computed: {
-    filterData () {
-      const vm = this
-      vm.filter()
-      return vm.newData
+      return newData
     },
     ...mapGetters('productModules', ['categories', 'products']),
     ...mapGetters(['isLoading']),

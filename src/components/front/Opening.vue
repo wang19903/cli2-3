@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flash_wrap">
+    <div class="flashWrap">
       <div class="flash1"></div>
       <div class="flash2"></div>
       <div class="flash3"></div>
@@ -31,3 +31,9 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'Opening'
+}
+</script>

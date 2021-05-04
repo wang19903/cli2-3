@@ -1,7 +1,95 @@
+@mixin title {
+  font-size: $fsize * 2.5;
+  letter-spacing: $space;
+}
+
+@mixin textDiv($h) {
+  background-color: rgba(0, 0, 0, 0.116);
+  padding: $space;
+  width: 50%;
+  height: $h;
+}
+
+@mixin imgBIg {
+  width: 50%;
+  object-fit: cover;
+  transition: transform 1s ease;
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+@mixin active {
+  background-color: $color;
+  color: black;
+  border: 0px;
+}
+  
+@mixin hover {
+  background-color: $color;
+  font-weight: $bold;
+  color: white;
+}
+
+@mixin flash {
+  width: 600px;
+  height: 100vh;
+  position: absolute;
+  clip-path: polygon(25% 0%, 63% 0, 38% 100%, 0 100%);
+  top: 0px;
+  animation: run 2s infinite;
+}
+  
+@mixin green {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: green;
+}
+  
+@mixin dot {
+  position: absolute;
+  border: solid 13px $brown;
+  border-radius: 50%;
+  top: 3px;
+  background: $brown;
+  animation: run 0.5s infinite;
+}
+
+@mixin navSet {
+  border: none;
+  background-color: $color;
+  color: black;
+}
+
+@mixin btnColor {
+  background-color: $color;
+  font-weight: bolder;
+  box-shadow: 1px 1px $brown;
+}
+
+@mixin navSet {
+ border: none;
+  background-color: $color;
+  color: black;
+}
+  
+@mixin btnColor {
+  background-color: $color;
+  font-weight: bolder;
+  box-shadow: 1px 1px $brown;
+}
+
+$brown: rgb(109, 75, 13);
+$color: #e7dbc1;
+$bold: 600;
+$space: 1.2rem;
+$fsize: 1.2rem;
+
 @import "./front_footer.scss";
 @import "./front_navber.scss";
 @import "./front_navber.scss";
 @import "./front_opening.scss";
-@import "./front_order.scss";
+@import "./front_Customerorder.scss";
 @import "./home.scss";
 @import "./listProducts.scss";

@@ -1,28 +1,4 @@
-$space: 1.2rem;
-$fsize: 1.2rem;
-
-@mixin title {
-  font-size: $fsize * 2.5;
-  letter-spacing: $space;
-}
-
-@mixin textDiv($h) {
-  background-color: rgba(0, 0, 0, 0.116);
-  padding: $space;
-  width: 50%;
-  height: $h;
-}
-
-@mixin imgBIg {
-  width: 50%;
-  object-fit: cover;
-  transition: transform 1s ease;
-  &:hover {
-    transform: scale(1.1);
-  }
-}
-
-.home-container {
+.homeContainer {
   overflow: hidden;
   max-width: 1440px;
 }
@@ -121,7 +97,7 @@ $fsize: 1.2rem;
   }
 }
 
-.home-head {
+.homeHead {
   position: relative;
   display: flex;
   height: 35vh;
@@ -141,22 +117,23 @@ $fsize: 1.2rem;
   cursor: pointer;
 
   h1 {
+    padding-top: $space * 3;
     letter-spacing: 5px;
     font-weight: 600;
-    font-size: $fsize * 3;
+    font-size: $fsize * 2.5;
   }
 
   h3 {
     padding-top: $space;
     padding-bottom: 30px;
-    font-size: $fsize * 2;
+    font-size: $fsize * 1.5;
   }
 
   p {
     font-size: $fsize;
     letter-spacing: 1px;
     span {
-      font-size: $fsize * 1.25;
+      font-size: $fsize;
       font-weight: 600;
       padding-left: $space;
       padding-right: $space;
@@ -164,7 +141,9 @@ $fsize: 1.2rem;
   }
 
   p:last-child {
-    padding-top: $space * 8;
+    padding-top: $space * 1.5;
+    font-size: $fsize * 1.5;
+    font-weight: 600;
   }
 }
 
@@ -172,7 +151,7 @@ $fsize: 1.2rem;
   @include title;
 }
 
-.home-promote {
+.homePromote {
   margin-bottom: $space * 2;
   height: 400px;
   overflow: hidden;
@@ -210,7 +189,7 @@ $fsize: 1.2rem;
   border-bottom: solid 2px;
 }
 
-.home-content {
+.homeContent {
   width: 100%;
   height: 530px;
   background-image: url('~@/assets/img/content.jpg');
@@ -236,14 +215,7 @@ $fsize: 1.2rem;
   }
 }
 
-.home-content-img {
-  max-width: 10rem;
-  max-height: 10rem;
-  object-fit: cover;
-  padding-left: 1.5rem;
-}
-
-.home-map {
+.homeMap {
   margin-bottom: $space * 2;
   height: 100%;
 
@@ -272,7 +244,7 @@ $fsize: 1.2rem;
     font-weight: 600;
   }
 
-  .home-content {
+  .homeContent {
     margin: 0;
     margin-bottom: $space;
     position: relative;
@@ -293,10 +265,6 @@ $fsize: 1.2rem;
     }
   }
 
-  .home-content-img {
-    padding-left: 0.5rem;
-  }
-
   .copy-div {
     h3 {
       padding: 0px;
@@ -306,7 +274,7 @@ $fsize: 1.2rem;
     }
   }
 
-  .home-map{
+  .homeMap{
     .row{
       padding: 0;
       margin: 0;
@@ -315,7 +283,7 @@ $fsize: 1.2rem;
 }
 
 @media (max-width: 490px) {
-  .home-content {
+  .homeContent {
     display: flex;
     flex-direction: column;
 
@@ -339,7 +307,7 @@ $fsize: 1.2rem;
     font-size: 2rem;
   }
 
-  .home-content{ 
+  .homeContent{ 
     background-position: center right;
     p{
     text-indent: 38px;
@@ -368,7 +336,7 @@ $fsize: 1.2rem;
     font-weight: 600;
   }
 
-  .home-content p{
+  .homeContent p{
     text-indent: 30px;
     font-size: $fsize *.7;
     line-height: 20px;

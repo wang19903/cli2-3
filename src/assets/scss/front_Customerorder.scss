@@ -1,9 +1,9 @@
-.front-order-container {
+.frontOrderContainer {
   position: relative;
   z-index: 0;
 }
 
-.front-order-table {
+.frontOrderTable {
   background-color: #e7dbc1;
 }
 
@@ -84,7 +84,7 @@
   }
 }
 
-.no-Item {
+.noItem {
   margin: 10px;
   font-size: 28px;
   color: grey;
@@ -120,7 +120,7 @@ form{
 }
 
 @media (max-width: 486px) {
-  .front-order-table .img {
+  .table .img {
     padding: 0;
     width: 50px;
   }

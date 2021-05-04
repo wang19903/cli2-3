@@ -19,9 +19,7 @@ export default {
   },
   mutations: {
     PRODUCTS (state, payload) {
-      state.products = payload.filter(item => {
-        return item.is_enabled === 1
-      })
+      state.products = payload.filter(item => item.is_enabled === 1)
     },
     CATEGORIES (state, payload) {
       const categories = new Set()

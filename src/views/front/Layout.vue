@@ -3,7 +3,6 @@
     <loading :active.sync="isLoading"></loading>
     <Opening />
     <Navbar />
-
     <router-view></router-view>
     <Footer />
   </div>

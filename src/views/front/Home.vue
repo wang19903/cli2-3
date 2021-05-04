@@ -6,12 +6,12 @@
         <router-link to="/products">前往賣場</router-link>
       </div>
     </div>
-    <div class="container-fluid p-0 home-container mt-5">
+    <div class="container-fluid p-0 homeContainer mt-5">
       <div
         data-aos="fade-down"
         data-aos-easing="linear"
         data-aos-duration="1500"
-        class="home-head mt-5 mb-5 rounded"
+        class="homeHead mt-5 mb-5 rounded"
         v-clipboard:copy="message"
         v-clipboard:success="onCopy"
         v-clipboard:error="onError"
@@ -26,7 +26,7 @@
           <h1>鼎鮮飯麵</h1>
           <h3>官方網站開幕</h3>
           <p>結帳輸入優惠碼<span>order999</span>享 九折優待</p>
-          <p>點擊即可複製</p>
+          <p>點我取得優惠碼!</p>
         </div>
       </div>
 
@@ -35,7 +35,7 @@
         data-aos="fade-right"
         data-aos-easing="linear"
         data-aos-duration="1500"
-        class="home-promote mt-5 d-flex"
+        class="homePromote mt-5 d-flex"
       >
         <div class="d-flex align-items-center justify-content-center flex-column">
           <h3>新產品<br />冷凍餛飩</h3>
@@ -54,7 +54,7 @@
         data-aos="fade-right"
         data-aos-easing="linear"
         data-aos-duration="1500"
-        class="home-promote  mb-5 d-flex"
+        class="homePromote  mb-5 d-flex"
       >
         <div class="d-flex align-items-center justify-content-center flex-column">
           <h3>推薦產品<br />滷豬耳</h3>
@@ -71,7 +71,7 @@
 
       <span class="about">關於我們</span>
 
-      <div class="home-content mt-5 mb-5">
+      <div class="homeContent mt-5 mb-5">
         <div class="text-left content">
           <div
             data-aos="fade-down-right"
@@ -90,7 +90,7 @@
       </div>
 
       <span class="about">店鋪資訊</span>
-      <div class="mt-5 p-0 d-flex home-map container-fluid justify-content-between flex-wrap">
+      <div class="mt-5 p-0 d-flex homeMap container-fluid justify-content-between flex-wrap">
         <div class="row col-md-6">
           <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1807.9691171860352!2d121.51363435855448!3d25.002214653186215!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a9de7abb70a7%3A0xbdcb8c32df0f7b7!2z5ZyL56uL6Ie654Gj5ZyW5pu46aSo!5e0!3m2!1szh-TW!2stw!4v1617855188076!5m2!1szh-TW!2stw" allowfullscreen="" loading="lazy"></iframe>
         </div>
@@ -127,7 +127,7 @@
 import GoTop from '@/components/front/GoTop.vue'
 
 export default {
-  name: 'home',
+  name: 'Home',
   components: {
     GoTop
   },
@@ -141,14 +141,14 @@ export default {
     onCopy () {
       const vm = this
       vm.on = 1
-      vm.alert()
+      vm.copyCoupon()
     },
     onError () {
       const vm = this
       vm.on = 0
-      vm.alert()
+      vm.copyCoupon()
     },
-    alert () {
+    copyCoupon () {
       const vm = this
       if (vm.on === 1) {
         vm.$store.dispatch('updateMessage', {

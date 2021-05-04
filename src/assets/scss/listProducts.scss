@@ -1,18 +1,3 @@
-@mixin active {
-  background-color: #e7dbc1;
-  color: black;
-  border: 0px;
-}
-
-@mixin hover {
-  background-color: #e7dbc1;
-  font-weight: $bold;
-  color: white;
-}
-
-$color: #e7dbc1;
-$bold: 600;
-
 .bgImg2 {
   width: 100%;
   height: 500px;
@@ -58,7 +43,7 @@ $bold: 600;
   max-width: 1400px;
   margin: 0 auto;
 }
-.ListProducts-img {
+.ListProductsImg {
   width: 100%;
   height: 150px;
   background-color: rgb(148, 85, 43);
@@ -68,7 +53,7 @@ $bold: 600;
   position: relative;
 }
 
-.ListProducts-inputwrap {
+.ListProductsInputwrap {
   position: relative;
   height: 50px;
   top: 50%;
@@ -77,26 +62,27 @@ $bold: 600;
   button {
     border: solid 2px $color;
     border-left: 0px;
+    border-radius: 0% 5% 5% 0%;
     color: $color;
-    font-size: 18px;
+    font-size: 16px;   
     font-weight: $bold;
     background-color: rgba(255, 255, 255, 0.144);
-    cursor: pointer;
     &:hover {
       border-color: #000;
     }
   }
 
   input {
+    border-right: 0;
     width: 40%;
-    line-height: 33px;
-    border-radius: 5%;
+    line-height: 34px;
+    border-radius: 5% 0% 0% 5%;
   }
 }
 
-.click-wrap {
+.clickWrap {
   height: 10px;
-  div {
+  a {
   padding: 5px 20px 5px 20px;
   display: inline;
   cursor: pointer;
@@ -104,25 +90,24 @@ $bold: 600;
   font-size: 16px;
   }
 
-  div:hover,span:hover {
+  a:hover,div:hover {
   font-size: 18px;
   color: #e7dbc1;
   border-radius: 10%;
   background-color: rgb(148, 85, 43);
   transition: 0.2s;
-
-  span {
+  }
+  div {
     display: inline-block;
-    color: $color;
+    color: black;
   }
 }
 
-}
 .rotate{
   transform: rotate( 180deg);
 }
 
-.ListProducts-badge{
+.ListProductsBadge{
   position: absolute;
   top: 0px;
   z-index: 9;
@@ -143,19 +128,19 @@ $bold: 600;
 }
 
 
-.ListProducts-cardBG{
+.ListProductsCardBG{
 background-color: rgba(212, 208, 189, 0.336);
 max-width:300px;
 }
 
 .list-group-item.active,
-.ListProducts-card-footer button,
+.ListProductsCardFooter button,
 .list-group :hover{
   @include hover;
 }
 
 .active,
-.ListProducts-badge {
+.ListProductsBadge {
   @include active;
 }
 
@@ -164,8 +149,7 @@ max-width:300px;
   margin-top: 24px;
 }
 
-.ListProducts-card{
-  background-color: rgb(148, 85, 43);
+.ListProductsCard{
 &:hover {
   cursor: pointer;
   animation: goBig;
@@ -188,7 +172,7 @@ max-width:300px;
   }
 }
 
-.ListProducts-card-text {
+.ListProductsCardText {
   display: -webkit-box;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -196,7 +180,7 @@ max-width:300px;
   -webkit-line-clamp: 2;
 }
 
-.ListProducts-card-footer button {
+.ListProductsCardFooter button {
   padding: 4px 12px 4px 12px;
   font-size: 18px;
   font-weight: $bold;
@@ -208,7 +192,7 @@ max-width:300px;
 
 @media (max-width: 576px) {
 
-  .ListProducts-sidebar {
+  .ListProductsSidebar {
     padding: 0px 0px 0px 5px;
 
     a {

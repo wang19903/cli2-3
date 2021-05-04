@@ -4,14 +4,14 @@
       <div class="slogan"><span>跟隨步驟完成訂單</span></div>
     </div>
     <div class="wrapper">
-      <div class="container front-order-container">
+      <div class="container frontOrderContainer">
         <div class="row justify-content-md-center">
           <div class="col col-md-8 container">
             <span class="direct" v-if="cart.carts.length">
               請確認產品明細
             </span>
             <table
-              class="table table-striped mt-4 front-order-table"
+              class="table table-striped mt-4 frontOrderTable"
               v-if="cart.carts.length"
             >
               <thead>
@@ -68,7 +68,7 @@
               </tfoot>
             </table>
             <div
-              class="d-flex flex-column align-items-center no-Item"
+              class="d-flex flex-column align-items-center noItem"
               v-if="cart.carts.length === 0"
             >
               購物車尚未有商品唷!!<br/>
@@ -332,8 +332,8 @@ export default {
       const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order`
       const order = vm.form
+      vm.$store.dispatch('updataLoading', true)
       vm.$http.post(api, { data: order }).then(response => {
-        vm.$store.dispatch('updataLoading', true)
         if (response.data.success) {
           vm.$router.push(`/customercheck/${response.data.orderId}`)
         }

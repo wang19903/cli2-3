@@ -1,29 +1,5 @@
-@mixin flash {
-  width: 600px;
-  height: 100vh;
-  position: absolute;
-  clip-path: polygon(25% 0%, 63% 0, 38% 100%, 0 100%);
-  top: 0px;
-  animation: run 2s infinite;
-}
 
-@mixin green {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  background: green;
-}
-
-@mixin dot {
-  position: absolute;
-  border: solid 13px rgb(148, 85, 43);
-  border-radius: 50%;
-  top: 3px;
-  background: rgb(148, 85, 43);
-  animation: run 0.5s infinite;
-}
-
-.flash_wrap {
+.flashWrap {
   position: fixed;
   height: 100vh;
   width: 99vw;

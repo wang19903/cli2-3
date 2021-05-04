@@ -184,8 +184,8 @@ export default {
     getProduct (productId) {
       const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${productId}`
+      vm.$store.dispatch('updataLoading', true)
       vm.$http.get(api).then(response => {
-        vm.$store.dispatch('updataLoading', true)
         vm.product = response.data.product
         vm.product.num = 1
         vm.lightBoxData(vm.product.id)
