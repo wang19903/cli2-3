@@ -18,7 +18,7 @@
           autofocus
           v-model="user.username"
         />
-        <label for="inputPassword" class="visually-hidden">密碼</label>
+        <label for="inputPassword" class="visually-hidden pt-3">密碼</label>
         <input
           type="password"
           id="inputPassword"
@@ -27,7 +27,7 @@
           required
           v-model="user.password"
         />
-        <div class="btnwrap">
+        <div class="btnwrap ">
           <button class="w-100 btn btn-lg btn-dark mt-3" type="submit">
             登入
           </button>
@@ -112,7 +112,7 @@ body {
   padding: 15px;
   margin: auto;
 }
-.form-signin .checkbox {
+.form-signin {
   font-weight: 400;
 }
 .form-signin .form-control {
@@ -120,7 +120,6 @@ body {
   height: auto;
   padding: 10px;
   font-size: 16px;
-  min-width: 300px;
 }
 .form-signin .form-control:focus {
   z-index: 2;
@@ -141,7 +140,6 @@ button {
   color: black;
 }
 .btnwrap :hover {
-  box-shadow: 1px 1px rgb(182, 145, 67);
   color: #fff;
 }
 .message-alert {
