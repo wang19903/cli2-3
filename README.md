@@ -1,7 +1,8 @@
 這是vue電商作品  
 RWD響應式網頁，前台商品連結及介紹，點選加入購物車進入結帳頁面，結帳完畢導回首頁繼續選購。   
 後台管理商品上架下架，優惠券折扣%數及有效期限。  
-![image]https://github.com/wang19903/cli2-3/blob/master/homepage.gif
+![image](https://github.com/wang19903/cli2-3/blob/master/homepage.gif)
+
 使用到的技術  
 html,css,javascript  
 scss,bootstrap  
