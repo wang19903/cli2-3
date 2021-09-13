@@ -3,6 +3,12 @@ RWD響應式網頁，前台商品連結及介紹，點選加入購物車進入�
 後台管理商品上架下架，優惠券折扣%數及有效期限。  
 ![image](https://github.com/wang19903/cli2-3/blob/master/homepage.gif)
 
+
+後台產品列表、訂單詳細設定、優惠券
+![image](https://github.com/wang19903/cli2-3/blob/master/backview.gif)
+![image](https://github.com/wang19903/cli2-3/blob/master/backse.gif)
+
+
 使用到的技術  
 html,css,javascript  
 scss,bootstrap  
