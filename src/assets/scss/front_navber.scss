@@ -26,7 +26,7 @@ img {
   @include navSet;
 }
 
-.dropdown-menu {
+.cart-menu {
   min-width: 350px;
   position: absolute;
   transform: translateX(-50%);
@@ -96,6 +96,11 @@ img {
   }
 }
 
+.lang-wrap{
+  text-align: center;
+  background: $color;
+}
+
 @media (max-width: 767px) {
 .firstBtn:hover::after,
 .secondBtn:hover::after,
@@ -104,11 +109,11 @@ img {
   width: 30%;
 }
 
-.dropdown-menu{
+.cart-menu{
   min-width: 100%;
 }
 
-.dropdown-menu.show
+.cart-menu.show
 {
 position: absolute;
 left: 50%;

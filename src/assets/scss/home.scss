@@ -248,7 +248,9 @@
     margin: 0;
     margin-bottom: $space;
     position: relative;
-
+    .content{
+      width: 100%;
+    }
     p{
       color:#fff;
       background-color: rgba(0, 0, 0, 0.185);
@@ -282,7 +284,7 @@
   }
 }
 
-@media (max-width: 490px) {
+@media (max-width: 496px) {
   .homeContent {
     display: flex;
     flex-direction: column;
@@ -313,9 +315,6 @@
     text-indent: 38px;
     font-size: $fsize;
 
-    }
-    .content{
-      width: 100%;
     }
   }
 

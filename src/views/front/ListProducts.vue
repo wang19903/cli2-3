@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="bgImg2">
-      <div class="slogan2"><div>結帳輸入<span>order999</span>九折優惠</div></div>
+      <div class="slogan2"><div>{{ $t('GENERAL.LIST_BANNER_P') }}<span>{{ $t('GENERAL.AD_OPEN_CODE') }}</span>{{ $t('GENERAL.LIST_BANNER_P2') }}</div></div>
     </div>
     <div class="wrapper">
       <div class="search pt-2">
@@ -15,7 +15,7 @@
               aria-label="Search"
             />
               <button class="btn" type="button" @click="filter()">
-                <font-awesome-icon icon="search" size="1x"/> 搜尋
+                <font-awesome-icon icon="search" size="1x"/>
               </button>
             </div>
           </div>
@@ -36,7 +36,7 @@
                 :key="item"
               >
                 <i class="fas fa-fish" aria-hidden="true"/>
-                {{ item }}
+                {{ $t(item) }}
               </a>
               <a
                 href="#"
@@ -44,14 +44,14 @@
                 @click.prevent="searchText = ''"
                 :class="{ active: searchText === '' }"
               >
-                全部顯示
+                {{ $t('GENERAL.VIEWALL') }}
               </a>
             </div>
           </div>
             <div  class="row-cols col-9 container">
               <div class="text-left clickWrap">
                 <a @click.prevent="changeType('price')">
-                  價格排序
+                   {{ $t('GENERAL.SORT') }}
                   <div
                   :class="{ 'rotate': isReverse }"
                   v-if="sortType == 'price'"
@@ -66,8 +66,8 @@
                   v-for="(item, key) in filter"
                   :key="key"
                 >
-                <div data-aos="fade-up" data-aos-duration="1000">
-                  <div class="pr-4 sizing">
+                <div data-aos="fade-up" data-aos-duration="1000" class="d-flex">
+                  <div class="pr-4 sizing d-flex">
                     <div class="card mb-1 ListProductsCard">
                       <div @click="$router.push(`/product/${item.id}`)">
                         <div
@@ -85,7 +85,7 @@
                         >{{ item.category }}
                         </span>
                         <h5 class="card-title text-left">
-                          <a @click="$router.push(`/product/${item.id}`)" class="text-dark">{{ item.title }}</a>
+                          <a @click="$router.push(`/product/${item.id}`)" class="text-dark">{{ $t(item.title) }}</a>
                         </h5>
                         <p class="ListProductsCardText text-left">{{ item.content }}</p>
                         <div
@@ -98,7 +98,7 @@
                       <div class="ListProductsCardFooter p-1 ListProductsCardBG">
                         <button
                           type="button"
-                          class="btn btn-sm ml-auto"
+                          class="btn btn-sm"
                           @click="addTocart(item)"
                         >
                           <i
@@ -106,7 +106,7 @@
                             v-if="status.loadingItem === item.id"
                           />
                           <i class="fas fa-shopping-cart fa-lg" />
-                          <span>放入購物車</span>
+                          <span>{{ $t('GENERAL.ADDTO') }}</span>
                         </button>
                       </div>
                     </div>

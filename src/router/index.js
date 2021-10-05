@@ -74,10 +74,16 @@ const routes = [
       }
     ]
   },
-
+  {
+    path: '/404',
+    name: '404',
+    component: () => import('@/views/front/404.vue'),
+    hidden: true
+  },
   {
     path: '*',
-    redirect: '/'
+    redirect: '/404',
+    hidden: true // 路由開關
   }
 ]
 

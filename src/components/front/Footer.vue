@@ -7,8 +7,8 @@
       >
         <li class="col-sm-1 p-0 d-flex">
           <div class="footTxt">
-            <span>鼎鮮</span>
-            <span>飯麵</span>
+            <span>{{ $t('GENERAL.NAME_1') }}</span>
+            <span>{{ $t('GENERAL.NAME_2') }}</span>
           </div>
 
           <ul class="d-flex p-0">
@@ -34,10 +34,9 @@
           <p>
             <font-awesome-icon icon="phone" size="1x" class="fas" />+886
             2992915311
-            <br />
-            營業時間:AM11:30-PM2:30，PM5:00-PM9:00<br />
-            最後點餐時間:結束前30分鐘，依現場為準。
-            <br />周一公休
+            <br />{{ $t('GENERAL.TIME') }}
+            <br />{{ $t('GENERAL.TIME_INFO') }}
+            <br />{{ $t('GENERAL.REST') }}
           </p>
         </li>
       </ul>

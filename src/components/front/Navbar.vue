@@ -24,7 +24,7 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
+          <li class="nav-item">
             <router-link
               to="/products"
               class="bg-logo nav-link text-dark firstBtn"
@@ -34,7 +34,7 @@
                 icon="concierge-bell"
                 size="lg"
                 class="fas"
-              /><span>全部產品</span>
+              /><span>{{ $t('GENERAL.NAV_OPTIONS[0]') }}</span>
             </router-link>
           </li>
 
@@ -58,17 +58,17 @@
                   >
                     {{ localCarData.length }}
                   </div></i
-                ><span class="">購物車</span>
+                ><span>{{ $t('GENERAL.NAV_OPTIONS[1]') }}</span>
               </div>
             </a>
 
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <div class="dropdown-menu cart-menu" aria-labelledby="navbarDropdown">
               <table class="table nav-table" v-if="localCarData.length">
                 <thead>
                   <th></th>
-                  <th>品名</th>
-                  <th class="text-center pr-5">數量</th>
-                  <th class="text-right">單價</th>
+                  <th>{{ $t('GENERAL.CART_ITEM') }}</th>
+                  <th class="text-center pr-5">{{ $t('GENERAL.CART_QTY') }}</th>
+                  <th class="text-right">{{ $t('GENERAL.CART_PRICE') }}</th>
                 </thead>
                 <tbody>
                   <tr v-for="item in localCarData" :key="item.id">
@@ -114,13 +114,13 @@
                 </tbody>
                 <tfoot>
                   <tr>
-                    <td colspan="3" class="text-right">總計</td>
+                    <td colspan="3" class="text-right">{{ $t('GENERAL.TOTAL') }}</td>
                     <td class="text-right text-black-50">
                       {{ getOriginPrice | currency }}
                     </td>
                   </tr>
                   <tr v-if="getPrice !== getOriginPrice">
-                    <td colspan="3" class="text-right text-success">折扣價</td>
+                    <td colspan="3" class="text-right text-success">{{ $t('GENERAL.NOW_PRICE') }}</td>
                     <td class="text-right text-success">
                       {{ getPrice | currency }}
                     </td>
@@ -132,12 +132,13 @@
                 class="d-flex flex-column align-items-center"
                 v-if="localCarData.length === 0"
               >
-                購物車尚未有商品唷!!
+                {{ $t('GENERAL.CART_EMPTY') }}
                 <router-link
-              to="/products"
-              class="border border-dark rounded mt-3 p-2 text-dark font-weight-bold"
-              title="商場引導"
-            >前往商場</router-link>
+                  to="/products"
+                  class="border border-dark rounded mt-3 p-2 text-dark font-weight-bold"
+                  title="商場引導"
+                  >{{ $t('GENERAL.GOSHOP') }}</router-link
+                >
               </div>
               <button
                 type="button"
@@ -145,21 +146,40 @@
                 @click="checkout"
                 v-if="localCarData.length"
               >
-                前往結帳
+                {{ $t('GENERAL.CHECK') }}
               </button>
             </div>
           </li>
 
-          <li class="nav-item active">
+          <li class="nav-item">
             <router-link
               to="/login"
               class="bg-logo nav-link text-dark thirdBtn"
               title="後台管理"
             >
-              <font-awesome-icon icon="user" size="lg" class="fas" /><span
-                >後台管理</span
-              >
+              <font-awesome-icon icon="user" size="lg" class="fas" /><span>{{
+                $t('GENERAL.NAV_OPTIONS[2]')
+              }}</span>
             </router-link>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              data-toggle="dropdown"
+              href="#"
+              role="button"
+              aria-haspopup="true"
+              aria-expanded="false"
+              >{{ $t('GENERAL.LANG') }}</a
+            >
+            <div class="dropdown-menu lang-wrap p-0 m-auto">
+              <a class="dropdown-item p-1" href="#" data-lang="tw" @click="setLang"
+                >中文</a
+              >
+              <a class="dropdown-item " href="#" data-lang="en" @click="setLang"
+                >en</a
+              >
+            </div>
           </li>
         </ul>
       </div>
@@ -178,6 +198,14 @@ export default {
     }
   },
   methods: {
+    setActiveLanguage (lang) {
+      localStorage.setItem('language', lang)
+    },
+    setLang (evt) {
+      const lang = evt.target.dataset.lang
+      this.setActiveLanguage(lang)
+      return history.go(0)
+    },
     onPlus (item) {
       const vm = this
       vm.checkdata()
@@ -241,7 +269,7 @@ export default {
             cacheID.push(item.id)
           })
         })
-        .then((res) => {
+        .then(res => {
           console.log(res)
           cacheID.forEach(item => {
             this.axios
@@ -253,7 +281,7 @@ export default {
               })
           })
         })
-        .then((res) => {
+        .then(res => {
           console.log(res)
           this.carData.forEach(item => {
             const cache = {
@@ -265,7 +293,7 @@ export default {
                 `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`,
                 { data: cache }
               )
-              .then((res) => {
+              .then(res => {
                 console.log(res)
                 this.carData = []
                 localStorage.removeItem('carData')

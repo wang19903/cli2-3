@@ -14,6 +14,8 @@ export default {
         context.commit('PRODUCTS', response.data.products)
         context.commit('CATEGORIES', response.data.products)
         context.commit('LOADING', false, { root: true })
+      }).catch(err => {
+        alert('請重新整理' + err)
       })
     }
   },

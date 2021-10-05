@@ -8,7 +8,7 @@ import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.css'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
-import './bus'
+// import './bus'
 import VueClipboard from 'vue-clipboard2'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/swiper-bundle.css'
@@ -22,6 +22,7 @@ import {
 import * as rules from 'vee-validate/dist/rules'
 import TW from 'vee-validate/dist/locale/zh_TW.json'
 import App from './App.vue'
+import i18n from './common/plugins/vue-i18n'
 import router from './router'
 import store from './store'
 import currencyFilter from './filters/currency'
@@ -90,6 +91,7 @@ Object.keys(rules).forEach(rule => {
 new Vue({
   router,
   store,
+  i18n,
   render: h => h(App)
 }).$mount('#app')
 
