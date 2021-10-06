@@ -99,6 +99,10 @@ img {
 .lang-wrap{
   text-align: center;
   background: $color;
+
+  .dropdown-menu{
+    min-width: none;
+  }
 }
 
 @media (max-width: 767px) {
