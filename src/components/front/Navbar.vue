@@ -172,11 +172,11 @@
               aria-expanded="false"
               >{{ $t('GENERAL.LANG') }}</a
             >
-            <div class="dropdown-menu lang-wrap p-0 m-auto">
+            <div class="dropdown-menu p-0 m-auto" id="lang-wrap">
               <a class="dropdown-item p-1" href="#" data-lang="tw" @click="setLang"
                 >中文</a
               >
-              <a class="dropdown-item " href="#" data-lang="en" @click="setLang"
+              <a class="dropdown-item" href="#" data-lang="en" @click="setLang"
                 >en</a
               >
             </div>

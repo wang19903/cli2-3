@@ -96,13 +96,12 @@ img {
   }
 }
 
-.lang-wrap{
+#lang-wrap{
   text-align: center;
   background: $color;
 
-  .dropdown-menu{
-    min-width: none;
-  }
+    min-width: 0rem;
+
 }
 
 @media (max-width: 767px) {
