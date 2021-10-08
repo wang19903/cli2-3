@@ -14,7 +14,7 @@
                 {{ $t('Product.' + item.product.title) }}
               </td>
               <td class="align-middle">
-                {{ item.qty }}/{{ $t('Cart.' + item.product.unit) }}
+                {{ item.qty }}/{{ ('Cart.' + item.product.unit) }}
               </td>
               <td class="align-middle text-right">{{ item.final_total }}</td>
             </tr>

@@ -8,6 +8,7 @@ messages = { ...messages, en, tw }
 const lang = localStorage.getItem('language') || 'tw'
 const i18n = new VueI18n({
   locale: lang,
-  messages
+  messages,
+  silentTranslationWarn: true // 解黃色警告
 })
 export default i18n

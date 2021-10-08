@@ -10,7 +10,7 @@
       >
         <div class="modal-header">
           <h5 class="modal-title" id="detailModalLabel">
-            <span>{{ product.title }}</span>
+            <span>{{ $t('Product.'+ product.title) }}</span>
           </h5>
         </div>
         <div class="row" role="document">
@@ -22,38 +22,40 @@
           <div class="col-md-5 pt-5">
             <blockquote class="blockquote mt-3">
               <footer class="blockquote-footer text-left text-body">
-                {{ product.description }}
+                {{ $t('Product.' + product.description) }}
               </footer>
             </blockquote>
             <p class="text-left pt-2 text-muted">
-              注意事項:<br />
-              每日採購新鮮食材並且不使用食品添加物、防腐劑等。<br />
-              除醬料品外，只使用冷凍配送，如需一般配送請提供取件資訊或親自提領。<br />
-              除醬料品外，其他產品保存期較短，不適用七天鑑賞期。<br />
-              醬料類以及滷汁請勿把表面油層倒掉，並且擦乾器具後使用。<br />
-              請勿放置在潮濕、高溫處，避免食物變成變質<br />
+              {{ $t('ProductVue.Notice') }}<br />
+              {{ $t('ProductVue.P1') }}<br />
+              {{ $t('ProductVue.P2') }}<br />
+              {{ $t('ProductVue.P3') }}<br />
+              {{ $t('ProductVue.P4') }}<br />
+              {{ $t('ProductVue.P5') }}<br />
               <!-- Window Width: {{ windowWidth }} <br /> 測試用-->
             </p>
             <p class="h6 text-right">
-              原價
+              {{ $t('ProductVue.OriginPrice') }}
               <del v-if="product.price">{{ product.origin_price }}</del>
-              元
             </p>
-            <p class="h5 text-right" v-if="product.price">
-              現在只要 {{ product.price }} 元
+            <p class="h5 text-right font-weight-bold" v-if="product.price">
+              {{ $t('ProductVue.Price') }} {{ product.price }}
             </p>
           </div>
         </div>
         <div class="modal-footer mt-5 d-flex justify-content-end">
           <div class="d-flex justify-content-start mt-5">
             <select class="form-control w-100" v-model="product.num">
-              <option value="0" disabled selected>--請選擇--</option>
+              <option value="0" disabled selected>
+                {{ $t('ProductVue.Selet') }}
+              </option>
               <option :value="num" v-for="num in 10" :key="num">
-                選購{{ num }} {{ product.unit }}
+                {{ $t('ProductVue.Choose') }}{{ num }}
+                {{ $t('Cart.'+ product.unit) }}
               </option>
             </select>
             <span class="text-muted text-nowrap p-2">
-              小計
+              {{ $t('ProductVue.Total') }}
               <strong v-if="product.num * product.price >= 0">
                 {{ product.num * product.price }}
               </strong>
@@ -68,11 +70,11 @@
               class="fas fa-spinner fa-pulse"
               v-if="product.id === status.loadingItem"
             ></i>
-            加到購物車
+            {{ $t('ProductVue.AddToCart') }}
           </button>
         </div>
         <div class="text-left pl-2 mt-5 mb-5">
-          <span class="h3">你可能有興趣...</span>
+          <span class="h3">{{ $t('ProductVue.Recommend') }}</span>
         </div>
         <!-- 燈箱-->
         <swiper
@@ -94,15 +96,12 @@
               </div>
               <div class="card-body text-left d-flex flex-column p-0">
                 <h5 class="card-title">
-                  {{ item.title }}
+                  {{ $t('Product.' + product.title) }}
                 </h5>
-                <div class="text-truncate pb-2 mt-auto">
-                  {{ item.description }}
+                <div class="text-truncate pb-2">
+                  {{ $t('Product.' + product.description) }}
                 </div>
-                <div
-                  class="d-flex pt-auto w-100"
-                  :class="{ 'mt-auto': windowWidth < 700 }"
-                >
+                <div class="d-flex mt-auto w-100">
                   <div v-if="!item.price">
                     NT {{ item.originPrice | currency }}
                   </div>

@@ -14,7 +14,7 @@ cd dist
 
 git init
 git add -A
-git commit -m 'css, i18n, api_data update: css fin'
+git commit -m 'i18 fin bug fix 50%'
 
 # if you are deploying to https://<USERNAME>.github.io
 # git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git master
