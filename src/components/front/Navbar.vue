@@ -34,7 +34,7 @@
                 icon="concierge-bell"
                 size="lg"
                 class="fas"
-              /><span>{{ $t('GENERAL.NAV_OPTIONS[0]') }}</span>
+              /><span>{{ $t('Navbar.NavItem[0]') }}</span>
             </router-link>
           </li>
 
@@ -58,7 +58,7 @@
                   >
                     {{ localCarData.length }}
                   </div></i
-                ><span>{{ $t('GENERAL.NAV_OPTIONS[1]') }}</span>
+                ><span>{{ $t('Navbar.NavItem[1]') }}</span>
               </div>
             </a>
 
@@ -66,9 +66,9 @@
               <table class="table nav-table" v-if="localCarData.length">
                 <thead>
                   <th></th>
-                  <th>{{ $t('GENERAL.CART_ITEM') }}</th>
-                  <th class="text-center pr-5">{{ $t('GENERAL.CART_QTY') }}</th>
-                  <th class="text-right">{{ $t('GENERAL.CART_PRICE') }}</th>
+                  <th>{{ $t('Cart.ItemName') }}</th>
+                  <th class="text-center pr-5">{{ $t('Cart.Qty') }}</th>
+                  <th class="text-right">{{ $t('Cart.SinglePrice') }}</th>
                 </thead>
                 <tbody>
                   <tr v-for="item in localCarData" :key="item.id">
@@ -82,7 +82,7 @@
                       </button>
                     </td>
                     <td class="align-middle" style="max-width: 120px">
-                      {{ item.name }}
+                      {{ $t("Product."+item.Title )}}
                     </td>
                     <td class="align-middle">
                       <button
@@ -114,13 +114,13 @@
                 </tbody>
                 <tfoot>
                   <tr>
-                    <td colspan="3" class="text-right">{{ $t('GENERAL.TOTAL') }}</td>
+                    <td colspan="3" class="text-right">{{ $t('Cart.TotalPrice') }}</td>
                     <td class="text-right text-black-50">
                       {{ getOriginPrice | currency }}
                     </td>
                   </tr>
                   <tr v-if="getPrice !== getOriginPrice">
-                    <td colspan="3" class="text-right text-success">{{ $t('GENERAL.NOW_PRICE') }}</td>
+                    <td colspan="3" class="text-right text-success">{{ $t('Cart.FinalPrice') }}</td>
                     <td class="text-right text-success">
                       {{ getPrice | currency }}
                     </td>
@@ -132,12 +132,12 @@
                 class="d-flex flex-column align-items-center"
                 v-if="localCarData.length === 0"
               >
-                {{ $t('GENERAL.CART_EMPTY') }}
+                {{ $t('Navbar.EmptyCart') }}
                 <router-link
                   to="/products"
                   class="border border-dark rounded mt-3 p-2 text-dark font-weight-bold"
                   title="商場引導"
-                  >{{ $t('GENERAL.GOSHOP') }}</router-link
+                  >{{ $t('Navbar.GoShop') }}</router-link
                 >
               </div>
               <button
@@ -146,7 +146,7 @@
                 @click="checkout"
                 v-if="localCarData.length"
               >
-                {{ $t('GENERAL.CHECK') }}
+                {{ $t('Navbar.Checkout') }}
               </button>
             </div>
           </li>
@@ -158,7 +158,7 @@
               title="後台管理"
             >
               <font-awesome-icon icon="user" size="lg" class="fas" /><span>{{
-                $t('GENERAL.NAV_OPTIONS[2]')
+                $t('Navbar.NavItem[2]')
               }}</span>
             </router-link>
           </li>
@@ -170,7 +170,7 @@
               role="button"
               aria-haspopup="true"
               aria-expanded="false"
-              >{{ $t('GENERAL.LANG') }}</a
+              >{{ $t('Navbar.Lang') }}</a
             >
             <div class="dropdown-menu p-0 m-auto" id="lang-wrap">
               <a class="dropdown-item p-1" href="#" data-lang="tw" @click="setLang"
@@ -254,8 +254,9 @@ export default {
       })
     },
     checkout () {
+      const vm = this
       const cacheID = []
-      this.$store.dispatch('cartsModules/getlocalCarData')
+      vm.$store.dispatch('cartsModules/getlocalCarData')
       this.carData = this.localCarData
       this.$store.dispatch('updataLoading', true)
       this.axios
@@ -272,7 +273,7 @@ export default {
         .then(res => {
           console.log(res)
           cacheID.forEach(item => {
-            this.axios
+            vm.axios
               .delete(
                 `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${item}`
               )
@@ -283,12 +284,12 @@ export default {
         })
         .then(res => {
           console.log(res)
-          this.carData.forEach(item => {
+          vm.carData.forEach(item => {
             const cache = {
               product_id: item.productId,
               qty: item.qty
             }
-            this.axios
+            vm.axios
               .post(
                 `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`,
                 { data: cache }
@@ -303,7 +304,7 @@ export default {
               })
           })
         })
-      this.$store.dispatch('updataLoading', false)
+      vm.$store.dispatch('updataLoading', false)
     },
     ...mapActions('cartsModules', ['updatelocalCarData', 'getlocalCarData'])
   },

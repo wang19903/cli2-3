@@ -1,14 +1,13 @@
 <template>
-  <div>
-    <div class="p-0 pt-3 footContainer">
+    <div class="p-0 pt-3 footContainer mt-auto">
       <div class="maxWidth">
       <ul
         class="row no-gutters d-flex justify-content-between flex-nowrap pl-0"
       >
         <li class="col-sm-1 p-0 d-flex">
           <div class="footTxt">
-            <span>{{ $t('GENERAL.NAME_1') }}</span>
-            <span>{{ $t('GENERAL.NAME_2') }}</span>
+            <span>{{ $t('Footer.ShopNameTop') }}</span>
+            <span>{{ $t('Footer.ShopNameDonw') }}</span>
           </div>
 
           <ul class="d-flex p-0">
@@ -34,15 +33,14 @@
           <p>
             <font-awesome-icon icon="phone" size="1x" class="fas" />+886
             2992915311
-            <br />{{ $t('GENERAL.TIME') }}
-            <br />{{ $t('GENERAL.TIME_INFO') }}
-            <br />{{ $t('GENERAL.REST') }}
+            <br />{{ $t('Footer.TIME') }}
+            <br />{{ $t('Footer.LastOrder') }}
+            <br />{{ $t('Footer.MondayOff') }}
           </p>
         </li>
       </ul>
       </div>
     </div>
-  </div>
 </template>
 
 <script>

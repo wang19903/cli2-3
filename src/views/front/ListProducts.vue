@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="bgImg2">
-      <div class="slogan2"><div>{{ $t('GENERAL.LIST_BANNER_P') }}<span>{{ $t('GENERAL.AD_OPEN_CODE') }}</span>{{ $t('GENERAL.LIST_BANNER_P2') }}</div></div>
+      <div class="slogan2"><div>{{ $t('ListProducts.BeforeCouponText') }}<span> order999 </span>{{ $t('ListProducts.AfterCouponText') }}</div></div>
     </div>
     <div class="wrapper">
       <div class="search pt-2">
@@ -36,7 +36,7 @@
                 :key="item"
               >
                 <i class="fas fa-fish" aria-hidden="true"/>
-                {{ $t(item) }}
+                {{ $t("Category."+item)}} <!--迴圈排出來-->
               </a>
               <a
                 href="#"
@@ -44,14 +44,14 @@
                 @click.prevent="searchText = ''"
                 :class="{ active: searchText === '' }"
               >
-                {{ $t('GENERAL.VIEWALL') }}
+                {{ $t('ListProducts.AllCategory') }}
               </a>
             </div>
           </div>
             <div  class="row-cols col-9 container">
               <div class="text-left clickWrap">
                 <a @click.prevent="changeType('price')">
-                   {{ $t('GENERAL.SORT') }}
+                   {{ $t('ListProducts.PriceSort') }}
                   <div
                   :class="{ 'rotate': isReverse }"
                   v-if="sortType == 'price'"
@@ -85,9 +85,9 @@
                         >{{ item.category }}
                         </span>
                         <h5 class="card-title text-left">
-                          <a @click="$router.push(`/product/${item.id}`)" class="text-dark">{{ $t(item.title) }}</a>
+                          <a @click="$router.push(`/product/${item.id}`)" class="text-dark">{{ $t("Product."+item.title) }}</a>
                         </h5>
-                        <p class="ListProductsCardText text-left">{{ item.content }}</p>
+                        <p class="ListProductsCardText text-left">{{ $t("Product."+item.content) }}</p>
                         <div
                           class="d-flex justify-content-between align-items-baseline"
                         >
@@ -106,7 +106,7 @@
                             v-if="status.loadingItem === item.id"
                           />
                           <i class="fas fa-shopping-cart fa-lg" />
-                          <span>{{ $t('GENERAL.ADDTO') }}</span>
+                          <span>{{ $t('ListProducts.AddToCart') }}</span>
                         </button>
                       </div>
                     </div>
@@ -154,7 +154,7 @@ export default {
         let cartContent = {
           productId: data.id,
           qty: 1,
-          name: data.title,
+          Title: data.title,
           originPrice: data.origin_price,
           price: data.price
         }
@@ -169,7 +169,7 @@ export default {
             cache = {
               productId: data.id,
               qty: (qty += 1),
-              name: data.title,
+              Title: data.title,
               originPrice: data.origin_price,
               price: data.price
             }
@@ -206,10 +206,6 @@ export default {
       }
       vm.sortType = type
     },
-    // rotateicon () {
-    //   const vm = this
-    //   vm.isReverse = !vm.isReverse
-    // },
     ...mapActions('productModules', ['getProducts']),
     ...mapActions('cartsModules', ['updatelocalCarData', 'getlocalCarData'])
   },

@@ -208,7 +208,7 @@
                       type="checkbox"
                       v-model="tempProduct.is_enabled"
                       :true-value="1"
-                      :false-value="1"
+                      :false-value="0"
                       id="is_enabled"
                     />
                     <label class="form-check-label" for="is_enabled">

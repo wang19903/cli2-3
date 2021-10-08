@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="CheckWrap">
     <div class="container-fluid">
-      <form class="col-md-6" @click.prevent="payOrder">
+      <form class="col-md-6">
         <table class="table">
           <thead>
             <th>品名</th>
@@ -10,9 +10,11 @@
           </thead>
           <tbody>
             <tr v-for="item in order.products" :key="item.id">
-              <td class="align-middle">{{ item.product.title }}</td>
               <td class="align-middle">
-                {{ item.qty }}/{{ item.product.unit }}
+                {{ $t('Product.' + item.product.title) }}
+              </td>
+              <td class="align-middle">
+                {{ item.qty }}/{{ $t('Cart.' + item.product.unit) }}
               </td>
               <td class="align-middle text-right">{{ item.final_total }}</td>
             </tr>
@@ -52,30 +54,44 @@
             </tr>
           </tbody>
         </table>
-        <div v-if="order.is_paid" class="guild pt-5 mb-5">
-          <p class="text-left">{{order.user.name}} <span>先生/女士</span><br>
-          結帳流程完成了，非常感謝您購買我們店鋪的產品，如果有任何問題，歡迎您致電給我們。<br>
-          <span>電話:+886-2929-15311</span><br>
-          <span>信箱:thisaddress@isfake.com.tw</span><br>
-          期待您的再次光臨!<br>
-          <br>
-          <br>
-          提醒您!<br>
-          <br>
-          本公司不會主動打電話給您要求操作ATM，如有問題請撥打165查詢<br>
-          因衛生關係，除食品本身問題外，恕難退貨退款，還請多多見諒。
+        <div
+          v-if="order.is_paid"
+          class="guild pt-5 mb-5"
+          :class="{ none: !order.is_paid }"
+        >
+          <p class="text-left">
+            {{ order.user.name }} <span>先生/女士</span><br />
+            結帳流程完成了，非常感謝您購買我們店鋪的產品，如果有任何問題，歡迎您致電給我們。<br />
+            <span>電話:+886-2929-15311</span><br />
+            <span>信箱:thisaddress@isfake.com.tw</span><br />
+            期待您的再次光臨!<br />
+            <br />
+            <br />
+            提醒您!<br />
+            <br />
+            本公司不會主動打電話給您要求操作ATM，如有問題請撥打165查詢<br />
+            因衛生關係，除食品本身問題外，恕難退貨退款，還請多多見諒。
           </p>
           <div class="sign">
-            <img src="@/assets/img/logo.jpg" alt="logo">
+            <img src="@/assets/img/logo.jpg" alt="logo" />
             <div class="mt-5">
-              <router-link to="/" class="text-light border border-info bg-info rounded">
+              <div @click="$router.push(`/`)"
+                to="/"
+                class="text-light border border-info bg-info rounded"
+              >
                 返回首頁
-              </router-link>
+              </div>
             </div>
           </div>
         </div>
         <div class="text-right mb-5" v-if="order.is_paid === false">
-          <button class="btn btn-danger" type="submit">確認付款去</button>
+          <button
+            class="btn btn-danger"
+            type="submit"
+            @click.prevent="payOrder"
+          >
+            確認付款去
+          </button>
         </div>
       </form>
     </div>
@@ -127,35 +143,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.container-fluid {
-  margin-top: 100px;
-  display: flex;
-  justify-content: center;
-  height: 100%;
-}
-
-ul {
-  margin-top: 0px;
-}
-.guild{
-  span{
-    font-size: 15px;
-  }
-  p{
-    font-size: 21px;
-  }
-  a{
-    font-size: 25px;
-  }
-}
-.sign {
-  padding-top: 20px;
-  display: flex;
-  justify-content: space-between;
-  a{
-    padding: 5px;
-  }
-}
-</style>

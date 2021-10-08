@@ -1,0 +1,29 @@
+.CheckWrap {
+    .container-fluid {
+      padding-top: 100px;
+      display: flex;
+      justify-content: center;
+    }
+    ul {
+      margin-top: 0px;
+    }
+    .guild {
+      span {
+        font-size: 15px;
+      }
+      p {
+        font-size: 21px;
+      }
+      a {
+        font-size: 25px;
+      }
+    }
+    .sign {
+      padding-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      a {
+        padding: 5px;
+      }
+    }
+  }

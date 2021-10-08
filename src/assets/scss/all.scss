@@ -86,6 +86,10 @@ $bold: 600;
 $space: 1.2rem;
 $fsize: 1.2rem;
 
+html,body{
+  height: 100%;
+}
+
 body {
   overflow-x: hidden;
   user-select: none;
@@ -115,6 +119,9 @@ ul {
 @import "./front_navber.scss";
 @import "./front_navber.scss";
 @import "./front_opening.scss";
-@import "./front_Customerorder.scss";
-@import "./home.scss";
-@import "./listProducts.scss";
+@import "./front_customerOrder.scss";
+@import "./front_home.scss";
+@import "./front_listProducts.scss";
+@import "./front_customerCheck.scss";
+@import "./front_customerCheck.scss";
+@import "./front_product.scss";

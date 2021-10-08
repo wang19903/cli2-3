@@ -1,14 +1,14 @@
 <template>
   <div>
     <div class="bgImg3">
-      <div class="slogan"><span>跟隨步驟完成訂單</span></div>
+      <div class="slogan"><span>{{$t('CustomerOrder.Notice')}}</span></div>
     </div>
     <div class="wrapper">
       <div class="container frontOrderContainer">
         <div class="row justify-content-md-center">
           <div class="col col-md-8 container">
             <span class="direct" v-if="cart.carts.length">
-              請確認產品明細
+              {{ $t('CustomerOrder.CheckCartItem') }}
             </span>
             <table
               class="table table-striped mt-4 frontOrderTable"
@@ -17,8 +17,8 @@
               <thead>
                 <th></th>
                 <th></th>
-                <th>品名</th>
-                <th>數量</th>
+                <th>{{ $t('Cart.ItemName') }}</th>
+                <th>{{ $t('Cart.Qty') }}</th>
               </thead>
               <tbody>
                 <tr v-for="item in cart.carts" :key="item.id">
@@ -44,23 +44,23 @@
                     ></div>
                   </td>
                   <td class="align-middle">
-                    {{ item.product.title }}
+                    {{ $t("Product."+item.product.title) }}
                     <div class="text-success" v-if="item.coupon">
-                      已套用優惠券
+                      {{ $t("CustomerOrder.HaveCouponConfirm")}}
                     </div>
                   </td>
                   <td class="align-middle">
-                    {{ item.qty }}{{ item.product.unit }}
+                    {{ item.qty }}{{ $t("Cart."+item.product.unit) }}
                   </td>
                 </tr>
               </tbody>
               <tfoot>
                 <tr>
-                  <td colspan="3" class="text-right">總計</td>
+                  <td colspan="3" class="text-right">{{ $t('Cart.TotalPrice') }}</td>
                   <td class="text-right">{{ cart.total | currency }}</td>
                 </tr>
                 <tr v-if="cart.final_total !== cart.total">
-                  <td colspan="3" class="text-right text-success">折扣價</td>
+                  <td colspan="3" class="text-right text-success">{{ $t('Cart.FinalPrice') }}</td>
                   <td class="text-right text-success">
                     {{ cart.final_total }}
                   </td>
@@ -71,19 +71,19 @@
               class="d-flex flex-column align-items-center noItem"
               v-if="cart.carts.length === 0"
             >
-              購物車尚未有商品唷!!<br/>
-              點擊賣場去看看吧
+              {{ $t('CustomerOrder.CartEmpty')}}<br/>
+              {{ $t('CustomerOrder.GuildToShop')}}
               <img src="@/assets/img/empty.jpg" alt="空的購物車" class="pt-3 pb-3">
               <div class="linkDiv pb-5" v-if="!cart.carts.length">
-                <router-link to="/products">前往賣場</router-link>
+                <router-link to="/products"> {{ $t('CustomerOrder.GoShop')}}</router-link>
               </div>
-              <p class="h2">輸入優惠碼可享九折優惠喔</p>
+              <p class="h2">{{ $t('CustomerOrder.Promote')}}</p>
               <div v-clipboard:copy="message"
               v-clipboard:success="onCopy"
               v-clipboard:error="onError"
               class="copyDiv mt-3">
               <span>order999</span>
-              <p>點擊此處即可複製</p>
+              <p>{{ $t('CustomerOrder.ClickCopy')}}</p>
               </div>
             </div>
             <div class="input-group mb-3 input-group-sm d-flex justify-content-md-center" v-if="cart.carts.length !== 0">
@@ -99,11 +99,11 @@
                   type="button"
                   @click="addCouponCode"
                 >
-                  套用優惠碼
+                  {{ $t('CustomerOrder.AddCoupon')}}
                 </button>
               </div>
             </div>
-            <span class="direct border-bottom border-dark" v-if="cart.carts.length"> 請填完表單 </span>
+            <span class="direct border-bottom border-dark" v-if="cart.carts.length"> {{ $t('CustomerOrder.FillForm')}} </span>
             <ValidationObserver
               v-slot="{ invalid }"
               class="row justify-content-center pt-2 validDiv"
@@ -119,7 +119,7 @@
                 >
                   <!-- 輸入框 -->
                   <label class="text-left" for="email"
-                    >Email(必填)</label
+                    >{{ $t('Customer.Email')}}</label
                   >
                   <input
                     id="email"
@@ -132,7 +132,7 @@
                   />
                   <!-- 錯誤訊息 -->
                   <span class="invalid-feedback">{{ errors[0] }}</span>
-                  <span v-if="passed" class="valid-feedback">Email 正確</span>
+                  <span v-if="passed" class="valid-feedback">{{ $t('Customer.EmailCorrect')}}</span>
                 </ValidationProvider>
 
                 <ValidationProvider
@@ -143,7 +143,7 @@
                   v-slot="{ errors, classes, passed }"
                 >
                   <!-- 輸入框 -->
-                  <label for="name">訂購者名稱(必填)</label>
+                  <label for="name">{{ $t('Customer.OrderName')}}</label>
                   <input
                     id="name"
                     type="name"
@@ -155,7 +155,7 @@
                   <!-- 錯誤訊息 -->
                   <span class="invalid-feedback">{{ errors[0] }}</span>
                   <span v-if="passed" class="valid-feedback"
-                    >包裹收件人為 {{ form.user.name }}</span
+                    >{{ $t('Customer.RecipientName')}} {{ form.user.name }}</span
                   >
                 </ValidationProvider>
 
@@ -167,7 +167,7 @@
                   v-slot="{ errors, classes, passed }"
                 >
                   <!-- 輸入框 -->
-                  <label for="tel">電話(必填)</label>
+                  <label for="tel">{{ $t('Customer.tel')}}</label>
                   <input
                     id="tel"
                     type="tel"
@@ -179,7 +179,7 @@
                   <!-- 錯誤訊息 -->
                   <span class="invalid-feedback">{{ errors[0] }}</span>
                   <span v-if="passed" class="valid-feedback"
-                    >收件人電話為 {{ form.user.tel }}</span
+                    >{{ $t('Customer.RecipientTel')}} {{ form.user.tel }}</span
                   >
                 </ValidationProvider>
 
@@ -191,7 +191,7 @@
                   v-slot="{ errors, classes, passed }"
                 >
                   <!-- 輸入框 -->
-                  <label for="address">地址(必填)</label>
+                  <label for="address">{{ $t('Customer.Address')}}</label>
                   <input
                     id="address"
                     type="address"
@@ -203,16 +203,16 @@
                   <!-- 錯誤訊息 -->
                   <span class="invalid-feedback">{{ errors[0] }}</span>
                   <span v-if="passed" class="valid-feedback"
-                    >收件人地址為 {{ form.user.address }}</span
+                    >{{ $t('Customer.RecipientAddress')}} {{ form.user.address }}</span
                   >
                 </ValidationProvider>
 
                 <div class="form-group">
-                  <label for="comment">留言</label>
+                  <label for="comment">{{ $t('Customer.Message')}} </label>
                   <textarea
                     name=""
                     id="comment"
-                    placeholder="有客製化需求請填寫，非必填"
+                    placeholder="有客製化需求請填寫"
                     class="form-control front-order-input"
                     cols="30"
                     rows="10"
@@ -220,14 +220,14 @@
                   ></textarea>
                 </div>
                 <div class="mb-5">
-                  <p class="text-left">※全部必填項目填寫完成後，既可點選下一步!</p>
+                  <p class="text-left">{{ $t('CustomerOrder.NextStep')}}</p>
                   <button
                     type="submit"
                     class="btn btn-primary"
                     :disabled="invalid"
                     v-if="cart.carts.length"
                   >
-                    送出訂單
+                    {{ $t('CustomerOrder.Summit')}}
                   </button>
                 </div>
               </form>
