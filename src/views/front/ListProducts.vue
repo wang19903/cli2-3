@@ -61,16 +61,15 @@
                 </div>
               </a>
             </div>
-            <div class="row no-gutters d-flex flex-wrap mb-4">
-              <span v-if="listHeight < 50"
-                >看到這段文字，表示後端資料處理中{{ listHeight }}</span
-              >
-              <!-- 測試1.一測試後段就好?2.正常運作 -->
+            <div class="row no-gutters d-flex flex-wrap mb-4" ref="infoBox">
+              <div v-if="listHeight < 10">
+                看到這段文字，表示後端資料處理中{{ listHeight }}
+              </div>
+              <!-- 測試 -->
               <div
                 class="col-xl-3 col-lg-4 col-md-6 mb-3"
                 v-for="(item, key) in filter"
                 :key="key"
-                ref="infoBox"
               >
                 <div data-aos="fade-up" data-aos-duration="1000" class="d-flex">
                   <div class="pr-4 sizing d-flex">
@@ -276,6 +275,7 @@ export default {
   },
   mounted () {
     this.listHeight = this.$refs.infoBox.clientHeight
+    console.log(1, this.listHeight)
   }
 }
 </script>

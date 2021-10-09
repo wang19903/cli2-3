@@ -300,11 +300,11 @@ export default {
                 localStorage.removeItem('carData')
                 this.checkdata()
                 localStorage.setItem('carData', JSON.stringify(this.carData))
+                vm.$store.dispatch('updataLoading', false)
                 this.$router.push('/order')
               })
           })
         })
-      vm.$store.dispatch('updataLoading', false)
     },
     ...mapActions('cartsModules', ['updatelocalCarData', 'getlocalCarData'])
   },

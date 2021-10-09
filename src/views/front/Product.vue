@@ -1,6 +1,6 @@
 <template>
-  <div class="Productwrap m-auto">
-    <div class="container-fluid wrap">
+  <div class="Productwrap container-fluid">
+    <div class="wrap">
       <div
         tabindex="-1"
         role="dialog"
@@ -16,6 +16,7 @@
         <div class="row" role="document">
           <div class="col-md-7 border-0">
             <div class="modal-body">
+              <div class="display-4" v-if="loadTxt">資料讀取中...</div>
               <img :src="product.imageUrl" class="img-fluid" alt="產品圖片" />
             </div>
           </div>
@@ -77,9 +78,9 @@
           <span class="h3">{{ $t('ProductVue.Recommend') }}</span>
         </div>
         <!-- 燈箱-->
-        <span v-if="swiperHeight < 50">
-          {{swiperHeight}} 看到這段文字，表示後端資料處理中
-       <!--測試，後端lag就跳出-->
+        <span v-if="loadTxt">
+          {{ swiperHeight }} 看到這段文字，表示後端資料處理中
+          <!--測試，後端lag就跳出-->
         </span>
         <swiper
           class="swiper mb-3 mt-3"
@@ -144,6 +145,7 @@ export default {
       newarray: [],
       windowWidth: window.innerWidth,
       swiperHeight: 0,
+      loadTxt: false,
       swiperOption: {
         loop: true,
         slidesPerView: 1,
@@ -177,11 +179,13 @@ export default {
     this.$nextTick(() => {
       // 等其他資料處理完畢後才輪到這裡
       window.addEventListener('resize', this.onResize)
-      this.swiperHeight = this.$refs.checkHeight.clientHeight
+      // this.swiperHeight = this.$refs.imgBox.clientHeight
+      console.log(1, this.$store.dispatch('updataLoading'))
     })
   },
   methods: {
     getProduct (productId) {
+      this.loadTxt = true
       const vm = this
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${productId}`
       vm.$store.dispatch('updataLoading', true)
@@ -190,6 +194,7 @@ export default {
         vm.product.num = 1
         vm.lightBoxData(vm.product.id)
         vm.$store.dispatch('updataLoading', false)
+        this.loadTxt = false
       })
     },
     addTocart (data, num) {
