@@ -1,42 +1,46 @@
 <template>
   <div>
     <div class="bgImg2">
-      <div class="slogan2"><div>{{ $t('ListProducts.BeforeCouponText') }}<span> order999 </span>{{ $t('ListProducts.AfterCouponText') }}</div></div>
+      <div class="slogan2">
+        <div>
+          {{ $t('ListProducts.BeforeCouponText') }}<span> order999 </span
+          >{{ $t('ListProducts.AfterCouponText') }}
+        </div>
+      </div>
     </div>
     <div class="wrapper">
       <div class="search pt-2">
         <div class="my-3 my-lg-0 ListProductsImg">
           <div class="ListProductsInputwrap">
             <div class="d-flex flex-row justify-content-center">
-            <input
-              type="text"
-              v-model="searchText"
-              placeholder="想吃什麼?"
-              aria-label="Search"
-            />
+              <input
+                type="text"
+                v-model="searchText"
+                placeholder="想吃什麼?"
+                aria-label="Search"
+              />
               <button class="btn" type="button" @click="filter()">
-                <font-awesome-icon icon="search" size="1x"/>
+                <font-awesome-icon icon="search" size="1x" />
               </button>
             </div>
           </div>
-
         </div>
       </div>
       <div class="container">
         <div class="row">
-          <div  class="col-3 ListProductsSidebar">
+          <div class="col-3 ListProductsSidebar">
             <div class="list-group sticky-top pt-4">
               <a
-                class="list-group-item list-group-item-action
-                ListProductsCardBG"
+                class="list-group-item list-group-item-action ListProductsCardBG"
                 href="#"
                 @click.prevent="searchText = item"
                 :class="{ active: item === searchText }"
                 v-for="item in categories"
                 :key="item"
               >
-                <i class="fas fa-fish" aria-hidden="true"/>
-                {{ $t("Category."+item)}} <!--迴圈排出來-->
+                <i class="fas fa-fish" aria-hidden="true" />
+                {{ $t('Category.' + item) }}
+                <!--迴圈排出來-->
               </a>
               <a
                 href="#"
@@ -48,24 +52,26 @@
               </a>
             </div>
           </div>
-            <div  class="row-cols col-9 container">
-              <div class="text-left clickWrap">
-                <a @click.prevent="changeType('price')">
-                   {{ $t('ListProducts.PriceSort') }}
-                  <div
-                  :class="{ 'rotate': isReverse }"
-                  v-if="sortType == 'price'"
-                  >
+          <div class="row-cols col-9 container">
+            <div class="text-left clickWrap">
+              <a @click.prevent="changeType('price')">
+                {{ $t('ListProducts.PriceSort') }}
+                <div :class="{ rotate: isReverse }" v-if="sortType == 'price'">
                   <i class="fas fa-angle-up"></i>
-                  </div>
-                </a>
-              </div>
-              <div class="row no-gutters d-flex flex-wrap mb-4">
-                <div
-                  class="col-xl-3 col-lg-4 col-md-6 mb-3"
-                  v-for="(item, key) in filter"
-                  :key="key"
-                >
+                </div>
+              </a>
+            </div>
+            <div class="row no-gutters d-flex flex-wrap mb-4">
+              <span v-if="listHeight < 50"
+                >看到這段文字，表示後端資料處理中{{ listHeight }}</span
+              >
+              <!-- 測試1.一測試後段就好?2.正常運作 -->
+              <div
+                class="col-xl-3 col-lg-4 col-md-6 mb-3"
+                v-for="(item, key) in filter"
+                :key="key"
+                ref="infoBox"
+              >
                 <div data-aos="fade-up" data-aos-duration="1000" class="d-flex">
                   <div class="pr-4 sizing d-flex">
                     <div class="card mb-1 ListProductsCard">
@@ -80,22 +86,31 @@
                         ></div>
                       </div>
                       <div class="card-body">
-                        <span
-                          class="ListProductsBadge float-right ml-2"
-                        >{{ item.category }}
+                        <span class="ListProductsBadge float-right ml-2"
+                          >{{ item.category }}
                         </span>
                         <h5 class="card-title text-left">
-                          <a @click="$router.push(`/product/${item.id}`)" class="text-dark">{{ $t("Product."+item.title) }}</a>
+                          <a
+                            @click="$router.push(`/product/${item.id}`)"
+                            class="text-dark"
+                            >{{ $t('Product.' + item.title) }}</a
+                          >
                         </h5>
-                        <p class="ListProductsCardText text-left">{{ $t("Product."+item.content) }}</p>
+                        <p class="ListProductsCardText text-left">
+                          {{ $t('Product.' + item.content) }}
+                        </p>
                         <div
                           class="d-flex justify-content-between align-items-baseline"
                         >
-                          <del class="h6">{{ item.origin_price | currency }}</del>
+                          <del class="h6">{{
+                            item.origin_price | currency
+                          }}</del>
                           <div class="h5">{{ item.price | currency }}</div>
                         </div>
                       </div>
-                      <div class="ListProductsCardFooter p-1 ListProductsCardBG">
+                      <div
+                        class="ListProductsCardFooter p-1 ListProductsCardBG"
+                      >
                         <button
                           type="button"
                           class="btn btn-sm"
@@ -139,6 +154,7 @@ export default {
       status: {
         loadingItem: ''
       },
+      listHeight: 0,
       carData: []
     }
   },
@@ -150,7 +166,8 @@ export default {
       vm.localCarData.forEach(item => {
         cacheCarID.push(item.productId)
       })
-      if (cacheCarID.indexOf(data.id) === -1) { // 上面推進來後的id，找不到自己裡面有一樣的data.id就建立新資料
+      if (cacheCarID.indexOf(data.id) === -1) {
+        // 上面推進來後的id，找不到自己裡面有一樣的data.id就建立新資料
         let cartContent = {
           productId: data.id,
           qty: 1,
@@ -256,6 +273,9 @@ export default {
     this.getProducts()
     this.getlocalCarData()
     this.checkdata()
+  },
+  mounted () {
+    this.listHeight = this.$refs.infoBox.clientHeight
   }
 }
 </script>

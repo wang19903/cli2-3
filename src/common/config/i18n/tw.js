@@ -1,6 +1,5 @@
 // tw.js
 export const locale = {
-  // new
   Navbar: {
     NavItem: ['全部產品', '購物車', '後台管理'],
     EmptyCart: '購物車尚未有商品唷!!',
@@ -13,7 +12,6 @@ export const locale = {
     ItemName: '品名',
     Qty: '數量',
     SinglePrice: '單價',
-    // ProductTitle:
     TotalPrice: '總計',
     FinalPrice: '折扣價',
     unit: '個'

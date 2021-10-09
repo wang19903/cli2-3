@@ -1,6 +1,6 @@
 <template>
-  <div class="Productwrap">
-    <div class="container-fluid">
+  <div class="Productwrap m-auto">
+    <div class="container-fluid wrap">
       <div
         tabindex="-1"
         role="dialog"
@@ -10,7 +10,7 @@
       >
         <div class="modal-header">
           <h5 class="modal-title" id="detailModalLabel">
-            <span>{{ $t('Product.'+ product.title) }}</span>
+            <span>{{ $t('Product.' + product.title) }}</span>
           </h5>
         </div>
         <div class="row" role="document">
@@ -51,7 +51,7 @@
               </option>
               <option :value="num" v-for="num in 10" :key="num">
                 {{ $t('ProductVue.Choose') }}{{ num }}
-                {{ $t('Cart.'+ product.unit) }}
+                {{ $t('Cart.' + product.unit) }}
               </option>
             </select>
             <span class="text-muted text-nowrap p-2">
@@ -77,9 +77,14 @@
           <span class="h3">{{ $t('ProductVue.Recommend') }}</span>
         </div>
         <!-- 燈箱-->
+        <span v-if="swiperHeight < 50">
+          {{swiperHeight}} 看到這段文字，表示後端資料處理中
+       <!--測試，後端lag就跳出-->
+        </span>
         <swiper
           class="swiper mb-3 mt-3"
           :options="swiperOption"
+          ref="checkHeight"
           :breakpoints="swiperOption.breakpoints"
         >
           <swiper-slide
@@ -96,10 +101,10 @@
               </div>
               <div class="card-body text-left d-flex flex-column p-0">
                 <h5 class="card-title">
-                  {{ $t('Product.' + product.title) }}
+                  {{ $t('Product.' + item.title) }}
                 </h5>
                 <div class="text-truncate pb-2">
-                  {{ $t('Product.' + product.description) }}
+                  {{ $t('Product.' + item.description) }}
                 </div>
                 <div class="d-flex mt-auto w-100">
                   <div v-if="!item.price">
@@ -138,7 +143,9 @@ export default {
       carData: [],
       newarray: [],
       windowWidth: window.innerWidth,
+      swiperHeight: 0,
       swiperOption: {
+        loop: true,
         slidesPerView: 1,
         spaceBetween: 30,
         pagination: {
@@ -170,6 +177,7 @@ export default {
     this.$nextTick(() => {
       // 等其他資料處理完畢後才輪到這裡
       window.addEventListener('resize', this.onResize)
+      this.swiperHeight = this.$refs.checkHeight.clientHeight
     })
   },
   methods: {
@@ -227,19 +235,12 @@ export default {
     },
     lightBoxData (data) {
       const vm = this
-      const Temp = []
       vm.newarray = []
       vm.products.filter(item => {
         if (data !== item.id) {
-          Temp.push(item)
+          vm.newarray.push(item)
         }
       })
-
-      for (let i = 0; i < 7; i++) {
-        const n = Math.floor(Math.random() * Temp.length)
-        vm.newarray.push(Temp[n])
-        Temp.splice(n, 1)
-      }
     },
     toProduct (id) {
       const vm = this

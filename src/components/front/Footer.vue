@@ -5,7 +5,7 @@
         class="row no-gutters d-flex justify-content-between flex-nowrap pl-0"
       >
         <li class="col-sm-1 p-0 d-flex">
-          <div class="footTxt">
+          <div class="footTxt d-flex flex-column">
             <span>{{ $t('Footer.ShopNameTop') }}</span>
             <span>{{ $t('Footer.ShopNameDonw') }}</span>
           </div>

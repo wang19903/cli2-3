@@ -14,7 +14,7 @@ export const locale = {
     SinglePrice: 'Price',
     TotalPrice: 'Total',
     FinalPrice: 'Now',
-    unit: 'unit'
+    unit: ' '
   },
   Home: {
     Solgan: 'Delicious Fresh',
@@ -66,19 +66,19 @@ export const locale = {
     // 用產品來命名，用product
   },
   ProductVue: {
-    Notice: '注意事項:',
-    P1: '每日採購新鮮食材並且不使用食品添加物、防腐劑等。',
-    P2: '除醬料品外，只使用冷凍配送，如需一般配送請提供取件資訊或親自提領。',
-    P3: '除醬料品外，其他產品保存期較短，不適用七天鑑賞期。',
-    P4: '醬料類以及滷汁請勿把表面油層倒掉，並且擦乾器具後使用。',
-    P5: '請勿放置在潮濕、高溫處，避免食物變成變質',
-    OriginPrice: '原價NT',
-    Price: '現在只要NT',
-    Selet: '--請選擇--',
-    Choose: '選購',
-    Total: '小計',
-    AddToCart: '加到購物車',
-    Recommend: '你可能有興趣...'
+    Notice: 'Precautions:',
+    P1: 'Purchase fresh ingredients every day and do not use food additives, preservatives.',
+    P2: 'Except for sauces, only frozen delivery is used. For general delivery, please pick up in person.',
+    P3: 'Except for sauces, other products have a shorter shelf life,7 day appreciation period isnt applicable.',
+    P4: 'do not pour off the oil layer on the surface, and use them with dried utensils.',
+    P5: 'avoid becoming spoiled, dont place it in humid and high temperature places',
+    OriginPrice: 'NT',
+    Price: 'NT',
+    Selet: '--Selete--',
+    Choose: 'Choose ',
+    Total: 'Total',
+    AddToCart: 'Add to cart',
+    Recommend: 'you might be like...'
   },
   Customer: {
     Email: 'Email(must)', // must

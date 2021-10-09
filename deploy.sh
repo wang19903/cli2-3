@@ -14,7 +14,7 @@ cd dist
 
 git init
 git add -A
-git commit -m 'i18 fin bug fix 50%'
+git commit -m '增加後端資料沒給時提示'
 
 # if you are deploying to https://<USERNAME>.github.io
 # git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git master
