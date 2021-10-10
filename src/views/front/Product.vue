@@ -6,17 +6,23 @@
         role="dialog"
         aria-labelledby="detailModalLabel"
         aria-hidden="true"
-        class=""
       >
         <div class="modal-header">
           <h5 class="modal-title" id="detailModalLabel">
             <span>{{ $t('Product.' + product.title) }}</span>
           </h5>
         </div>
-        <div class="row" role="document">
+        <div class="row " role="document">
           <div class="col-md-7 border-0">
-            <div class="modal-body">
-              <div class="display-4" v-if="loadTxt">資料讀取中...</div>
+            <div class="modal-body ">
+              <div class="d-flex flex-row" v-if="loadTxt">
+              <div class="pt-3 loadingTxt" >資料讀取中</div>
+              <div class="loadingWrap align-self-end">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+              </div>
               <img :src="product.imageUrl" class="img-fluid" alt="產品圖片" />
             </div>
           </div>
@@ -145,7 +151,7 @@ export default {
       newarray: [],
       windowWidth: window.innerWidth,
       swiperHeight: 0,
-      loadTxt: false,
+      loadTxt: true,
       swiperOption: {
         loop: true,
         slidesPerView: 1,
@@ -278,3 +284,36 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.loadingTxt {
+  font-size: 2em;
+  font-weight: 600;
+}
+
+.loadingWrap {
+  animation: dotAnime 1s infinite;
+  width: 60px;
+  height: 50px;
+  overflow: hidden;
+}
+.dot {
+  border-radius: 50%;
+  border: 4px solid #000;
+  width: 0px;
+  height: 0px;
+  display: inline-block;
+  margin: 20px 10px 0px 0px;
+}
+@keyframes dotAnime {
+  0% {
+    width: 20px;
+  }
+  50% {
+    width: 40px;
+  }
+  100% {
+    width: 60px;
+  }
+}
+</style>
