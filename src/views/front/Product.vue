@@ -12,16 +12,16 @@
             <span>{{ $t('Product.' + product.title) }}</span>
           </h5>
         </div>
-        <div class="row " role="document">
+        <div class="row" role="document">
           <div class="col-md-7 border-0">
-            <div class="modal-body ">
+            <div class="modal-body">
               <div class="d-flex flex-row" v-if="loadTxt">
-              <div class="pt-3 loadingTxt" >資料讀取中</div>
-              <div class="loadingWrap align-self-end">
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-              </div>
+                <div class="pt-3 loadingTxt">資料讀取中</div>
+                <div class="loadingWrap align-self-end">
+                  <div class="dot"></div>
+                  <div class="dot"></div>
+                  <div class="dot"></div>
+                </div>
               </div>
               <img :src="product.imageUrl" class="img-fluid" alt="產品圖片" />
             </div>
@@ -39,7 +39,7 @@
               {{ $t('ProductVue.P3') }}<br />
               {{ $t('ProductVue.P4') }}<br />
               {{ $t('ProductVue.P5') }}<br />
-              <!-- Window Width: {{ windowWidth }} <br /> 測試用-->
+              Window Width: {{ windowWidth }} <br /> 測試用
             </p>
             <p class="h6 text-right">
               {{ $t('ProductVue.OriginPrice') }}
@@ -185,9 +185,13 @@ export default {
     this.$nextTick(() => {
       // 等其他資料處理完畢後才輪到這裡
       window.addEventListener('resize', this.onResize)
+      this.onResize()
       // this.swiperHeight = this.$refs.imgBox.clientHeight
       console.log(1, this.$store.dispatch('updataLoading'))
     })
+  },
+  beforeDestroy () {
+    window.addEventListener('resize', this.onResize)
   },
   methods: {
     getProduct (productId) {
@@ -284,36 +288,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.loadingTxt {
-  font-size: 2em;
-  font-weight: 600;
-}
-
-.loadingWrap {
-  animation: dotAnime 1s infinite;
-  width: 60px;
-  height: 50px;
-  overflow: hidden;
-}
-.dot {
-  border-radius: 50%;
-  border: 4px solid #000;
-  width: 0px;
-  height: 0px;
-  display: inline-block;
-  margin: 20px 10px 0px 0px;
-}
-@keyframes dotAnime {
-  0% {
-    width: 20px;
-  }
-  50% {
-    width: 40px;
-  }
-  100% {
-    width: 60px;
-  }
-}
-</style>
